@@ -5,9 +5,9 @@ function user() {
    const url = proxyUrl + apiUrl;
    
    fetch(url)
-   .then(response => alert(response.status))
+   .then(response => response.json())
    .then(data => {
-      //console.log(data[0]);
+      console.log(data[0]);
       main(data[0]);
    })
    .catch(err => {
