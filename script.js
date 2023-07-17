@@ -4,7 +4,7 @@ function user() {
    const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
    const url = proxyUrl + apiUrl;
    
-   fetch(apiUrl)
+   fetch(url)
    .then(response => alert(response.status))
    .then(data => {
       console.log(data[0]);
