@@ -1,0 +1,45 @@
+body {
+   color: #eff2f7;
+   background: #212121;
+}
+#d1 {
+   
+}
+#d2 {
+   width: 80%;
+   margin: 0 auto;
+}
+.d3, .d4 {
+   line-height: 2.5;
+   margin: 25px 5px 0;
+   //border: 2px solid green;
+}
+.d4 {
+   display: none;
+}
+#inp {
+   color: white;
+   background: black;
+   width: 150px;
+   height: 35px;
+   margin: 20px 50px 0;
+   border-radius: 14px;
+   text-align: center;
+}
+input {
+   margin: 20px 10px 0;
+}
+label {
+   margin-left: 50px;
+}
+button {
+   width: 70px;
+   height: 35px;
+   letter-spacing: 1px;
+   border-radius: 5px;
+}
+p {
+   margin: 0 auto;
+   text-align: center;
+   text-decoration: underline;
+}
