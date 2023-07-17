@@ -1,6 +1,8 @@
 body {
    color: #eff2f7;
    background: #212121;
+   font-family: Italiana;
+   font-size: 20px;
 }
 #d1 {
    
@@ -42,4 +44,9 @@ p {
    margin: 0 auto;
    text-align: center;
    text-decoration: underline;
+}
+
+@font-face {
+    font-family: 'Italiana';
+    src: url('Italiana-Regular.woff');
 }
