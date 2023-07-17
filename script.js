@@ -107,5 +107,8 @@ function main2(data) {
       st = data.clouds[i].text+' at '+data.clouds[i].feet+' ft';
       strongs[23].innerHTML += st +' | ';
    }
-   strongs[25].innerHTML = data.flight_category;
+   let flc = data.flight_category;
+   strongs[25].innerHTML = flc;
+   strongs[25].style.background =
+    flc == 'VFR' ? 'green': flc == 'MVFR' ? 'yellow' : 'red';
 }
