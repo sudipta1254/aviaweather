@@ -11,7 +11,7 @@ function user() {
       main(data[0]);
    })
    .catch(err => {
-      console.log(`Error:`, err.message);
+      alert(`Error:`, err.message);
    })
 }
 function main(data) {
