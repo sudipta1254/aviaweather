@@ -69,8 +69,6 @@ input.addEventListener("keypress", function(event) {
 });
 user2()
 
-
-
 function user2() {
    const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
    
@@ -94,7 +92,10 @@ function main2(data) {
    strongs[16].innerHTML = data.temperature.celsius+'°C';
    strongs[17].innerHTML = data.dewpoint.celsius+'°C';
    strongs[18].innerHTML = data.humidity.percent+'%';
-   strongs[19].innerHTML = data.wind.speed_kts+' Knot(s) ('+data.wind.speed_kph+' KM/H - '+data.wind.degrees+'°)';
+   if(data.wind != null)
+      strongs[19].innerHTML = data.wind.speed_kts+' Knot(s) ('+data.wind.speed_kph+' KM/H - '+data.wind.degrees+'°)';
+   else
+      strongs[19].innerHTML = '0 Knot';
    strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
    strongs[21].innerHTML = data.barometer.hpa+' hPa';
    if(data.conditions != null)
