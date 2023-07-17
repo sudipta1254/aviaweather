@@ -14,10 +14,11 @@ body {
 .d3, .d4 {
    line-height: 2.5;
    margin: 25px 5px 0;
-   //border: 2px solid green;
+   display: none;
+   /*border: 2px solid green; */
 }
 .d4 {
-   display: none;
+   display: block;
 }
 #inp {
    color: white;
