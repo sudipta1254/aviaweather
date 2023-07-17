@@ -5,13 +5,13 @@ function user() {
    const url = proxyUrl + apiUrl;
    
    fetch(url)
-   .then(response => alert(response.status))
+   .then(response => response.json())
    .then(data => {
       console.log(data[0]);
       main(data[0]);
    })
    .catch(err => {
-      alert(`Error:`, err.message);
+      alert(`Error:`+ err.message);
    })
 }
 function main(data) {
