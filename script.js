@@ -67,7 +67,7 @@ input.addEventListener("keypress", function(event) {
     document.querySelector("button").click();
   }
 });
-user()
+user2()
 
 
 
@@ -77,11 +77,11 @@ function user2() {
    fetch(url)
    .then(response => response.json())
    .then(data => {
-      //console.log(data);
+      console.log(data);
       main2(data.data[0]);
    })
    .catch(err => {
-      console.log(`Error:`, err.message);
+      alert(`Error:`+ err.message);
    })
 }
 function main2(data) {
