@@ -9,8 +9,9 @@ body {
    margin: 0 auto;
 }
 .d3, .d4 {
+   width: 98%;
    line-height: 2.5;
-   margin: 25px 5px 0;
+   margin: 25px auto 0;
    display: none;
    /*border: 2px solid green; */
 }
