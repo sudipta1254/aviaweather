@@ -48,6 +48,19 @@ p {
    height: 12px;
    border-radius: 50%;
 }
+a {
+   color: white;
+}
+a:hover {
+   color: Tomato;
+   transition: .4s;
+   letter-spacing: 1px;
+}
+footer {
+   line-height: 1.7;
+   margin: 35px auto 10px;
+   text-align: center;
+}
 
 @font-face {
     font-family: 'Italiana';
