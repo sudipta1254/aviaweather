@@ -110,5 +110,5 @@ function main2(data) {
    let flc = data.flight_category;
    strongs[25].innerHTML = flc;
    document.querySelector('#fl').style.background =
-    flc == 'VFR' ? 'green': flc == 'MVFR' ? 'yellow' : 'red';
+    flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR'? 'Magenta' : 'Red';
 }
