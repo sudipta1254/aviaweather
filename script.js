@@ -32,11 +32,13 @@ function main(data) {
    strongs[9].innerHTML = data.wxString;
    strongs[11].innerHTML = data.rawOb;
    strongs[10].innerHTML = '';
+   ul = document.createElement('ul');
    for(i = 0; i < data.clouds.length; i++) {
-      st = document.createElement('span');
-      st = data.clouds[i].cover+' at '+data.clouds[i].base+' ft';
-      strongs[10].innerHTML += st +' | ';
+      li = document.createElement('li');
+      li.innerHTML = data.clouds[i].cover+' at '+data.clouds[i].base+' ft';
+      ul.appendChild(li)
    }
+   strongs[10].appendChild(ul);
 }
 function get() {
    value = document.querySelectorAll('input')
