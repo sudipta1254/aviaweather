@@ -15,10 +15,10 @@ body {
     /* border: 2px solid green; */
 }
 .d3 {
-    display: none;
+    /*display: none;*/
 }
 .d4 {
-    /* display: none; */
+    display: none;
 }
 .d5 {
     display: none;
