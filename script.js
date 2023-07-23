@@ -21,7 +21,7 @@ function awc() {
             awcTafMain(data[0], 'AWC');
     })
     .catch(err => {
-        console.log(`Error:`+ err.message);
+        alert(`Error:`+ err.message);
     })
 }
 function awcMain(data) {
@@ -99,7 +99,7 @@ function cwx() {
             cwxTafMain(data.data[0], 'CWX');
     })
     .catch(err => {
-        console.log(`Error:`, err.message);
+        alert(`Error:`+ err.message);
     })
 }
 function cxwMain(data) {
