@@ -23,6 +23,9 @@ body {
 .d5 {
     display: none;
 }
+.header {
+    margin: 25px 0 10px;
+}
 #inp {
     color: white;
     background: black;
