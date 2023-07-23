@@ -115,7 +115,8 @@ function cxwMain(data) {
     else
         strongs[19].innerHTML = '0 Knot';
     strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
-    strongs[21].innerHTML = data.barometer.hpa+' hPa';
+    if(data.barometer != null)
+        strongs[21].innerHTML = data.barometer.hpa+' hPa';
     if(data.conditions != null)
         strongs[22].innerHTML = data.conditions[0].text;
     strongs[24].innerHTML = data.raw_text;
