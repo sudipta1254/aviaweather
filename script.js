@@ -135,7 +135,7 @@ function cxwMain(data) {
 
 function awcTafMain(data, comp) {
     var frst = data.fcsts;
-    document.querySelectorAll('p')[2].innerHTML = comp;
+    document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks != null)
         strongs[27].innerHTML = data.remarks;
@@ -183,7 +183,7 @@ function awcTafMain(data, comp) {
     strongs[33].innerHTML = data.rawTAF;
 }
 function cwxTafMain(data, comp) {
-    document.querySelectorAll('p')[2].innerHTML = comp;
+    document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks != null)
         strongs[27].innerHTML = data.remarks;
