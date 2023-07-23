@@ -78,3 +78,11 @@ footer {
     font-family: 'Italiana';
     src: url('Italiana-Regular.woff');
 }
+
+@media only screen and (min-width: 768px) {
+    .d3, .d4, .d5 {
+        width: 45%;
+        margin: 25px auto;
+        /* border: 2px solid green; */
+    }
+}
