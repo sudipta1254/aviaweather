@@ -197,8 +197,8 @@ function cwxTafMain(data, comp) {
         span2 = document.createElement('span');
         if (frst[i].change != null && frst[i].change.indicator.code != 'FM') {
             span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
-            if (frst[i].probability)
-                span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].probability}% likely)<br>`;
+            if (frst[i].change.probability != null)
+                span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)<br>`;
         } else
             span.innerHTML = `Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
         if (frst[i].wind != null) {
