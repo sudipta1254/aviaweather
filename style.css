@@ -1,66 +1,73 @@
 body {
-   color: #eff2f7;
-   background: #212121;
-   font-family: Italiana;
-   font-size: 20px;
+    color: #eff2f7;
+    background: #212121;
+    font-family: Italiana;
 }
 #d2 {
-   width: 80%;
-   margin: 0 auto;
+    width: 80%;
+    margin: 0 auto;
 }
-.d3, .d4 {
-   width: 98%;
-   line-height: 2.5;
-   margin: 25px auto 0;
-   display: none;
-   /*border: 2px solid green; */
+.d3, .d4, .d5 {
+    width: 96%;
+    line-height: 2.5;
+    margin: 25px 5px 0;
+    /* border: 2px solid green; */
+}
+.d3 {
+    display: none;
 }
 .d4 {
-   display: block;
+    /* display: none; */
+}
+.d5 {
+    display: none;
 }
 #inp {
-   color: white;
-   background: black;
-   width: 150px;
-   height: 35px;
-   margin: 20px 50px 0;
-   border-radius: 14px;
-   text-align: center;
+    color: white;
+    background: black;
+    width: 150px;
+    height: 35px;
+    margin: 20px 50px 0;
+    border-radius: 14px;
+    text-align: center;
+}
+hr {
+    width: 50%;
 }
 input {
-   margin: 20px 10px 0;
+    margin: 20px 10px 0;
 }
 label {
-   margin-left: 50px;
+    margin-left: 50px;
 }
 button {
-   width: 70px;
-   height: 35px;
-   letter-spacing: 1px;
-   border-radius: 5px;
+    width: 70px;
+    height: 35px;
+    letter-spacing: 1px;
+    border-radius: 5px;
 }
 p {
-   margin: 0 auto;
-   text-align: center;
-   text-decoration: underline;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: underline;
 }
 #fl {
-   width: 12px;
-   height: 12px;
-   border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
 }
 a {
-   color: white;
+    color: white;
 }
 a:hover {
-   color: Tomato;
-   transition: .4s;
-   letter-spacing: 1px;
+    color: Tomato;
+    transition: .4s;
+    letter-spacing: 1px;
 }
 footer {
-   line-height: 1.7;
-   margin: 35px auto 10px;
-   text-align: center;
+    line-height: 1.7;
+    margin: 35px auto 10px;
+    text-align: center;
 }
 
 @font-face {
