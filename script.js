@@ -183,7 +183,7 @@ function awcTafMain(data, comp) {
 }
 function cwxTafMain(data, comp) {
     var frst = data.forecast;
-    document.querySelectorAll('p')[2].innerHTML = comp;
+    document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks != null)
         strongs[27].innerHTML = data.remarks;
