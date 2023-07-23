@@ -7,8 +7,9 @@ function awc() {
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://allorigins.win/';
     const proxyUrl3 = 'https://corsproxy.github.io/';
+   const proxyUrl4 = 'https://proxy.cors.sh/';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
-    const url = proxyUrl + apiUrl;
+    const url = proxyUrl4 + apiUrl;
     
     fetch(url)
     .then(response => response.json())
