@@ -14,13 +14,7 @@ body {
     margin: 25px auto 0;
     /* border: 2px solid green; */
 }
-.d3 {
-    /*display: none;*/
-}
-.d4 {
-    display: none;
-}
-.d5 {
+.d4, .d5, .d6 {
     display: none;
 }
 .header {
