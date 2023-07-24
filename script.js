@@ -57,8 +57,7 @@ function get() {
         return;
     }
     var hrs = +inpVal.substring(4, inpVal.length);
-    inpVal = inpVal.substring(0, 4);
-    id = inpVal;
+    id = inpVal.substring(0, 4).toUpperCase();
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
     d5d = document.querySelector('.d5').style
