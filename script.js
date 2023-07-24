@@ -56,6 +56,8 @@ function get() {
         alert('Please enter Id!');
         return;
     }
+    var hrs = inpVal.substring(4, inpVal.length);
+    inpVal = inpVal.substring(0, 4);
     id = inpVal;
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
@@ -77,6 +79,12 @@ function get() {
         d5d.display = 'block';
     } else
         d5d.display = 'none';
+
+    if (type == 'metar' && hrs > 0) {
+      metarH(hrs);
+      d6d.display = 'block';
+   } else
+      d6d.display = 'none';
 }
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -260,6 +268,37 @@ function getIST(date) {
 }
 
 
+function metarH(hrs) {
+    const proxyUrl = 'https://corsproxy.io/?';
+    const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&hours=${hrs}&format=json`;
+    const url = proxyUrl + apiUrl;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        awcMetH(data, hrs);
+    })
+    .catch(err => {
+        alert(`Error: `+ err.message);
+    })
+}
+function awcMetH(data, hrs) {
+    var d6 = document.querySelector('.d6');
+    d6.innerHTML = '';
+    const p = document.createElement('p')
+    p.innerHTML = 'METAR HISTORY';
+    d6.appendChild(p);
+    if (data.length != 0) {
+       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <br>
+                        ICAO: <strong>${data[0].icaoId}</strong> <br>`;
+       for(i = 0; i < data.length; i++) {
+           var li = document.createElement('li');
+           li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`;
+           d6.appendChild(li);
+       }
+    } else
+       d6.innerHTML += `No METAR(s) in previous ${hrs} hour(s)!`;
+}
 
 
 /* https://api.checkwx.com/metar/vebs/decoded?x-api-key=c7e806f2a82843d88129362226 */
