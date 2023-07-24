@@ -80,7 +80,7 @@ function get() {
     } else
         d5d.display = 'none';
 
-    if (type == 'metar' && hrs > 0) {
+    if (hrs > 0) {
       metarH(hrs);
       d6d.display = 'block';
    } else
@@ -291,13 +291,22 @@ function awcMetH(data, hrs) {
     if (data.length != 0) {
        d6.innerHTML += `Name: <strong>${data[0].name}</strong> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
-       for(i = 0; i < data.length; i++) {
-           var li = document.createElement('li');
-           li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`;
-           d6.appendChild(li);
+       if (type == 'metar') {
+          for(i = 0; i < data.length; i++) {
+              var li = document.createElement('li');
+              li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`;
+              d6.appendChild(li);
+          }
+       } else {
+          for(i = 0; i < data.length; i++) {
+              var li = document.createElement('li');
+              li.innerHTML = getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`;
+              d6.appendChild(li);
+          }
        }
     } else
-       d6.innerHTML += `No METAR(s) in previous ${hrs} hour(s)!`;
+       d6.innerHTML += `No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`;
+    d6.innerHTML += '<hr>';
 }
 
 
