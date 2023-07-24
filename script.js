@@ -1,4 +1,4 @@
-type = 'metar', id = 'vebs';
+type = 'metar', id = 'VEBS';
 input = document.querySelector("input");
 value = document.querySelectorAll('input');
 strongs = document.querySelectorAll('strong');
