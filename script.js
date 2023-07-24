@@ -17,7 +17,7 @@ function awc() {
             if (data.length != 0)
                awcMain(data[0]);
             else
-               alert('METAR expired! Showing cached data.');
+               alert(`METAR expired for ${id.toUpperCase()}! Showing cached data.`);
         else
             awcTafMain(data[0], 'AWC');
     })
