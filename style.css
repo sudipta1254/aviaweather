@@ -69,6 +69,7 @@ footer {
 }
 
 .tooltip {
+  font-size: 12px;
   position: relative;
   display: inline-block;
 }
