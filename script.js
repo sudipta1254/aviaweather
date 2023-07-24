@@ -14,12 +14,15 @@ function awc() {
     .then(data => {
         //console.log(data[0]);
         if(type == 'metar')
-            awcMain(data[0]);
+            if (data.length != 0)
+               awcMain(data[0]);
+            else
+               alert('METAR expired! Showing cached data.');
         else
             awcTafMain(data[0], 'AWC');
     })
     .catch(err => {
-        alert(`Error:`+ err.message);
+        alert(`Error: `+ err.message);
     })
 }
 function awcMain(data) {
@@ -50,8 +53,8 @@ function get() {
     type = value[1].checked ? value[1].value : value[2].value
     inpVal = value[0].value;
     if(inpVal == '') {
-        alert('Please enter Id!')
-        return
+        alert('Please enter Id!');
+        return;
     }
     id = inpVal;
     d3d = document.querySelector('.d3').style;
@@ -72,9 +75,8 @@ function get() {
         d3d.display = 'none';
         d4d.display = 'none';
         d5d.display = 'block';
-    } else {
+    } else
         d5d.display = 'none';
-    }
 }
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
