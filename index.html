@@ -15,7 +15,11 @@
         <p>METAR & TAF</p>
     </div>
     <div id='d1'>
-       <input type='text' id='inp' placeholder='Enter Airport Id'></input>
+       <div class='tooltip'>
+           <input type='text' id='inp' placeholder='Enter Airport Id'>
+              <span class="tooltiptext" id="myTooltip">Enter hours followed by ICAO to get history 'AAAA5'</span>
+           </input>
+       </div>
        <button onclick='get()'> Search </button>
     </div>
     <div id='d2'>
