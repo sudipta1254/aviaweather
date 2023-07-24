@@ -56,12 +56,13 @@ function get() {
         alert('Please enter Id!');
         return;
     }
-    var hrs = inpVal.substring(4, inpVal.length);
+    var hrs = +inpVal.substring(4, inpVal.length);
     inpVal = inpVal.substring(0, 4);
     id = inpVal;
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
-    d5d = document.querySelector('.d5').style;
+    d5d = document.querySelector('.d5').style
+    d6d = document.querySelector('.d6').style;;
     if(value[3].checked) {
         awc();
         d3d.display = 'block';
