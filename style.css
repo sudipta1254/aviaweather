@@ -50,8 +50,10 @@ p {
     text-decoration: underline;
 }
 #fl {
+    display: inline-block;
     width: 12px;
     height: 12px;
+    margin: 0 5px;
     border-radius: 50%;
 }
 a {
