@@ -69,6 +69,13 @@ footer {
     margin: 35px auto 10px;
     text-align: center;
 }
+.spin {
+   margin-left: 5px;
+   animation: spin 6s linear infinite;
+}
+@keyframes spin {
+   to { transform: rotate(360deg); }
+}
 
 .tooltip {
   font-size: 16.5px;
