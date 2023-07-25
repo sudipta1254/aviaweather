@@ -295,7 +295,7 @@ function awcMetH(data, hrs) {
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
               const li = document.createElement('li');
-              li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+` <a onclick='${awcMain(data[i])}'>show</a><br>`;
+              li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`;
               ol.appendChild(li);
           }
        } else {
