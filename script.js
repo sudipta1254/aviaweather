@@ -27,7 +27,7 @@ function awc() {
 }
 function awcMain(data) {
     strongs[0].innerHTML = data.metarType;
-    strongs[1].innerHTML = data.name;
+    strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[3].toLowerCase()}.png">`;
     strongs[2].innerHTML = data.icaoId;
     strongs[3].innerHTML = getIST(data.reportTime);
     strongs[4].innerHTML = data.temp+'°C';
