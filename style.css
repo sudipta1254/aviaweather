@@ -53,6 +53,9 @@ ol {
     margin: 0;
     padding: 0 0 0 20px;
 }
+ul {
+    margin: 0;
+}
 #fl {
     display: inline-block;
     width: 12px;
