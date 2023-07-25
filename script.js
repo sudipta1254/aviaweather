@@ -289,21 +289,23 @@ function awcMetH(data, hrs) {
     p.innerHTML = 'METAR HISTORY';
     d6.appendChild(p);
     if (data.length != 0) {
+       const ol = document.createElement('ol');
        d6.innerHTML += `Name: <strong>${data[0].name}</strong> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
-              var li = document.createElement('li');
+              const li = document.createElement('li');
               li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+` <a onclick='${awcMain(data[i])}'>show</a><br>`;
-              d6.appendChild(li);
+              ol.appendChild(li);
           }
        } else {
           for(i = 0; i < data.length; i++) {
-              var li = document.createElement('li');
+              const li = document.createElement('li');
               li.innerHTML = getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`;
-              d6.appendChild(li);
+              ol.appendChild(li);
           }
        }
+       d6.appendChild(ol);
     } else
        d6.innerHTML += `No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`;
     d6.innerHTML += '<hr>';
