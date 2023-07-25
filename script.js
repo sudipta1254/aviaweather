@@ -288,7 +288,7 @@ function awcMetH(data, hrs) {
     var d6 = document.querySelector('.d6');
     d6.innerHTML = '';
     const p = document.createElement('p')
-    p.innerHTML = 'METAR HISTORY';
+    p.innerHTML = `${type.toUpperCase()} HISTORY`;
     d6.appendChild(p);
     if (data.length != 0) {
        const ol = document.createElement('ol');
