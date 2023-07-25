@@ -129,11 +129,13 @@ function cxwMain(data) {
         strongs[22].innerHTML = data.conditions[0].text;
     strongs[24].innerHTML = data.raw_text;
     strongs[23].innerHTML = '';
+    ul = document.createElement('ul');
     for(i = 0; i < data.clouds.length; i++) {
-        st = document.createElement('span');
-        st = data.clouds[i].text+' at '+data.clouds[i].feet+' ft';
-        strongs[23].innerHTML += st +' | ';
+       li = document.createElement('li');
+       li.innerHTML = data.clouds[i].text+' at '+data.clouds[i].feet+' ft AGL';
+       ul.appendChild(li);
     }
+    strongs[23].appendChild(ul);
     let flc = data.flight_category;
     strongs[25].innerHTML = flc;
     document.querySelector('#fl').style.background =
