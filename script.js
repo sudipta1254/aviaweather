@@ -292,7 +292,7 @@ function awcMetH(data, hrs) {
     d6.appendChild(p);
     if (data.length != 0) {
        const ol = document.createElement('ol');
-       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <br>
+       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png"> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
@@ -311,25 +311,6 @@ function awcMetH(data, hrs) {
     } else
        d6.innerHTML += `No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`;
     d6.innerHTML += '<hr>';
-}
-
-function flagCode() {
-   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-   const proxyUrl2 = 'https://corsproxy.io/?';
-   const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=${id}&format=json`;
-
-   const url = proxyUrl2 + apiUrl;
-   var ab = ''.split(' ');
-   fetch(url)
-   .then(response => response.json())
-   .then(data => {
-      console.log(data)
-      ab = data[0].name;
-   })
-   .catch(err => {
-      alert(`Error4: `+ err.message);
-   })
-   return ab[ab.length-1].toLowerCase();
 }
 
 
