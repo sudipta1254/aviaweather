@@ -292,7 +292,7 @@ function awcMetH(data, hrs) {
     d6.appendChild(p);
     if (data.length != 0) {
        const ol = document.createElement('ol');
-       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png"> <br>
+       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${data[0].name.split(' ')[data[0].name.split(' ').length-1].toLowerCase()}.png"> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
