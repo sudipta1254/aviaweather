@@ -27,7 +27,7 @@ function awc() {
 }
 function awcMain(data) {
     strongs[0].innerHTML = data.metarType;
-    strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flagCode()}.png">`;
+    strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[2].innerHTML = data.icaoId;
     strongs[3].innerHTML = getIST(data.reportTime);
     strongs[4].innerHTML = data.temp+'°C';
@@ -112,7 +112,7 @@ function cwx() {
 }
 function cxwMain(data) {
     strongs[12].innerHTML = type.toUpperCase();
-    strongs[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flagCode()}.png">`;
+    strongs[13].innerHTML = data.station.name+', '+data.station.location;
     strongs[14].innerHTML = data.icao;
     strongs[15].innerHTML = getIST(data.observed);
     strongs[16].innerHTML = data.temperature.celsius+'°C';
@@ -150,7 +150,7 @@ function awcTafMain(data, comp) {
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks != null)
         strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flagCode()}.png">`;
+    strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[29].innerHTML = data.icaoId;
     strongs[30].innerHTML = getIST(data.issueTime);
     strongs[31].innerHTML = `${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`
@@ -199,7 +199,7 @@ function cwxTafMain(data, comp) {
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks != null)
         strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flagCode()}.png">`;
+    strongs[28].innerHTML = data.station.name+', '+data.station.location;
     strongs[29].innerHTML = data.icao;
     strongs[30].innerHTML = getIST(data.timestamp.issued);
     strongs[31].innerHTML = getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to);
@@ -292,7 +292,7 @@ function awcMetH(data, hrs) {
     d6.appendChild(p);
     if (data.length != 0) {
        const ol = document.createElement('ol');
-       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flagCode()}.png"> <br>
+       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
