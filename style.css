@@ -18,6 +18,7 @@ body {
     display: none;
 }
 .header {
+    display: flex;
     margin: 18px 0 10px;
 }
 #inp {
