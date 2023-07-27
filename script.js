@@ -313,5 +313,9 @@ function awcMetH(data, hrs) {
     d6.innerHTML += '<hr>';
 }
 
+function info() {
+   alert(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.`);
+}
+
 
 /* https://api.checkwx.com/metar/vebs/decoded?x-api-key=c7e806f2a82843d88129362226 */
