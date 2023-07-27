@@ -260,12 +260,9 @@ function cwxTafMain(data, comp) {
     }
 }, 0);*/
 function getIST(date) {
-    if (typeof date == 'string') {
-        var dt = new Date(new Date(date+"Z").getTime()).toLocaleString();
-        if (date.charAt(10) == 'T')
-            return `${date.split('T')[0]} ${dt.split(',')[1]}`;
-        return `${date.split(' ')[0]} ${dt.split(',')[1]}`;
-    } else
+    if (typeof date == 'string')
+        return new Date(new Date(date+"Z").getTime()).toLocaleString();
+    else
         return new Date(date*1000).toLocaleString();
 }
 
