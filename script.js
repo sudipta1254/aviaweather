@@ -311,7 +311,7 @@ function awcMetH(data, hrs) {
 }
 
 function info() {
-   alert(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.`);
+   alert(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\n`+document.URL);
 }
 
 
