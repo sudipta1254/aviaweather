@@ -311,7 +311,8 @@ function awcMetH(data, hrs) {
 }
 
 function info() {
-   alert(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\n`+document.URL);
+    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK' (redirects to abc.com)`))
+       window.open(document.URL);
 }
 
 
