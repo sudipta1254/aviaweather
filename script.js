@@ -94,7 +94,7 @@ input.addEventListener("keypress", function(event) {
         document.querySelector("button").click();
     }
 });
-//awc()
+awc()
 
 function cwx() {
     const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
