@@ -33,6 +33,8 @@ function awcMain(data) {
     strongs[4].innerHTML = data.temp+'°C';
     strongs[5].innerHTML = data.dewp+'°C';
     strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°)';
+    if(data.wgst != null)
+       strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
     da = ''+data.visib;
     if(da.charAt(da.length-1) == '+')
         da = +da.split('+')[0];
@@ -122,6 +124,8 @@ function cxwMain(data) {
         strongs[19].innerHTML = data.wind.speed_kts+' Knot(s) ('+data.wind.speed_kph+' KM/H - '+data.wind.degrees+'°)';
     else
         strongs[19].innerHTML = '0 Knot';
+   if(data.wind.gust_kph != null)
+      strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
     if(data.barometer != null)
         strongs[21].innerHTML = data.barometer.hpa+' hPa';
