@@ -316,7 +316,7 @@ function awcMetH(data, hrs) {
 
 function info() {
     let reL = 'https://www.world-airport-codes.com';
-    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'\n(redirects to ${reL})\nScreen resolution: ${screen.width}×${scrern.height} px`))
+    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'\n(redirects to ${reL})\nScreen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
 }
 
