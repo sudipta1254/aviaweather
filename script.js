@@ -22,7 +22,7 @@ function awc() {
             awcTafMain(data[0], 'AWC');
     })
     .catch(err => {
-        alert(`Error: `+ err.message);
+        console.log(`Error: `+ err.message);
     })
 }
 function awcMain(data) {
@@ -109,7 +109,7 @@ function cwx() {
             cwxTafMain(data.data[0], 'CWX');
     })
     .catch(err => {
-        alert(`Error:`+ err.message);
+        console.log(`Error:`+ err.message);
     })
 }
 function cxwMain(data) {
@@ -282,7 +282,7 @@ function metarH(hrs) {
         awcMetH(data, hrs);
     })
     .catch(err => {
-        alert(`Error: `+ err.message);
+        console.log(`Error: `+ err.message);
     })
 }
 function awcMetH(data, hrs) {
