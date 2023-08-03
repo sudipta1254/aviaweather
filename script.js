@@ -178,7 +178,7 @@ function awcTafMain(data, comp) {
             span2.appendChild(li);
         } if (frst[i].visib != null) {
             li = document.createElement('li');
-            li.innerHTML += `Visibility: ${frst[i].visib} mile(s)`;
+            li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
             span2.appendChild(li);
         } if (frst[i].clouds.length != 0) {
             var clouds = frst[i].clouds;
