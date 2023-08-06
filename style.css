@@ -2,7 +2,7 @@ body {
     color: #eff2f7;
     background: #212121;
     font-size: 20px; /*20*/
-    font-family: Celine;
+    font-family: Roseblue;
     font-variant-ligatures: normal;
 }
 #d2 {
@@ -129,6 +129,14 @@ footer {
 @font-face {
     font-family: 'Celine';
     src: url('CelineSans.otf');
+}
+@font-face {
+    font-family: 'Barracuda';
+    src: url('Barracuda-light.ttf');
+}
+@font-face {
+    font-family: 'Roseblue';
+    src: url('Roseblue.ttf');
 }
 
 /* @media only screen and (min-width: 768px) {
