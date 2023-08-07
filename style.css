@@ -124,35 +124,35 @@ footer {
 
 @font-face {
     font-family: 'Italiana';
-    src: url(../Fonts/Italiana-Regular.woff) format(woff);
+    src: url(Fonts/Italiana-Regular.woff) format(woff);
 }
 @font-face {
     font-family: 'Celine';
-    src: url(../Fonts/CelineSans.otf) format(opentype);
+    src: url(Fonts/CelineSans.otf) format(opentype);
 }
 @font-face {
     font-family: 'Barracuda';
-    src: url(../Fonts/Barracuda-Light.ttf) format(truetype);
+    src: url(Fonts/Barracuda-Light.ttf) format(truetype);
 }
 @font-face {
     font-family: 'Disya';
-    src: url(../Fonts/Dear-Disya.ttf) format(truetype);
+    src: url(Fonts/Dear-Disya.ttf) format(truetype);
 }
 @font-face {
     font-family: 'Roseblue';
-    src: url(../Fonts/RoseBlue.ttf) format(truetype);
+    src: url(Fonts/RoseBlue.ttf) format(truetype);
 }
 @font-face {
     font-family: 'Mages';
-    src: url(../Fonts/Mages.otf) format(opentype);
+    src: url(Fonts/Mages.otf) format(opentype);
 }
 @font-face {
     font-family: 'Floral';
-    src: url(../Fonts/Floral\ Serif.ttf) format(truetype);
+    src: url(Fonts/Floral\ Serif.ttf) format(truetype);
 }
 @font-face {
     font-family: 'Pinewood';
-    src: url(../Fonts/HV\ Pinewood.otf) format(opentype);
+    src: url(Fonts/HV\ Pinewood.otf) format(opentype);
 }
 
 /* @media only screen and (min-width: 768px) {
