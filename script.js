@@ -29,7 +29,7 @@ function awcMain(data) {
     strongs[0].innerHTML = data.metarType;
     strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[2].innerHTML = data.icaoId;
-    strongs[3].innerHTML = getIST(data.reportTime);
+    strongs[3].innerHTML = getIST(data.reportTime)+' '+time(data.reportTime);
     strongs[4].innerHTML = data.temp+'°C';
     strongs[5].innerHTML = data.dewp+'°C';
     strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°)';
@@ -120,7 +120,7 @@ function cxwMain(data) {
     strongs[12].innerHTML = type.toUpperCase();
     strongs[13].innerHTML = data.station.name+', '+data.station.location;
     strongs[14].innerHTML = data.icao;
-    strongs[15].innerHTML = getIST(data.observed);
+    strongs[15].innerHTML = getIST(data.observed)+' '+time(data.reportTime);
     strongs[16].innerHTML = data.temperature.celsius+'°C';
     strongs[17].innerHTML = data.dewpoint.celsius+'°C';
     strongs[18].innerHTML = data.humidity.percent+'%';
@@ -326,6 +326,10 @@ function info() {
     let reL = 'https://www.world-airport-codes.com';
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'\n(redirects to ${reL})\nScreen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
+}
+
+function time(t) {
+   return `[${(((new Date() - new Date(t+'Z'))/60000).toFixed(0))} min(s) ago]`;
 }
 
 
