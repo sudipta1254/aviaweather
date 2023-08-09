@@ -120,7 +120,7 @@ function cxwMain(data) {
     strongs[12].innerHTML = type.toUpperCase();
     strongs[13].innerHTML = data.station.name+', '+data.station.location;
     strongs[14].innerHTML = data.icao;
-    strongs[15].innerHTML = getIST(data.observed)+' '+time(data.reportTime);
+    strongs[15].innerHTML = getIST(data.observed)+' '+time(data.observed);
     strongs[16].innerHTML = data.temperature.celsius+'°C';
     strongs[17].innerHTML = data.dewpoint.celsius+'°C';
     strongs[18].innerHTML = data.humidity.percent+'%';
