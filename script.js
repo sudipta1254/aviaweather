@@ -26,12 +26,17 @@ function awc() {
     })
 }
 function awcMain(data) {
+    var T = data.temp, D = data.dewp;
+    ab = Math.exp((17.625*D)/(243.04+D));
+    cd = Math.exp((17.625*T)/(240.04+T));
+    ht = ((ab/cd)*100+1).toFixed(0);
+    
     strongs[0].innerHTML = data.metarType;
     strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[2].innerHTML = data.icaoId;
     strongs[3].innerHTML = getIST(data.reportTime)+' '+time(data.reportTime);
     strongs[4].innerHTML = data.temp+'°C';
-    strongs[5].innerHTML = data.dewp+'°C';
+    strongs[5].innerHTML = `${D}°C<br>Humidity: ${ht}%`;;
     strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°)';
     if(data.wgst != null)
        strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
