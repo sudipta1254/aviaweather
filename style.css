@@ -36,6 +36,7 @@ hr {
 }
 input {
     margin: 20px 10px 0;
+    accent-color: #F55050;
 }
 label {
     margin-left: 50px;
