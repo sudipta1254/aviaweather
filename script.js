@@ -340,6 +340,7 @@ async function flag() {
    const data = await res.json();
    console.log(data)
    flag = data.country;
+   loc  = data.name+', '+data.city+', '+data.state+', '+data.country;
 }
 flag();
 function time(t) {
