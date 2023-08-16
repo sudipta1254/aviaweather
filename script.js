@@ -329,10 +329,19 @@ function awcMetH(data, hrs) {
 
 function info() {
     let reL = 'https://www.world-airport-codes.com';
-    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'\n(redirects to ${reL})\nScreen resolution: ${screen.width}×${screen.height} px`))
+    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
 }
-
+async function flag() {
+   const url = `https://avwx.rest/api/station/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+   const res = await fetch(url);
+   if(!res.ok)
+      alert('Error: '+res.status);
+   const data = await res.json();
+   console.log(data)
+   flag = data.country;
+}
+flag();
 function time(t) {
    return `[${(((new Date() - new Date(t+'Z'))/60000).toFixed(0))} min(s) ago]`;
 }
