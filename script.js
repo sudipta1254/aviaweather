@@ -1,6 +1,6 @@
-var type = 'metar', id = 'VEBS';
-input = document.querySelector("input");
-value = document.querySelectorAll('input');
+var type = 'metar', id = 'VEBS',
+input = document.querySelector("input"),
+value = document.querySelectorAll('input'),
 strongs = document.querySelectorAll('strong');
 
 function awc() {
@@ -332,7 +332,7 @@ function info() {
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
 }
-async function flag() {
+async function avwx() {
    const url = `https://avwx.rest/api/station/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
    const res = await fetch(url);
    if(!res.ok)
@@ -342,9 +342,15 @@ async function flag() {
    flag = data.country;
    loc  = data.name+', '+data.city+', '+data.state+', '+data.country;
 }
-flag();
+avwx();
 function time(t) {
    return `[${(((new Date() - new Date(t+'Z'))/60000).toFixed(0))} min(s) ago]`;
+}
+function accent() {
+   var ob = (a) => {
+      a.style.accentColor = value[5].value;
+   }
+   ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]);
 }
 
 
