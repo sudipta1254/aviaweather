@@ -61,14 +61,22 @@ function awcMain(data) {
     }
 }
 function get() {
-    type = value[1].checked ? value[1].value : value[2].value
-    inpVal = value[0].value;
-    if(inpVal == '') {
+    type = value[1].checked ? value[1].id : value[2].id
+    inpVal = value[0].value.trim();
+    if(!inpVal) {
         alert('Please enter Id!');
         return;
     }
-    var hrs = +inpVal.substring(4, inpVal.length);
-    id = inpVal.substring(0, 4).toUpperCase();
+    // var hrs = +inpVal.substring(4, inpVal.length);
+    // id = inpVal.substring(0, 4).toUpperCase();
+    var gh = +inpVal.substring(3, inpVal.length);
+    if(gh > 0 || !inpVal.charAt(3)) {
+       var hrs = gh;
+       avwx(inpVal.substring(0, 3).toUpperCase());
+    } else {
+       var hrs = +inpVal.substring(4, inpVal.length);
+       id = inpVal.substring(0, 4).toUpperCase();
+    }
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
     d5d = document.querySelector('.d5').style
@@ -332,17 +340,17 @@ function info() {
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
 }
-async function avwx() {
-   const url = `https://avwx.rest/api/station/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+async function avwx(a) {
+   const url = `https://avwx.rest/api/station/${a}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
    const res = await fetch(url);
    if(!res.ok)
-      alert('Error: '+res.status);
+      alert('AVWX error: '+res.status);
    const data = await res.json();
-   console.log(data)
-   flag = data.country;
-   loc  = data.name+', '+data.city+', '+data.state+', '+data.country;
+   //console.log(data);
+   id = data.icao;
+   flag = data.country.toLowerCase();
+   loc = data.name+', '+data.city+', '+data.state+', '+data.country;
 }
-avwx();
 function time(t) {
    return `[${(((new Date() - new Date(t+'Z'))/60000).toFixed(0))} min(s) ago]`;
 }
