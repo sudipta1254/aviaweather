@@ -39,7 +39,7 @@ function awcMain(data) {
     strongs[5].innerHTML = `${D}°C<br>Humidity: ${ht}%`;;
     strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ';
     if(data.wspd)
-        strongs[6].innerHTML += `<i class="fa-solid fa-location-arrow arr" style='rotate:${data.wdir-45}deg'></i>`;
+        strongs[6].innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`;
     if(data.wgst)
        strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
     da = ''+data.visib;
@@ -140,7 +140,7 @@ function cxwMain(data) {
     strongs[17].innerHTML = data.dewpoint.celsius+'°C';
     strongs[18].innerHTML = data.humidity.percent+'%';
     if(data.wind) {
-        strongs[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow arr" style='rotate:${data.wind.degrees-45}deg'></i>`;
+        strongs[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind.degrees+135}deg'></i>`;
         if(data.wind.gust_kph)
            strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     } else
@@ -195,7 +195,7 @@ function awcTafMain(data, comp) {
             span.innerHTML = `Forecast from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
         if (frst[i].wspd) {
             li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir-45}deg'></i><br>`;
+            li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir+135}deg'></i><br>`;
             span2.appendChild(li);
         } if (frst[i].wxString) {
             li = document.createElement('li');
@@ -244,7 +244,7 @@ function cwxTafMain(data, comp) {
             span.innerHTML = `Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
         if (frst[i].wind) {
             li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees-45}deg'></i><br>`;
+            li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees+135}deg'></i><br>`;
             span2.appendChild(li);
         } if (frst[i].conditions) {
             li = document.createElement('li');
