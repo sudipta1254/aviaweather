@@ -177,7 +177,7 @@ function awcTafMain(data, comp) {
     var frst = data.fcsts;
     document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
-    if (data.remarks != null)
+    if (data.remarks)
         strongs[27].innerHTML = data.remarks;
     strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[29].innerHTML = data.icaoId;
@@ -187,21 +187,21 @@ function awcTafMain(data, comp) {
     for(i = 0; i < frst.length; i++) {
         span = document.createElement('span');
         span2 = document.createElement('span');
-        if (frst[i].fcstChange != null) {
+        if (frst[i].fcstChange) {
             span.innerHTML = `${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
             if (frst[i].probability)
                 span.innerHTML = `${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} (${frst[i].probability}% likely)<br>`;
         } else
             span.innerHTML = `Forecast from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
-        if (frst[i].wspd != null) {
+        if (frst[i].wspd) {
             li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <br>`;
+            li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir-45}deg'></i><br>`;
             span2.appendChild(li);
-        } if (frst[i].wxString != null) {
+        } if (frst[i].wxString) {
             li = document.createElement('li');
             li.innerHTML += `Weather: ${frst[i].wxString} <br>`;
             span2.appendChild(li);
-        } if (frst[i].visib != null) {
+        } if (frst[i].visib) {
             li = document.createElement('li');
             li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
             span2.appendChild(li);
@@ -211,7 +211,7 @@ function awcTafMain(data, comp) {
             for(j = 0; j < clouds.length; j++) {
                 li = document.createElement('li');
                 li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft AGL`;
-                if (clouds[j].type != null)
+                if (clouds[j].type)
                 li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
                 ul.appendChild(li);
             }
@@ -226,7 +226,7 @@ function cwxTafMain(data, comp) {
     var frst = data.forecast;
     document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
-    if (data.remarks != null)
+    if (data.remarks)
         strongs[27].innerHTML = data.remarks;
     strongs[28].innerHTML = data.station.name+', '+data.station.location;
     strongs[29].innerHTML = data.icao;
@@ -236,15 +236,15 @@ function cwxTafMain(data, comp) {
     for(i = 0; i < frst.length; i++) {
         span = document.createElement('span');
         span2 = document.createElement('span');
-        if (frst[i].change != null && frst[i].change.indicator.code != 'FM') {
+        if (frst[i].change && frst[i].change.indicator.code != 'FM') {
             span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
-            if (frst[i].change.probability != null)
+            if (frst[i].change.probability)
                 span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)<br>`;
         } else
             span.innerHTML = `Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
-        if (frst[i].wind != null) {
+        if (frst[i].wind) {
             li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <br>`;
+            li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees-45}deg'></i><br>`;
             span2.appendChild(li);
         } if (frst[i].conditions != null) {
             li = document.createElement('li');
