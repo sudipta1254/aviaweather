@@ -40,7 +40,7 @@ function awcMain(data) {
     strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ';
     if(data.wspd)
         strongs[6].innerHTML += `<i class="fa-solid fa-location-arrow arr" style='rotate:${data.wdir-45}deg'></i>`;
-    if(data.wgst != null)
+    if(data.wgst)
        strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
     da = ''+data.visib;
     if(da.charAt(da.length-1) == '+')
@@ -145,12 +145,12 @@ function cxwMain(data) {
            strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     } else
         strongs[19].innerHTML = '0 Knot';
-    if(data.wind.gust_kph != null)
+    if(data.wind.gust_kph)
        strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
-    if(data.barometer != null)
+    if(data.barometer)
         strongs[21].innerHTML = data.barometer.hpa+' hPa';
-    if(data.conditions != null)
+    if(data.conditions)
         strongs[22].innerHTML = data.conditions[0].text;
     strongs[24].innerHTML = data.raw_text;
     strongs[23].innerHTML = '';
@@ -246,11 +246,11 @@ function cwxTafMain(data, comp) {
             li = document.createElement('li');
             li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees-45}deg'></i><br>`;
             span2.appendChild(li);
-        } if (frst[i].conditions != null) {
+        } if (frst[i].conditions) {
             li = document.createElement('li');
             li.innerHTML += `Weather: ${frst[i].conditions[0].text} <br>`;
             span2.appendChild(li);
-        } if (frst[i].visibility != null) {
+        } if (frst[i].visibility) {
             li = document.createElement('li');
             li.innerHTML += `Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`;
             span2.appendChild(li);
@@ -263,7 +263,7 @@ function cwxTafMain(data, comp) {
                     li.innerHTML = clouds[j].text;
                 else
                     li.innerHTML = `${clouds[j].text} at ${clouds[j].feet} ft AGL`;
-                if (clouds[j].type != null)
+                if (clouds[j].type)
                     li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
                 ul.appendChild(li);
             }
