@@ -356,7 +356,11 @@ async function avwx(a) {
    loc = data.name+', '+data.city+', '+data.state+', '+data.country;
 }
 function time(t) {
-   return `[${(((new Date() - new Date(t+'Z'))/60000).toFixed(0))} min(s) ago]`;
+   var tm = ((new Date() - new Date(t+'Z'))/60000).toFixed(0);
+   var hb = Math.ceil(tm/60);
+   if(hb > 1)
+      return `[${hb-1} hour(s) ago]`;
+   return `[${tm} min(s) ago]`;
 }
 function accent() {
    var ob = (a) => {
