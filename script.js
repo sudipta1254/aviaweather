@@ -181,7 +181,7 @@ function awcTafMain(data, comp) {
         strongs[27].innerHTML = data.remarks;
     strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
     strongs[29].innerHTML = data.icaoId;
-    strongs[30].innerHTML = getIST(data.issueTime);
+    strongs[30].innerHTML = getIST(data.issueTime)+' '+time(data.issueTime);
     strongs[31].innerHTML = `${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`
     strongs[32].innerHTML = '';
     for(i = 0; i < frst.length; i++) {
@@ -230,7 +230,7 @@ function cwxTafMain(data, comp) {
         strongs[27].innerHTML = data.remarks;
     strongs[28].innerHTML = data.station.name+', '+data.station.location;
     strongs[29].innerHTML = data.icao;
-    strongs[30].innerHTML = getIST(data.timestamp.issued);
+    strongs[30].innerHTML = getIST(data.timestamp.issued)+' '+time(data.timestamp.issued);
     strongs[31].innerHTML = getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to);
     strongs[32].innerHTML = '';
     for(i = 0; i < frst.length; i++) {
