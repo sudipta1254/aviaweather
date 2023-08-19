@@ -37,7 +37,9 @@ function awcMain(data) {
     strongs[3].innerHTML = getIST(data.reportTime)+' '+time(data.reportTime);
     strongs[4].innerHTML = T+'°C';
     strongs[5].innerHTML = `${D}°C<br>Humidity: ${ht}%`;;
-    strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°)';
+    strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ';
+    if(data.wspd)
+        strongs[6].innerHTML += `<i class="fa-solid fa-location-arrow arr" style='rotate:${data.wdir-45}deg'></i>`;
     if(data.wgst != null)
        strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
     da = ''+data.visib;
@@ -137,12 +139,14 @@ function cxwMain(data) {
     strongs[16].innerHTML = data.temperature.celsius+'°C';
     strongs[17].innerHTML = data.dewpoint.celsius+'°C';
     strongs[18].innerHTML = data.humidity.percent+'%';
-    if(data.wind != null)
-        strongs[19].innerHTML = data.wind.speed_kts+' Knot(s) ('+data.wind.speed_kph+' KM/H - '+data.wind.degrees+'°)';
-    else
+    if(data.wind) {
+        strongs[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow arr" style='rotate:${data.wind.degrees-45}deg'></i>`;
+        if(data.wind.gust_kph)
+           strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
+    } else
         strongs[19].innerHTML = '0 Knot';
-   if(data.wind.gust_kph != null)
-      strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
+    if(data.wind.gust_kph != null)
+       strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
     if(data.barometer != null)
         strongs[21].innerHTML = data.barometer.hpa+' hPa';
