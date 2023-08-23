@@ -61,15 +61,16 @@ function awcMain(data) {
       }
       strongs[10].appendChild(ul);
     }
+    alert(flag);
 }
-function get() {
+async function get() {
     type = value[1].checked ? value[1].id : value[2].id
     inpVal = value[0].value.trim();
     if(!inpVal) {
         alert('Please enter Id!');
         return;
     }
-    /*var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
+    var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
     hrs = a1 > a2 ? a1 : a2 > a3 ? a2 : a3 > a1 ? a1 : a3;
@@ -84,10 +85,11 @@ function get() {
     if(!res.ok)
        alert('Search error: '+res.status+' '+res.type);
     const data = await res.json();
-    id = data[0].icao;*/
+    id = data[0].icao;
+    flag = data[0].country.toLowerCase();
   
     /*var hrs = +inpVal.substring(4, inpVal.length);
-    id = inpVal.substring(0, 4).toUpperCase();*/
+    id = inpVal.substring(0, 4).toUpperCase();
     
     var gh = +inpVal.substring(3, inpVal.length);
     if(gh > 0 || !inpVal.charAt(3)) {
@@ -96,7 +98,7 @@ function get() {
     } else {
        var hrs = +inpVal.substring(4, inpVal.length);
        id = inpVal.substring(0, 4).toUpperCase();
-    }
+    }*/
     
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
