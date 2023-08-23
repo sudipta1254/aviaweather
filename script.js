@@ -1,4 +1,4 @@
-var type = 'metar', id = 'VEBS',
+var type = 'metar', id = 'VEBS', c = 0,
 input = document.querySelector("input"),
 value = document.querySelectorAll('input'),
 strongs = document.querySelectorAll('strong');
@@ -32,7 +32,11 @@ function awcMain(data) {
     ht = ((ab/cd)*100+1).toFixed(0);
     
     strongs[0].innerHTML = data.metarType;
-    strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
+    if(!c) {
+        strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/in.png">`;
+        c++;
+    } else
+        strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
     strongs[2].innerHTML = data.icaoId;
     strongs[3].innerHTML = getIST(data.reportTime)+' '+time(data.reportTime);
     strongs[4].innerHTML = T+'°C';
@@ -61,7 +65,6 @@ function awcMain(data) {
       }
       strongs[10].appendChild(ul);
     }
-    alert(flag);
 }
 async function get() {
     type = value[1].checked ? value[1].id : value[2].id
@@ -80,6 +83,7 @@ async function get() {
        inpVal = inpVal.substring(0, inpVal.length-2);
     else if(a3 > 0)
        inpVal = inpVal.substring(0, inpVal.length-1);
+    
     const url = `https://avwx.rest/api/search/station?text=${inpVal}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
     const res = await fetch(url);
     if(!res.ok)
@@ -154,7 +158,7 @@ function cwx() {
 }
 function cxwMain(data) {
     strongs[12].innerHTML = type.toUpperCase();
-    strongs[13].innerHTML = data.station.name+', '+data.station.location;
+    strongs[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
     strongs[14].innerHTML = data.icao;
     strongs[15].innerHTML = getIST(data.observed)+' '+time(data.observed);
     strongs[16].innerHTML = data.temperature.celsius+'°C';
@@ -193,14 +197,13 @@ function cxwMain(data) {
 }
 
 
-
 function awcTafMain(data, comp) {
     var frst = data.fcsts;
     document.querySelectorAll('p')[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks)
         strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${data.name.split(' ')[data.name.split(' ').length-1].toLowerCase()}.png">`;
+    strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
     strongs[29].innerHTML = data.icaoId;
     strongs[30].innerHTML = getIST(data.issueTime)+' '+time(data.issueTime);
     strongs[31].innerHTML = `${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`
@@ -249,7 +252,7 @@ function cwxTafMain(data, comp) {
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks)
         strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.station.name+', '+data.station.location;
+    strongs[28].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
     strongs[29].innerHTML = data.icao;
     strongs[30].innerHTML = getIST(data.timestamp.issued)+' '+time(data.timestamp.issued);
     strongs[31].innerHTML = getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to);
@@ -296,19 +299,6 @@ function cwxTafMain(data, comp) {
     strongs[33].innerHTML = data.raw_text;
 }
 
-
-/*setInterval(() => {
-    type = value[1].checked ? value[1].value : value[2].value
-    if (type == 'taf')
-        if (value[3].checked)
-            value[4].checked = 'true';
-        else
-            value[3].checked = 'true';
-    else {
-        value[3].checked = 'false';
-        value[4].checked = 'false';
-    }
-}, 0);*/
 function getIST(date) {
     if (typeof date == 'string')
         return new Date(new Date(date+"Z").getTime()).toLocaleString();
@@ -339,7 +329,7 @@ function awcMetH(data, hrs) {
     d6.appendChild(p);
     if (data.length != 0) {
        const ol = document.createElement('ol');
-       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${data[0].name.split(' ')[data[0].name.split(' ').length-1].toLowerCase()}.png"> <br>
+       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
                         ICAO: <strong>${data[0].icaoId}</strong> <br>`;
        if (type == 'metar') {
           for(i = 0; i < data.length; i++) {
