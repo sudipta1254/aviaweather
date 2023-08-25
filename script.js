@@ -107,7 +107,13 @@ async function get() {
     d3d = document.querySelector('.d3').style;
     d4d = document.querySelector('.d4').style;
     d5d = document.querySelector('.d5').style
-    d6d = document.querySelector('.d6').style;;
+    d6d = document.querySelector('.d6').style;
+    if(value[5].checked) {
+       d3d.display = d4d.dislay = d5d.display = 'none';
+       d6d.display = 'block';
+       search(id);
+    } else {
+    
     if(value[3].checked) {
         awc();
         d3d.display = 'block';
@@ -131,6 +137,7 @@ async function get() {
       d6d.display = 'block';
    } else
       d6d.display = 'none';
+   }
 }
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -355,16 +362,38 @@ function info() {
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height} px`))
        window.open(reL);
 }
-async function avwx(a) {
+async function search(a) {
    const url = `https://avwx.rest/api/station/${a}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
    const res = await fetch(url);
    if(!res.ok)
       alert('AVWX error: '+res.status);
    const data = await res.json();
-   //console.log(data);
-   id = data.icao;
-   flag = data.country.toLowerCase();
-   loc = data.name+', '+data.city+', '+data.state+', '+data.country;
+
+   var d6 = document.querySelector('.d6');
+   console.log(d6)
+   var stn = data[0];
+   d6.innerHTML = '<p>Station Info</p>';
+   d6.innerHTML += `Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+                     Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
+                     IATA: ${stn.iata} <br>
+
+                     ICAO: ${stn.icao} <br>
+
+                     Reporting: ${stn.reporting?'Yes':'No'} <br>`;
+   for(j = 0; j < stn.runways.length; j++) {
+         var rny = stn.runways[j];
+         var span = document.createElement('span');
+         var ul = document.createElement('ul');
+         span.innerHTML = 'Runway '+(j+1)+':-';
+         ul.innerHTML = `<li>Surface: ${rny.surface}</li>
+                        <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
+                        <li>Length: ${rny.length_ft} ft</li>
+                        <li>Width: ${rny.width_ft} ft</li>
+                        <li>Lights: ${rny.lights} </li>`;
+         span.appendChild(ul);
+         d6.appendChild(span);
+    }
+    d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a><hr>`;
 }
 function time(t) {
    var tm = ((new Date() - new Date(t+'Z'))/60000).toFixed(0);
