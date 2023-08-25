@@ -147,7 +147,6 @@ input.addEventListener("keypress", function(event) {
         document.querySelector("button").click();
     }
 });
-awc()
 
 function cwx() {
     p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
