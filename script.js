@@ -5,7 +5,7 @@ value = document.querySelectorAll('input'),
 strongs = document.querySelectorAll('strong');
 
 function awc() {
-    p[2].innerHTML = p[5].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[1].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
@@ -28,7 +28,7 @@ function awc() {
     })
 }
 function awcMain(data) {
-    p[2].innerHTML = '';
+    p[1].innerHTML = 'AWC';
     var T = data.temp, D = data.dewp;
     ab = Math.exp((17.625*D)/(243.04+D));
     cd = Math.exp((17.625*T)/(240.04+T));
@@ -70,7 +70,7 @@ function awcMain(data) {
     }
 }
 async function get() {
-    p[2].innerHTML = p[4].innerHTML = p[5].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     type = value[1].checked ? value[1].id : value[2].id
     inpVal = value[0].value.trim();
     if(!inpVal) {
@@ -150,7 +150,7 @@ input.addEventListener("keypress", function(event) {
 awc()
 
 function cwx() {
-    p[4].innerHTML = p[5].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
     
     fetch(url)
@@ -167,7 +167,7 @@ function cwx() {
     })
 }
 function cxwMain(data) {
-    p[4].innerHTML = '';
+    p[2].innerHTML = 'CWX';
     strongs[12].innerHTML = type.toUpperCase();
     strongs[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
     strongs[14].innerHTML = data.icao;
@@ -210,7 +210,7 @@ function cxwMain(data) {
 
 function awcTafMain(data, comp) {
     var frst = data.fcsts;
-    p[5].innerHTML = comp;
+    p[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks)
         strongs[27].innerHTML = data.remarks;
@@ -259,7 +259,7 @@ function awcTafMain(data, comp) {
 }
 function cwxTafMain(data, comp) {
     var frst = data.forecast;
-    p[5].innerHTML = comp;
+    p[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
     if (data.remarks)
         strongs[27].innerHTML = data.remarks;
@@ -363,7 +363,7 @@ function awcMetH(data, hrs) {
 
 function info() {
     let reL = 'https://www.world-airport-codes.com';
-    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height} px`))
+    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height}px`))
        window.open(reL);
 }
 async function search(a) {
