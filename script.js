@@ -70,13 +70,13 @@ function awcMain(data) {
     }
 }
 async function get() {
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     type = value[1].checked ? value[1].id : value[2].id
     inpVal = value[0].value.trim();
     if(!inpVal) {
         alert('Please enter Id!');
         return;
     }
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
