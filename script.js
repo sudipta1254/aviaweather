@@ -113,29 +113,28 @@ async function get() {
        d6d.display = 'block';
        search(id);
     } else {
+        if(value[3].checked) {
+            awc();
+            d3d.display = 'block';
+        } else
+            d3d.display = 'none';
+        if(value[4].checked) {
+            cwx();
+            d4d.display = 'block';
+        } else
+            d4d.display = 'none';
+        
+        if(type == 'taf') {
+            d3d.display = d4d.display = 'none';
+            d5d.display = 'block';
+        } else
+            d5d.display = 'none';
     
-    if(value[3].checked) {
-        awc();
-        d3d.display = 'block';
-    } else
-        d3d.display = 'none';
-    if(value[4].checked) {
-        cwx();
-        d4d.display = 'block';
-    } else
-        d4d.display = 'none';
-    
-    if(type == 'taf') {
-        d3d.display = d4d.display = 'none';
-        d5d.display = 'block';
-    } else
-        d5d.display = 'none';
-
-    if (hrs > 0) {
-      metarH(hrs);
-      d6d.display = 'block';
-   } else
-      d6d.display = 'none';
+        if (hrs > 0) {
+          metarH(hrs);
+          d6d.display = 'block';
+       } else
+          d6d.display = 'none';
    }
 }
 input.addEventListener("keypress", function(event) {
@@ -362,13 +361,15 @@ function info() {
        window.open(reL);
 }
 async function search(a) {
+   var d6 = document.querySelector('.d6');
+   d6.innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+   
    const url = `https://avwx.rest/api/search/station?text=${a}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
    const res = await fetch(url);
    if(!res.ok)
-      alert('AVWX error: '+res.status);
+      alert('AVWX error: '+res.status+' '+res.type);
    const data = await res.json();
-
-   var d6 = document.querySelector('.d6');
+   
    var stn = data[0];
    d6.innerHTML = '<p>Station Info</p>';
    d6.innerHTML += `Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
