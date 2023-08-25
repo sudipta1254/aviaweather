@@ -238,7 +238,10 @@ function awcTafMain(data, comp) {
             span2.appendChild(li);
         } if (frst[i].visib) {
             li = document.createElement('li');
-            li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
+            if(frst[i].visib == '6+')
+               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (10 Km)`;
+            else
+               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
             span2.appendChild(li);
         } if (frst[i].clouds.length != 0) {
             var clouds = frst[i].clouds;
@@ -247,7 +250,7 @@ function awcTafMain(data, comp) {
                 li = document.createElement('li');
                 li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft AGL`;
                 if (clouds[j].type)
-                li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
+                   li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
                 ul.appendChild(li);
             }
             span2.appendChild(ul);
