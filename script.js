@@ -109,7 +109,7 @@ async function get() {
     d5d = document.querySelector('.d5').style
     d6d = document.querySelector('.d6').style;
     if(value[5].checked) {
-       d3d.display = d4d.dislay = d5d.display = 'none';
+       d3d.display = d4d.display = d5d.display = 'none';
        d6d.display = 'block';
        search(id);
     } else {
@@ -126,8 +126,7 @@ async function get() {
         d4d.display = 'none';
     
     if(type == 'taf') {
-        d3d.display = 'none';
-        d4d.display = 'none';
+        d3d.display = d4d.display = 'none';
         d5d.display = 'block';
     } else
         d5d.display = 'none';
