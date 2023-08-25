@@ -388,8 +388,10 @@ async function search(a) {
                         <li>Lights: ${rny.lights} </li>`;
          span.appendChild(ul);
          d6.appendChild(span);
-    }
-    d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a><hr>`;
+   }
+   if(stn.wiki)
+      d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`
+   d6.innerHTML += '<hr>';
 }
 function time(t) {
    var tm = ((new Date() - new Date(t+'Z'))/60000).toFixed(0);
