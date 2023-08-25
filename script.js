@@ -180,8 +180,6 @@ function cxwMain(data) {
            strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     } else
         strongs[19].innerHTML = '0 Knot';
-    if(data.wind.gust_kph)
-       strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
     strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
     if(data.barometer)
         strongs[21].innerHTML = data.barometer.hpa+' hPa';
