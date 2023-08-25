@@ -362,22 +362,19 @@ function info() {
        window.open(reL);
 }
 async function search(a) {
-   const url = `https://avwx.rest/api/station/${a}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+   const url = `https://avwx.rest/api/search/station?text=${a}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
    const res = await fetch(url);
    if(!res.ok)
       alert('AVWX error: '+res.status);
    const data = await res.json();
 
    var d6 = document.querySelector('.d6');
-   console.log(d6)
    var stn = data[0];
    d6.innerHTML = '<p>Station Info</p>';
    d6.innerHTML += `Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
                      Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
                      IATA: ${stn.iata} <br>
-
                      ICAO: ${stn.icao} <br>
-
                      Reporting: ${stn.reporting?'Yes':'No'} <br>`;
    for(j = 0; j < stn.runways.length; j++) {
          var rny = stn.runways[j];
