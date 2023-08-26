@@ -59,6 +59,11 @@ ol {
 ul {
     margin: 0;
 }
+iframe {
+   display: flex;
+   justify-content: center;
+   margin: 30px auto 0;
+}
 #fl {
     display: inline-block;
     width: 12px;
