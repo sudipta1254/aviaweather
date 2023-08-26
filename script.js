@@ -1,6 +1,7 @@
 var type = 'metar', id = 'VEBS', c = 0,
 p = document.querySelectorAll('p'),
 input = document.querySelector("input"),
+iframe = document.querySelector('iframe'),
 value = document.querySelectorAll('input'),
 strongs = document.querySelectorAll('strong');
 
@@ -95,6 +96,7 @@ async function get() {
     const data = await res.json();
     id = data[0].icao;
     flag = data[0].country.toLowerCase();
+    iframe.src = `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=14&ie=UTF8&iwloc=B&output=embed`;
   
     /*var hrs = +inpVal.substring(4, inpVal.length);
     id = inpVal.substring(0, 4).toUpperCase();
