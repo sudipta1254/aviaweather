@@ -398,8 +398,10 @@ async function search(a) {
          span.appendChild(ul);
          d6.appendChild(span);
    }
-   if(stn.wiki)
-      d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`
+   if(stn.website)
+      d6.innerHTML += `Website: <a href='${stn.website}'>Visit</a>`
+   else if(stn.website)
+         d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`;
    d6.innerHTML += '<hr>';
 }
 function time(t) {
