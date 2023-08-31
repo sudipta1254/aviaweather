@@ -119,7 +119,7 @@ async function get() {
     if(value[5].checked) {
        d3d.display = d4d.display = d5d.display = 'none';
        d6d.display = 'block';
-       search(id);
+       search(data);
     } else {
         if(value[3].checked) {
             awc();
@@ -374,12 +374,6 @@ async function search(a) {
    var d6 = document.querySelector('.d6');
    d6.innerHTML = '<p><em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em></p>';
    
-   const url = `https://avwx.rest/api/search/station?text=${a}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
-   const res = await fetch(url);
-   if(!res.ok)
-      alert('AVWX error: '+res.status+' '+res.type);
-   const data = await res.json();
-   
    var stn = data[0];
    d6.innerHTML = '<p>Station Info</p>';
    d6.innerHTML += `Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
@@ -403,7 +397,7 @@ async function search(a) {
    if(stn.website)
       d6.innerHTML += `Website: <a href='${stn.website}'>Visit</a>`
    else if(stn.website)
-         d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`;
+      d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`;
    d6.innerHTML += '<hr>';
 }
 function time(t) {
