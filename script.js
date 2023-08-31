@@ -145,6 +145,8 @@ async function get() {
           d6d.display = 'none';
    }
 }
+awc();
+
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -370,7 +372,7 @@ function info() {
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height}px`))
        window.open(reL);
 }
-async function search(a) {
+async function search(data) {
    var d6 = document.querySelector('.d6');
    d6.innerHTML = '<p><em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em></p>';
    
