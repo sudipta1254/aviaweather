@@ -1,5 +1,6 @@
 var type = 'metar', id = 'VEBS', c = 0, qry,
 p = document.querySelectorAll('p'),
+divs = document.querySelectorAll('div'),
 input = document.querySelector("input"),
 iframe = document.querySelector('iframe'),
 value = document.querySelectorAll('input'),
@@ -71,13 +72,13 @@ function awcMain(data) {
     }
 }
 async function get() {
-    type = value[1].checked ? value[1].id : value[2].id
+    type = value[1].checked ? value[1].id : value[2].checked ? value[2].id : '';
     inpVal = value[0].value.trim();
     if(!inpVal) {
         alert('Please enter Id!');
         return;
     }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -137,6 +138,11 @@ async function get() {
             d5d.display = 'block';
         } else
             d5d.display = 'none';
+        if(value[6].checked) {
+            divs[9].style.display = 'block';
+            avwxMain(id, type);
+        } else
+            divs[9].style.display = 'none';
     
         if (hrs > 0) {
           metarH(hrs);
@@ -208,6 +214,62 @@ function cxwMain(data) {
     strongs[25].innerHTML = flc;
     document.querySelector('#fl').style.background =
         flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
+}
+
+async function avwxMain(id, type) {
+   var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+   const res = await fetch(url);
+   if(!res.ok)
+      alert('AVWX error: '+res.status+' - '+res.type);
+   const data = await res.json();
+   
+   var flc = data.flight_rules,
+   d7 = divs[9];
+   d7.innerHTML = `<p>AVWX</p>
+                        Type: ${type.toUpperCase()} <br>
+                        Remark: ${data.remarks} <br>
+                        Airport: ${data.station} <br>
+                        ICAO Code: ${data.station} <br>
+                        Report time: ${getIST(data.time.dt)}  ${time(data.time.dt)}<br>
+                        Temperature: ${data.temperature.value}°C <br>
+                        Dewpoint: ${data.dewpoint.value}°C <br>
+                        Humidity: ${(data.relative_humidity*100).toFixed(0)}% <br>
+                        Wind: ${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+   if(data.wind_gust)
+      d7.innerHTML += `Gust: ${data.wind_gust} Knot(s)`;
+   if(data.visibility)
+      if(data.units.visibility == 'm')
+         d7.innerHTML += `Visibility: ${(data.visibility.value/1000).toFixed(0)} Km <br>`;
+      else
+         d7.innerHTML += `Visibility: ${(data.visibility.value*1.609).toFixed(0)} Km <br>`;
+   if(data.units.altimeter == 'hPa')
+      d7.innerHTML += `Pressure: ${data.altimeter.value} hPa <br>`;
+   else
+      d7.innerHTML += `Pressure: ${data.altimeter.value} mmHg <br>`;
+   if(data.wx_codes.length)
+      d7.innerHTML += `Condition: ${data.wx_codes[0].value} <br>`;
+   d7.innerHTML += `Clouds: `;
+   if(!data.clouds.length)
+      d7.innerHTML += ' Clear skies. <br>';
+   else {
+      ul = document.createElement('ul');
+      for(i = 0; i < data.clouds.length; i++) {
+         li = document.createElement('li');
+         li.innerHTML = data.clouds[i].type+' at '+data.clouds[i].altitude*100+' ft AGL';
+         if(data.clouds[i].modifier)
+            li.innerHTML += ` (${data.clouds[i].modifier})`;
+         ul.appendChild(li);
+      }
+      d7.appendChild(ul);
+   }
+   d7.innerHTML += `Raw: ${data.raw} <br>
+                    Category: ${flc}`;
+   var fl = document.createElement('div');
+   fl.id = 'fl';
+   fl.style.background =
+       flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
+   d7.appendChild(fl);
+   d7.innerHTML += '<hr>';
 }
 
 
@@ -317,9 +379,11 @@ function cwxTafMain(data, comp) {
 }
 
 function getIST(date) {
-    if (typeof date == 'string')
+    if (typeof date == 'string') {
+        if(date.charAt(date.length-1) == 'Z')
+           return new Date(new Date(date).getTime()).toLocaleString();
         return new Date(new Date(date+"Z").getTime()).toLocaleString();
-    else
+    } else
         return new Date(date*1000).toLocaleString();
 }
 
@@ -403,7 +467,11 @@ async function search(data) {
    d6.innerHTML += '<hr>';
 }
 function time(t) {
-   var tm = ((new Date() - new Date(t+'Z'))/60000).toFixed(0);
+   var tm;
+   if(t.charAt(t.length-1) == 'Z')
+      tm = ((new Date() - new Date(t))/60000).toFixed(0);
+   else
+      tm = ((new Date() - new Date(t+'Z'))/60000).toFixed(0);
    var hb = Math.ceil(tm/60);
    if(hb > 1)
       return `[${hb-1} hour(s) ago]`;
@@ -417,4 +485,3 @@ function accent() {
 }
 
 
-/* https://api.checkwx.com/metar/vebs/decoded?x-api-key=c7e806f2a82843d88129362226 */
