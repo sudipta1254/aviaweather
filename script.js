@@ -16,14 +16,16 @@ function awc() {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        //console.log(data[0]);
         if(type == 'metar')
-            if (data.length != 0)
-               awcMain(data[0]);
+            if(data.length)
+                awcMain(data[0]);
             else
-               alert(`METAR expired for ${id.toUpperCase()}! Showing cached data.`);
+                alert(`AWC: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
         else
-            awcTafMain(data[0], 'AWC');
+            if(data.length)
+                awcTafMain(data[0], 'AWC');
+            else
+                alert(`AWC: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
     })
     .catch(err => {
         console.log(`Error: `+ err.message);
@@ -172,6 +174,19 @@ function cwx() {
             cxwMain(data.data[0]);
         else
             cwxTafMain(data.data[0], 'CWX');
+        if(!data.error)
+            if(type == 'metar')
+                if(data.data.length)
+                   cxwMain(data.data[0]);
+                else
+                   alert(`CWX: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+             else
+                if(data.data.length)
+                   cwxTafMain(data.data[0], 'CWX');
+                else
+                   alert(`CWX: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+        else
+            alert('CWX error: '+data.error);
     })
     .catch(err => {
         console.log(`Error:`+ err.message);
@@ -238,7 +253,7 @@ async function avwxMain(id, type) {
                         Humidity: ${(data.relative_humidity*100).toFixed(0)}% <br>
                         Wind: ${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
     if(data.wind_gust)
-      d7.innerHTML += `Gust: ${data.wind_gust} Knot(s) <br>`;
+      d7.innerHTML += `Gust: ${data.wind_gust.value} Knot(s) <br>`;
     if(data.visibility)
       if(data.units.visibility == 'm')
          d7.innerHTML += `Visibility: ${(data.visibility.value/1000).toFixed(0)} Km <br>`;
