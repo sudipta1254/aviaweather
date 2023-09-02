@@ -99,6 +99,7 @@ async function get() {
     const data = await res.json();
     id = data[0].icao;
     flag = data[0].country.toLowerCase();
+    airp = `${data[0].name}, ${data[0].city}, ${data[0].state}, ${data[0].country}`;
     if(data[0].name != qry)
        iframe.src = `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=13&ie=UTF8&iwloc=B&output=embed`;
     qry = data[0].name;
@@ -142,7 +143,7 @@ async function get() {
             d5d.display = 'none';
         if(value[6].checked) {
             divs[9].style.display = 'block';
-            avwxMain(id, type);
+            avwxMain(id, type, airp, flag);
         } else
             divs[9].style.display = 'none';
     
@@ -231,7 +232,7 @@ function cxwMain(data) {
         flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
 }
 
-async function avwxMain(id, type) {
+async function avwxMain(id, type, airp, flag) {
     
     var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
     const res = await fetch(url);
@@ -245,7 +246,7 @@ async function avwxMain(id, type) {
     d7.innerHTML = `<p>AVWX</p>
                         Type: ${type.toUpperCase()} <br>
                         Remark: ${data.remarks} <br>
-                        Airport: ${data.station} <br>
+                        Airport: ${airp} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
                         ICAO Code: ${data.station} <br>
                         Report time: ${getIST(data.time.dt)}  ${time(data.time.dt)}<br>
                         Temperature: ${data.temperature.value}°C <br>
