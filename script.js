@@ -217,15 +217,17 @@ function cxwMain(data) {
 }
 
 async function avwxMain(id, type) {
-   var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
-   const res = await fetch(url);
-   if(!res.ok)
+    
+    var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+    const res = await fetch(url);
+    if(!res.ok)
       alert('AVWX error: '+res.status+' - '+res.type);
-   const data = await res.json();
-   
-   var flc = data.flight_rules,
-   d7 = divs[9];
-   d7.innerHTML = `<p>AVWX</p>
+    const data = await res.json();
+    
+    if(data.meta.warning)
+      alert(data.meta.warning);
+    var flc = data.flight_rules, d7 = divs[9];
+    d7.innerHTML = `<p>AVWX</p>
                         Type: ${type.toUpperCase()} <br>
                         Remark: ${data.remarks} <br>
                         Airport: ${data.station} <br>
@@ -235,23 +237,23 @@ async function avwxMain(id, type) {
                         Dewpoint: ${data.dewpoint.value}°C <br>
                         Humidity: ${(data.relative_humidity*100).toFixed(0)}% <br>
                         Wind: ${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
-   if(data.wind_gust)
-      d7.innerHTML += `Gust: ${data.wind_gust} Knot(s)`;
-   if(data.visibility)
+    if(data.wind_gust)
+      d7.innerHTML += `Gust: ${data.wind_gust} Knot(s) <br>`;
+    if(data.visibility)
       if(data.units.visibility == 'm')
          d7.innerHTML += `Visibility: ${(data.visibility.value/1000).toFixed(0)} Km <br>`;
       else
          d7.innerHTML += `Visibility: ${(data.visibility.value*1.609).toFixed(0)} Km <br>`;
-   if(data.units.altimeter == 'hPa')
+    if(data.units.altimeter == 'hPa')
       d7.innerHTML += `Pressure: ${data.altimeter.value} hPa <br>`;
-   else
+    else
       d7.innerHTML += `Pressure: ${data.altimeter.value} mmHg <br>`;
-   if(data.wx_codes.length)
+    if(data.wx_codes.length)
       d7.innerHTML += `Condition: ${data.wx_codes[0].value} <br>`;
-   d7.innerHTML += `Clouds: `;
-   if(!data.clouds.length)
+    d7.innerHTML += `Clouds: `;
+    if(!data.clouds.length)
       d7.innerHTML += ' Clear skies. <br>';
-   else {
+    else {
       ul = document.createElement('ul');
       for(i = 0; i < data.clouds.length; i++) {
          li = document.createElement('li');
@@ -261,15 +263,15 @@ async function avwxMain(id, type) {
          ul.appendChild(li);
       }
       d7.appendChild(ul);
-   }
-   d7.innerHTML += `Raw: ${data.raw} <br>
+    }
+    d7.innerHTML += `Raw: ${data.raw} <br>
                     Category: ${flc}`;
-   var fl = document.createElement('div');
-   fl.id = 'fl';
-   fl.style.background =
+    var fl = document.createElement('div');
+    fl.id = 'fl';
+    fl.style.background =
        flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
-   d7.appendChild(fl);
-   d7.innerHTML += '<hr>';
+    d7.appendChild(fl);
+    d7.innerHTML += '<hr>';
 }
 
 
