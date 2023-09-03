@@ -344,6 +344,8 @@ function awcTafMain(data, comp) {
         data.rawTAF = data.rawTAF.replaceAll('TEMPO','<br>TEMPO');
     if(data.rawTAF.includes('BECMG'))
         data.rawTAF = data.rawTAF.replaceAll('BECMG','<br>BECMG');
+    if(data.rawTAF.includes('FM'))
+        data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
     strongs[33].innerHTML = data.rawTAF;
 }
 function cwxTafMain(data, comp) {
@@ -400,6 +402,8 @@ function cwxTafMain(data, comp) {
         data.raw_text = data.raw_text.replaceAll('TEMPO','<br>TEMPO');
     if(data.raw_text.includes('BECMG'))
         data.raw_text = data.raw_text.replaceAll('BECMG','<br>BECMG');
+    if(data.raw_text.includes('FM'))
+        data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
     strongs[33].innerHTML = data.raw_text;
 }
 
