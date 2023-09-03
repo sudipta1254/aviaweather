@@ -233,7 +233,6 @@ function cxwMain(data) {
 }
 
 async function avwxMain(id, type, airp, flag) {
-    
     var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
     const res = await fetch(url);
     if(!res.ok)
@@ -244,44 +243,44 @@ async function avwxMain(id, type, airp, flag) {
       alert(data.meta.warning);
     var flc = data.flight_rules, d7 = divs[9];
     d7.innerHTML = `<p>AVWX</p>
-                        Type: ${type.toUpperCase()} <br>
-                        Remark: ${data.remarks} <br>
-                        Airport: ${airp} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                        ICAO Code: ${data.station} <br>
-                        Report time: ${getIST(data.time.dt)}  ${time(data.time.dt)}<br>
-                        Temperature: ${data.temperature.value}°C <br>
-                        Dewpoint: ${data.dewpoint.value}°C <br>
-                        Humidity: ${(data.relative_humidity*100).toFixed(0)}% <br>
-                        Wind: ${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+                        Type: <strong>${type.toUpperCase()}</strong></strong> <br>
+                        Remark: <strong>${data.remarks}</strong> <br>
+                        Airport: <strong>${airp} <img src="https://flagcdn.com/24x18/${flag}.png"></strong> <br>
+                        ICAO Code: <strong>${data.station}</strong> <br>
+                        Report time: <strong>${getIST(data.time.dt)}  ${time(data.time.dt)}</strong> <br>
+                        Temperature: <strong>${data.temperature.value}°C</strong> <br>
+                        Dewpoint: <strong>${data.dewpoint.value}°C</strong> <br>
+                        Humidity: <strong>${(data.relative_humidity*100).toFixed(0)}%</strong> <br>
+                        Wind: <strong>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°)</strong> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
     if(data.wind_gust)
-      d7.innerHTML += `Gust: ${data.wind_gust.value} Knot(s) <br>`;
+      d7.innerHTML += `Gust: <strong>${data.wind_gust.value} Knot(s)</strong> <br>`;
     if(data.visibility)
       if(data.units.visibility == 'm')
-         d7.innerHTML += `Visibility: ${(data.visibility.value/1000).toFixed(0)} Km <br>`;
+         d7.innerHTML += `Visibility: <strong>${(data.visibility.value/1000).toFixed(0)} Km</strong> <br>`;
       else
-         d7.innerHTML += `Visibility: ${(data.visibility.value*1.609).toFixed(0)} Km <br>`;
+         d7.innerHTML += `Visibility: <strong>${(data.visibility.value*1.609).toFixed(0)} Km</strong> <br>`;
     if(data.units.altimeter == 'hPa')
-      d7.innerHTML += `Pressure: ${data.altimeter.value} hPa <br>`;
+      d7.innerHTML += `Pressure: <strong>${data.altimeter.value} hPa</strong> <br>`;
     else
-      d7.innerHTML += `Pressure: ${data.altimeter.value} mmHg <br>`;
+      d7.innerHTML += `Pressure: <strong>${data.altimeter.value} mmHg</strong> <br>`;
     if(data.wx_codes.length)
-      d7.innerHTML += `Condition: ${data.wx_codes[0].value} <br>`;
+      d7.innerHTML += `Condition: <strong>${data.wx_codes[0].value}</strong> <br>`;
     d7.innerHTML += `Clouds: `;
     if(!data.clouds.length)
-      d7.innerHTML += ' Clear skies. <br>';
+      d7.innerHTML += ' <strong>Clear skies</strong> <br>';
     else {
       ul = document.createElement('ul');
       for(i = 0; i < data.clouds.length; i++) {
          li = document.createElement('li');
-         li.innerHTML = data.clouds[i].type+' at '+data.clouds[i].altitude*100+' ft AGL';
+         li.innerHTML = '<strong>'+data.clouds[i].type+' at '+data.clouds[i].altitude*100+' ft AGL</strong>';
          if(data.clouds[i].modifier)
-            li.innerHTML += ` (${data.clouds[i].modifier})`;
+            li.innerHTML += ` <strong>(${data.clouds[i].modifier})</strong>`;
          ul.appendChild(li);
       }
       d7.appendChild(ul);
     }
-    d7.innerHTML += `Raw: ${data.raw} <br>
-                    Category: ${flc}`;
+    d7.innerHTML += `Raw: <strong>${data.raw}</strong> <br>
+                    Category: <strong>${flc}</strong>`;
     var fl = document.createElement('div');
     fl.id = 'fl';
     fl.style.background =
