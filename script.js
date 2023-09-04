@@ -323,7 +323,10 @@ function awcTafMain(data, comp) {
             span.innerHTML = `Forecast from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
         if (frst[i].wspd) {
             li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir+135}deg'></i><br>`;
+            if(frst[i].wdir == 'VRB')
+                li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - VRB) <i class="fa-solid fa-location-arrow" style='rotate:135deg'></i> <br>`;
+             else
+                li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir+135}deg'></i> <br>`;
             span2.appendChild(li);
         } if (frst[i].wxString) {
             li = document.createElement('li');
@@ -332,9 +335,13 @@ function awcTafMain(data, comp) {
         } if (frst[i].visib) {
             li = document.createElement('li');
             if(frst[i].visib == '6+')
-               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (10 Km)`;
+               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (10+ Km)`;
             else
                li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
+            span2.appendChild(li);
+        } if(frst[i].clouds.length) {
+            li = document.createElement('li');
+            li.innerHTML = 'Clouds: ';
             span2.appendChild(li);
         } if (frst[i].clouds.length != 0) {
             var clouds = frst[i].clouds;
