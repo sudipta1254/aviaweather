@@ -14,7 +14,12 @@ function awc() {
     const url = proxyUrl2 + apiUrl;
     
     fetch(url)
-    .then(response => response.json())
+    .then(response => {
+        if(!response.ok)
+            alert(response.status+' '+response.type);
+        getHeaders(response);
+        return response.json();
+    })
     .then(data => {
         if(type == 'metar')
             if(data.length)
@@ -123,7 +128,7 @@ async function get() {
     if(value[5].checked) {
        d3d.display = d4d.display = d5d.display = 'none';
        d6d.display = 'block';
-       search(data);
+       search(data, flag);
     } else {
         if(value[3].checked) {
             awc();
@@ -131,7 +136,7 @@ async function get() {
         } else
             d3d.display = 'none';
         if(value[4].checked) {
-            cwx();
+            cwx(id, type, flag);
             d4d.display = 'block';
         } else
             d4d.display = 'none';
@@ -148,7 +153,7 @@ async function get() {
             divs[9].style.display = 'none';
     
         if (hrs > 0) {
-          metarH(hrs);
+          metarH(id, type, hrs, flag);
           d6d.display = 'block';
        } else
           d6d.display = 'none';
@@ -163,12 +168,17 @@ input.addEventListener("keypress", function(event) {
     }
 });
 
-function cwx() {
+function cwx(id, type, flag) {
     p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
     const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
     
     fetch(url)
-    .then(response => response.json())
+    .then(response => {
+        if(!response.ok)
+            alert(response.status+' '+response.type);
+        getHeaders(res);
+        return response.json();
+    })
     .then(data => {
         //console.log(data);
         if(type == 'metar')
@@ -193,7 +203,7 @@ function cwx() {
         console.log(`Error:`+ err.message);
     })
 }
-function cxwMain(data) {
+function cxwMain(data, flag) {
     p[2].innerHTML = 'CWX';
     strongs[12].innerHTML = type.toUpperCase();
     strongs[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
@@ -237,6 +247,7 @@ async function avwxMain(id, type, airp, flag) {
     const res = await fetch(url);
     if(!res.ok)
       alert('AVWX error: '+res.status+' - '+res.type);
+    getHeaders(res);
     const data = await res.json();
     
     if(data.meta.warning)
@@ -348,7 +359,7 @@ function awcTafMain(data, comp) {
         data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
     strongs[33].innerHTML = data.rawTAF;
 }
-function cwxTafMain(data, comp) {
+function cwxTafMain(data, flag, comp) {
     var frst = data.forecast;
     p[3].innerHTML = comp;
     strongs[26].innerHTML = type.toUpperCase();
@@ -417,7 +428,7 @@ function getIST(date) {
 }
 
 
-function metarH(hrs) {
+function metarH(id, type, hrs, flag) {
     const proxyUrl = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&hours=${hrs}&format=json`;
     const url = proxyUrl + apiUrl;
@@ -431,7 +442,7 @@ function metarH(hrs) {
         console.log(`Error: `+ err.message);
     })
 }
-function awcMetH(data, hrs) {
+function awcMetH(data, hrs, flag) {
     var d6 = document.querySelector('.d6');
     d6.innerHTML = '';
     const p = document.createElement('p')
@@ -465,7 +476,7 @@ function info() {
     if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height}px`))
        window.open(reL);
 }
-async function search(data) {
+async function search(data, flag) {
    var d6 = document.querySelector('.d6');
    d6.innerHTML = '<p><em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em></p>';
    
@@ -506,11 +517,12 @@ function time(t) {
       return `[${hb-1} hour(s) ago]`;
    return `[${tm} min(s) ago]`;
 }
-function accent() {
-   var ob = (a) => {
-      a.style.accentColor = value[5].value;
-   }
-   ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]);
+function getHeaders(response) {
+   const headers = {};
+   response.headers.forEach((value, name) => {
+      headers[name] = value;
+   });
+   // console.log(headers);
 }
 
 
