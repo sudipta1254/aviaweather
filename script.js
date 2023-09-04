@@ -188,12 +188,12 @@ function cwx(id, type, flag) {
         if(!data.error)
             if(type == 'metar')
                 if(data.data.length)
-                   cxwMain(data.data[0]);
+                   cxwMain(data.data[0], flag);
                 else
                    alert(`CWX: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
              else
                 if(data.data.length)
-                   cwxTafMain(data.data[0], 'CWX');
+                   cwxTafMain(data.data[0], flag, 'CWX');
                 else
                    alert(`CWX: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
         else
