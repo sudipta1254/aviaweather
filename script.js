@@ -437,7 +437,7 @@ function metarH(id, type, hrs, flag) {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        awcMetH(data, hrs);
+        awcMetH(data, hrs, flag);
     })
     .catch(err => {
         console.log(`Error: `+ err.message);
