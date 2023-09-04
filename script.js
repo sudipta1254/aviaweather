@@ -181,10 +181,6 @@ function cwx(id, type, flag) {
     })
     .then(data => {
         //console.log(data);
-        if(type == 'metar')
-            cxwMain(data.data[0], flag);
-        else
-            cwxTafMain(data.data[0], flag, 'CWX');
         if(!data.error)
             if(type == 'metar')
                 if(data.data.length)
