@@ -17,7 +17,6 @@ function awc() {
     .then(response => {
         if(!response.ok)
             alert(response.status+' '+response.type);
-        getHeaders(response);
         return response.json();
     })
     .then(data => {
@@ -176,7 +175,6 @@ function cwx(id, type, flag) {
     .then(response => {
         if(!response.ok)
             alert(response.status+' '+response.type);
-        getHeaders(res);
         return response.json();
     })
     .then(data => {
