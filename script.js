@@ -526,4 +526,10 @@ function getHeaders(response) {
    // console.log(headers);
 }
 
+const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
+const clrs = colors[Math.floor(Math.random() * colors.length)];
+var ob = (e) => {
+   e.style.accentColor = clrs;
+}
+ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]); ob(value[5]); ob(value[6]);
 
