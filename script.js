@@ -11,7 +11,7 @@ function awc() {
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
-    const url = proxyUrl2 + apiUrl;
+    const url = proxyUrl + apiUrl;
     
     fetch(url)
     .then(response => {
