@@ -301,7 +301,6 @@ async function avwxMain(id, type, airp, flag) {
       fl.style.background =
           flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
       d7.appendChild(fl);
-      d7.innerHTML += '<hr>';
    } else {
       var frst = data.forecast;
       d7.innerHTML += `Issued: <b>${getIST(data.time.dt)} ${time(data.time.dt)} <br>
@@ -368,6 +367,7 @@ async function avwxMain(id, type, airp, flag) {
             data.raw = data.raw.replaceAll('FM','<br>FM');
       } d7.innerHTML += 'Raw: <b>'+data.raw+'</b>';
    }
+   d7.innerHTML += '<hr>';
 }
 
 
