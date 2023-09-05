@@ -248,15 +248,15 @@ async function avwxMain(id, type, airp, flag) {
       alert(data.meta.warning);
     var flc = data.flight_rules, d7 = divs[9];
     d7.innerHTML = `<p>AVWX</p>
-                        Type: <strong>${type.toUpperCase()}</strong></strong> <br>
-                        Remark: <strong>${data.remarks}</strong> <br>
-                        Airport: <strong>${airp} <img src="https://flagcdn.com/24x18/${flag}.png"></strong> <br>
-                        ICAO Code: <strong>${data.station}</strong> <br>
-                        Report time: <strong>${getIST(data.time.dt)}  ${time(data.time.dt)}</strong> <br>
-                        Temperature: <strong>${data.temperature.value}°C</strong> <br>
-                        Dewpoint: <strong>${data.dewpoint.value}°C</strong> <br>
-                        Humidity: <strong>${(data.relative_humidity*100).toFixed(0)}%</strong> <br>
-                        Wind: <strong>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</strong> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+                        Type: <b>${type.toUpperCase()}</b> <br>
+                        Remark: <b>${data.remarks}</b> <br>
+                        Airport: <b>${airp} <img src="https://flagcdn.com/24x18/${flag}.png"></b> <br>
+                        ICAO Code: <b>${data.station}</b> <br>
+                        Report time: <b>${getIST(data.time.dt)}  ${time(data.time.dt)}</b> <br>
+                        Temperature: <b>${data.temperature.value}°C</b> <br>
+                        Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
+                        Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
+                        Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
     if(data.wind_gust)
       d7.innerHTML += `Gust: <strong>${data.wind_gust.value} Knot(s)</strong> <br>`;
     if(data.visibility)
