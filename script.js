@@ -143,6 +143,8 @@ async function get() {
         if(type == 'taf') {
             d3d.display = d4d.display = 'none';
             d5d.display = 'block';
+            if(value[6].checked)
+                d5d.display = 'none';
         } else
             d5d.display = 'none';
         if(value[6].checked) {
