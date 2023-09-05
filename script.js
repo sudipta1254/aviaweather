@@ -304,7 +304,7 @@ async function avwxMain(id, type, airp, flag) {
       d7.innerHTML += '<hr>';
    } else {
       var frst = data.forecast;
-      d7.innerHTML += `Issued: <b>${getIST(data.time.dt)} <br>
+      d7.innerHTML += `Issued: <b>${getIST(data.time.dt)} ${time(data.time.dt)} <br>
                       Span: ${getIST(data.start_time.dt)} until ${getIST(data.end_time.dt)}</b> <br>`;
       for(i = 0; i < frst.length; i++) {
          span = document.createElement('span');
