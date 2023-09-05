@@ -272,9 +272,9 @@ async function avwxMain(id, type, airp, flag) {
       d7.innerHTML += `Condition: `;
          for(i = 0; i < data.wx_codes.length; i++)
             if(i == data.wx_codes.length-1)
-               d7.innerHTML += data.wx_codes[i].value+'<br>';
+               d7.innerHTML += '<b>'+data.wx_codes[i].value+'</b> <br>';
             else
-               d7.innerHTML += data.wx_codes[i].value+', ';
+               d7.innerHTML += '<b>'+data.wx_codes[i].value+'</b>, ';
    } d7.innerHTML += `Clouds: `;
     if(!data.clouds.length)
       d7.innerHTML += ' <strong>Clear skies</strong> <br>';
