@@ -256,7 +256,7 @@ async function avwxMain(id, type, airp, flag) {
                         Temperature: <strong>${data.temperature.value}°C</strong> <br>
                         Dewpoint: <strong>${data.dewpoint.value}°C</strong> <br>
                         Humidity: <strong>${(data.relative_humidity*100).toFixed(0)}%</strong> <br>
-                        Wind: <strong>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.value}°)</strong> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+                        Wind: <strong>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</strong> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
     if(data.wind_gust)
       d7.innerHTML += `Gust: <strong>${data.wind_gust.value} Knot(s)</strong> <br>`;
     if(data.visibility)
@@ -268,9 +268,14 @@ async function avwxMain(id, type, airp, flag) {
       d7.innerHTML += `Pressure: <strong>${data.altimeter.value} hPa</strong> <br>`;
     else
       d7.innerHTML += `Pressure: <strong>${data.altimeter.value} mmHg</strong> <br>`;
-    if(data.wx_codes.length)
-      d7.innerHTML += `Condition: <strong>${data.wx_codes[0].value}</strong> <br>`;
-    d7.innerHTML += `Clouds: `;
+    if(data.wx_codes.length) {
+      d7.innerHTML += `Condition: `;
+         for(i = 0; i < data.wx_codes.length; i++)
+            if(i == data.wx_codes.length-1)
+               d7.innerHTML += data.wx_codes[i].value+'<br>';
+            else
+               d7.innerHTML += data.wx_codes[i].value+', ';
+   } d7.innerHTML += `Clouds: `;
     if(!data.clouds.length)
       d7.innerHTML += ' <strong>Clear skies</strong> <br>';
     else {
