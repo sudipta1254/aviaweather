@@ -11,12 +11,12 @@ function awc() {
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
-    const url = proxyUrl + apiUrl;
+    const url = proxyUrl2 + apiUrl;
     
     fetch(url)
     .then(response => {
         if(!response.ok)
-            alert(response.status+' '+response.type);
+            alert('AWC error: '+response.status+' '+response.type);
         return response.json();
     })
     .then(data => {
@@ -176,7 +176,7 @@ function cwx(id, type, flag) {
     fetch(url)
     .then(response => {
         if(!response.ok)
-            alert(response.status+' '+response.type);
+            alert('CWX error: '+response.status+' '+response.type);
         return response.json();
     })
     .then(data => {
