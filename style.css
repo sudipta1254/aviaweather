@@ -71,9 +71,8 @@ iframe {
     margin: 0 5px;
     border-radius: 50%;
 }
-a {
-    color: white;
-}
+i { margin: 0 5px; }
+a { color: white; }
 a:hover {
     color: Tomato;
     transition: .4s;
