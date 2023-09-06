@@ -91,6 +91,15 @@ footer {
    to { transform: rotate(360deg); }
 }
 
+@keyframes rotate {
+   0% { transform: rotate(var(--start)); }
+   50% { transform: rotate(var(--end)); }
+   100% { transform: rotate(var(--start)); }
+}
+.arrow {
+   animation: rotate 4.5s infinite;
+}
+
 .tooltip {
   font-size: 16.5px;
   position: relative;
