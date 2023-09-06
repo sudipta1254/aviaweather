@@ -264,10 +264,12 @@ async function avwxMain(id, type, airp, flag) {
                            Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b>`;
       if(data.wind_variable_direction.length) {
          d7.innerHTML += `<i class="fa-solid fa-location-arrow arrow"></i> <br>`;
-         i = document.querySelector('.arrow');
          arrow(data.wind_variable_direction[0].value, data.wind_variable_direction[1].value);
       } else
-         d7.innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+         if(data.wind_direction.value)
+            d7.innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+         else
+            d7.innerHTML += `<i class="fa-solid fa-wind"></i> <br>`;
       if(data.wind_gust)
          d7.innerHTML += `Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`;
       if(data.visibility)
