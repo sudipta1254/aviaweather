@@ -615,7 +615,7 @@ function getHeaders(response) {
 }
 
 function arrow(strt, end) {
-   var i = document.querySelector('.fa-location-arrow');
+   var i = document.querySelector('.arrow');
    i.style.setProperty('--start', (strt+135)+'deg');
    i.style.setProperty('--end', (end+135)+'deg');
 }
