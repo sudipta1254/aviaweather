@@ -261,7 +261,13 @@ async function avwxMain(id, type, airp, flag) {
                            Temperature: <b>${data.temperature.value}°C</b> <br>
                            Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
                            Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
-                           Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b> <i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+                           Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b>`;
+      if(data.wind_variable_direction.length) {
+         d7.innerHTML += `<i class="fa-solid fa-location-arrow arrow"></i> <br>`;
+         i = document.querySelector('.arrow');
+         arrow(data.wind_variable_direction[0].value, data.wind_variable_direction[1].value);
+      } else
+         d7.innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
       if(data.wind_gust)
          d7.innerHTML += `Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`;
       if(data.visibility)
@@ -600,6 +606,12 @@ function getHeaders(response) {
       headers[name] = value;
    });
    // console.log(headers);
+}
+
+function arrow(strt, end) {
+   var i = document.querySelector('.fa-location-arrow');
+   i.style.setProperty('--start', (strt+135)+'deg');
+   i.style.setProperty('--end', (end+135)+'deg');
 }
 
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
