@@ -326,6 +326,10 @@ async function avwxMain(id, type, airp, flag) {
             li = document.createElement('li');
             li.innerHTML = `Wind: <b>${frst[i].wind_speed.value} Knot(s) (${(frst[i].wind_speed.value*1.85).toFixed(1)} KM/H - ${frst[i].wind_direction.value}°)</b> <br>`;
             span2.appendChild(li);
+         } if (frst[i].wind_gust) {
+            li = document.createElement('li');
+            li.innerHTML = `Gust: <b>${frst[i].wind_gust.value} Knots</b> <br>`;
+            span2.appendChild(li);
          } if (frst[i].wx_codes.length) {
             li = document.createElement('li');
             li.innerHTML = `Weather: `;
