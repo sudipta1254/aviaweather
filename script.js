@@ -1,10 +1,4 @@
-var type = 'metar', id = 'VEBS', c = 0, qry,
-p = document.querySelectorAll('p'),
-divs = document.querySelectorAll('div'),
-input = document.querySelector("input"),
-iframe = document.querySelector('iframe'),
-value = document.querySelectorAll('input'),
-strongs = document.querySelectorAll('strong');
+var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
 
 function awc() {
     p[1].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
@@ -36,46 +30,47 @@ function awc() {
     })
 }
 function awcMain(data) {
-    p[1].innerHTML = 'AWC';
+    p.eq(1).text('AWC');
     var T = data.temp, D = data.dewp;
     ab = Math.exp((17.625*D)/(243.04+D));
     cd = Math.exp((17.625*T)/(240.04+T));
     ht = ((ab/cd)*100+1).toFixed(0);
     
-    strongs[0].innerHTML = data.metarType;
-    if(!c) {
-        strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/in.png">`;
-        c++;
-    } else
-        strongs[1].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
-    strongs[2].innerHTML = data.icaoId;
-    strongs[3].innerHTML = getIST(data.reportTime)+' '+time(data.reportTime);
-    strongs[4].innerHTML = T+'°C';
-    strongs[5].innerHTML = `${D}°C<br>Humidity: ${ht}%`;;
-    strongs[6].innerHTML = data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ';
-    if(data.wspd)
-        strongs[6].innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`;
-    if(data.wgst)
-       strongs[6].innerHTML += `<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`;
-    da = ''+data.visib;
-    if(da.charAt(da.length-1) == '+')
-        da = +da.split('+')[0];
-    strongs[7].innerHTML = data.visib+' SM ('+(da*1.609).toFixed(1)+' KM)';
-    strongs[8].innerHTML = data.altim+' hPa';
-    strongs[9].innerHTML = data.wxString;
-    strongs[11].innerHTML = data.rawOb;
-    strongs[10].innerHTML = '';
-    if(!data.clouds[0].base)
-      strongs[10].innerHTML = 'Clear skies';
-    else {
+    b.eq(0).text(data.metarType);
+   if(!c) {
+      b.eq(1).html(data.name+` <img src="https://flagcdn.com/24x18/in.png">`);
+      c++;
+   } else
+      b.eq(1).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
+   b.eq(2).text(data.icaoId);
+   b.eq(3).text(getIST(data.reportTime)+' '+time(data.reportTime));
+   b.eq(4).text(T+'°C');
+   b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
+   b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
+   if(data.wspd)
+      b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
+   if(data.wgst)
+      b.eq(6).append(`<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`);
+   da = ''+data.visib;
+   if(da.charAt(da.length-1) == '+')
+      da = +da.split('+')[0];
+   b.eq(7).text(data.visib+' SM ('+(da*1.609).toFixed(1)+' KM)');
+   if(data.altim)
+      b.eq(8).text(data.altim+' hPa');
+   b.eq(9).text(data.wxString);
+   b.eq(11).text(data.rawOb);
+   b.eq(10).text('');
+   if(!data.clouds[0].base)
+      b(10).text = 'Clear skies';
+   else {
       ul = document.createElement('ul');
       for(i = 0; i < data.clouds.length; i++) {
          li = document.createElement('li');
          li.innerHTML = data.clouds[i].cover+' at '+data.clouds[i].base+' ft AGL';
-         ul.appendChild(li);
+         ul.append(li);
       }
-      strongs[10].appendChild(ul);
-    }
+      b[10].append(ul);
+   }
 }
 async function get() {
     type = value[1].checked ? value[1].id : value[2].checked ? value[2].id : '';
@@ -162,10 +157,10 @@ async function get() {
 }
 awc();
 
-input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
+$('input').on("keypress", function(event) {
+    if(event.key === "Enter") {
         event.preventDefault();
-        document.querySelector("button").click();
+        get();
     }
 });
 
@@ -200,42 +195,44 @@ function cwx(id, type, flag) {
     })
 }
 function cxwMain(data, flag) {
-    p[2].innerHTML = 'CWX';
-    strongs[12].innerHTML = type.toUpperCase();
-    strongs[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
-    strongs[14].innerHTML = data.icao;
-    strongs[15].innerHTML = getIST(data.observed)+' '+time(data.observed);
-    strongs[16].innerHTML = data.temperature.celsius+'°C';
-    strongs[17].innerHTML = data.dewpoint.celsius+'°C';
-    strongs[18].innerHTML = data.humidity.percent+'%';
-    if(data.wind) {
-        strongs[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind.degrees+135}deg'></i>`;
-        if(data.wind.gust_kph)
-           strongs[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
-    } else
-        strongs[19].innerHTML = '0 Knot';
-    strongs[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
-    if(data.barometer)
-        strongs[21].innerHTML = data.barometer.hpa+' hPa';
-    if(data.conditions)
-        strongs[22].innerHTML = data.conditions[0].text;
-    strongs[24].innerHTML = data.raw_text;
-    strongs[23].innerHTML = '';
-    if(!data.clouds[0].feet)
-      strongs[23].innerHTML = data.clouds[0].text;
-    else {
+    p.eq(2).text('CWX');
+   b[12].innerHTML = type.toUpperCase();
+   b[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
+   b[14].innerHTML = data.icao;
+   b[15].innerHTML = getIST(data.observed)+' '+time(data.observed);
+   b[16].innerHTML = data.temperature.celsius+'°C';
+   b[17].innerHTML = data.dewpoint.celsius+'°C';
+   b[18].innerHTML = data.humidity.percent+'%';
+   if(data.wind){
+      b[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind.degrees+135}deg'></i>`;
+      if(data.wind.gust_kph)
+      b[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
+   }
+   else
+      b[19].innerHTML = '0 Knot';
+   if(data.visibility)
+      b[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
+   if (data.barometer)
+      b[21].innerHTML = data.barometer.hpa+' hPa';
+   if(data.conditions)
+      b[22].innerHTML = data.conditions[0].text;
+   b[24].innerHTML = data.raw_text;
+   b[23].innerHTML = '';
+   if(!data.clouds[0].feet)
+      b[23].innerHTML = data.clouds[0].text;
+   else {
       ul = document.createElement('ul');
       for(i = 0; i < data.clouds.length; i++) {
          li = document.createElement('li');
          li.innerHTML = data.clouds[i].text+' at '+data.clouds[i].feet+' ft AGL';
-         ul.appendChild(li);
+         ul.append(li);
       }
-      strongs[23].appendChild(ul);
-    };
-    let flc = data.flight_category;
-    strongs[25].innerHTML = flc;
-    document.querySelector('#fl').style.background =
-        flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
+      b[23].append(ul);
+   }
+   let flc = data.flight_category;
+   b[25].innerHTML = flc;
+   $('#fl').style.background =
+    flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
 }
 
 async function avwxMain(id, type, airp, flag) {
@@ -395,51 +392,54 @@ function awcTafMain(data, comp) {
     strongs[31].innerHTML = `${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`
     strongs[32].innerHTML = '';
     for(i = 0; i < frst.length; i++) {
-        span = document.createElement('span');
-        span2 = document.createElement('span');
-        if (frst[i].fcstChange) {
-            span.innerHTML = `${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
-            if (frst[i].probability)
-                span.innerHTML = `${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} (${frst[i].probability}% likely)<br>`;
-        } else
-            span.innerHTML = `Forecast from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`;
-        if (frst[i].wspd) {
-            li = document.createElement('li');
-            if(frst[i].wdir == 'VRB')
-                li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - VRB) <i class="fa-solid fa-location-arrow" style='rotate:135deg'></i> <br>`;
-             else
-                li.innerHTML += `Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir+135}deg'></i> <br>`;
-            span2.appendChild(li);
-        } if (frst[i].wxString) {
-            li = document.createElement('li');
-            li.innerHTML += `Weather: ${frst[i].wxString} <br>`;
-            span2.appendChild(li);
-        } if (frst[i].visib) {
-            li = document.createElement('li');
-            if(frst[i].visib == '6+')
-               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (10+ Km)`;
+      var span = $('<span></span>'),
+      span2 = $('<span></span>');
+      if (frst[i].fcstChange) {
+         span.text(`${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)}`);
+         if (frst[i].probability)
+            span.html(`${frst[i].fcstChange} from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} (${frst[i].probability}% likely)`);
+      } else
+         span.html(`Forecast from ${getIST(frst[i].timeFrom)} to ${getIST(frst[i].timeTo)} <br>`);
+      if (frst[i].wspd) {
+         var li = $('<li></li>');
+         if(frst[i].wdir == 'VRB')
+            li.html(`Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - VRB) <i class="fa-solid fa-location-arrow" style='rotate:135deg'></i> <br>`);
+         else
+            li.html(`Wind: ${frst[i].wspd} Knot(s) (${(frst[i].wspd*1.85).toFixed(1)} KM/H - ${frst[i].wdir}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wdir+135}deg'></i> <br>`);
+         span2.append(li);
+      } if (frst[i].wxString) {
+         var li = $('<li></li>');
+         li.html(`Weather: ${frst[i].wxString} <br>`);
+         span2.append(li);
+      } if (frst[i].visib) {
+         var li = $('<li></li>');
+         if(frst[i].visib == '6+')
+            li.text(`Visibility: ${frst[i].visib} mile(s) (10+ Km)`);
+         else
+            li.text(`Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`);
+         span2.append(li);
+      } if(frst[i].clouds.length) {
+         var li = $('<li></li>');
+         li.text('Clouds: ');
+         span2.append(li);
+      } if (frst[i].clouds.length) {
+         var clouds = frst[i].clouds,
+         ul = $('<ul></u>');
+         for(j = 0; j < clouds.length; j++) {
+            var li = $('<li></li>');
+            if(clouds[j].cover == 'NSC')
+               li.text('No significant clouds');
             else
-               li.innerHTML += `Visibility: ${frst[i].visib} mile(s) (${(frst[i].visib*1.609).toFixed(1)} Km)`;
-            span2.appendChild(li);
-        } if(frst[i].clouds.length) {
-            li = document.createElement('li');
-            li.innerHTML = 'Clouds: ';
-            span2.appendChild(li);
-        } if (frst[i].clouds.length != 0) {
-            var clouds = frst[i].clouds;
-            ul = document.createElement('ul');
-            for(j = 0; j < clouds.length; j++) {
-                li = document.createElement('li');
-                li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft AGL`;
-                if (clouds[j].type)
-                   li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
-                ul.appendChild(li);
-            }
-            span2.appendChild(ul);
-        }
-        strongs[32].appendChild(span);
-        strongs[32].appendChild(span2);
-    }
+               li.text(`${clouds[j].cover} at ${clouds[j].base} ft AGL`);
+            if(clouds[j].type)
+               li.text(`${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`);
+            ul.append(li);
+         }
+         span2.append(ul);
+      }
+      b.eq(32).append(span);
+      b.eq(32).append(span2);
+   }
     if(data.rawTAF.includes('TEMPO'))
         data.rawTAF = data.rawTAF.replaceAll('TEMPO','<br>TEMPO');
     if(data.rawTAF.includes('BECMG'))
@@ -460,43 +460,47 @@ function cwxTafMain(data, flag, comp) {
     strongs[31].innerHTML = getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to);
     strongs[32].innerHTML = '';
     for(i = 0; i < frst.length; i++) {
-        span = document.createElement('span');
-        span2 = document.createElement('span');
-        if (frst[i].change && frst[i].change.indicator.code != 'FM') {
-            span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
+        var span = $('<span></span>'),
+        span2 = $('<span></span>');
+        if(frst[i].change && frst[i].change.indicator.code != 'FM') {
+            span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
             if (frst[i].change.probability)
-                span.innerHTML = `${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)<br>`;
+                span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)`);
         } else
-            span.innerHTML = `Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} <br>`;
-        if (frst[i].wind) {
-            li = document.createElement('li');
-            li.innerHTML += `Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees+135}deg'></i><br>`;
-            span2.appendChild(li);
+            span.text(`Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
+        if(frst[i].wind) {
+            var li = $('<li></li>');
+            li.html(`Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees+135}deg'></i> <br>`);
+            span2.append(li);
         } if (frst[i].conditions) {
-            li = document.createElement('li');
-            li.innerHTML += `Weather: ${frst[i].conditions[0].text} <br>`;
-            span2.appendChild(li);
+            var li = $('<li></li>');
+            li.html(`Weather: ${frst[i].conditions[0].text} <br>`);
+            span2.append(li);
         } if (frst[i].visibility) {
-            li = document.createElement('li');
-            li.innerHTML += `Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`;
-            span2.appendChild(li);
-        } if (frst[i].clouds.length != 0) {
-            var clouds = frst[i].clouds;
-            ul = document.createElement('ul');
+            var li = $('<li></li>');
+            li.text(`Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`);
+            span2.append(li);
+        } if(frst[i].clouds.length) {
+            var li = $('<li></li>');
+            li.text('Clouds: ');
+            span2.append(li);
+        } if (frst[i].clouds.length) {
+            var clouds = frst[i].clouds,
+            ul = $('<ul></ul>');
             for(j = 0; j < clouds.length; j++) {
-                li = document.createElement('li');
-                if (clouds[j].feet == null)
-                    li.innerHTML = clouds[j].text;
+                var li = $('<li></li>');
+                if(!clouds[j].feet)
+                    li.text(clouds[j].text);
                 else
-                    li.innerHTML = `${clouds[j].text} at ${clouds[j].feet} ft AGL`;
-                if (clouds[j].type)
-                    li.innerHTML = `${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`;
-                ul.appendChild(li);
+                    li.text(`${clouds[j].text} at ${clouds[j].feet} ft AGL`);
+                if(clouds[j].type)
+                    li.text(`${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`);
+                ul.append(li);
             }
-            span2.appendChild(ul);
+            span2.append(ul);
         }
-        strongs[32].appendChild(span);
-        strongs[32].appendChild(span2);
+        b.eq(32).append(span);
+        b.eq(32).append(span2);
     }
     if(data.raw_text.includes('TEMPO'))
         data.raw_text = data.raw_text.replaceAll('TEMPO','<br>TEMPO');
@@ -508,7 +512,7 @@ function cwxTafMain(data, flag, comp) {
 }
 
 function getIST(date) {
-    if (typeof date == 'string') {
+    if(typeof date == 'string') {
         if(date.charAt(date.length-1) == 'Z')
            return new Date(new Date(date).getTime()).toLocaleString();
         return new Date(new Date(date+"Z").getTime()).toLocaleString();
@@ -615,9 +619,9 @@ function getHeaders(response) {
 }
 
 function arrow(strt, end) {
-   var i = document.querySelector('.arrow');
-   i.style.setProperty('--start', (strt+135)+'deg');
-   i.style.setProperty('--end', (end+135)+'deg');
+   var i = $('.arrow');
+   i.css('--start', (strt+135)+'deg');
+   i.css('--end', (end+135)+'deg');
 }
 
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
