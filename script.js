@@ -536,32 +536,29 @@ function metarH(id, type, hrs, flag) {
     })
 }
 function awcMetH(data, hrs, flag) {
-    var d6 = document.querySelector('.d6');
-    d6.innerHTML = '';
-    const p = document.createElement('p')
-    p.innerHTML = `${type.toUpperCase()} HISTORY`;
-    d6.appendChild(p);
-    if (data.length != 0) {
-       const ol = document.createElement('ol');
-       d6.innerHTML += `Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                        ICAO: <strong>${data[0].icaoId}</strong> <br>`;
-       if (type == 'metar') {
+    var d6 = $('.d6');
+    d6.html(`<p>${type.toUpperCase()} HISTORY</p>`);
+    if(data.length) {
+       const ol = $('<ol></ol>');
+       d6.append(`Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+                        ICAO: <strong>${data[0].icaoId}</strong> <br>`);
+       if(type == 'metar') {
           for(i = 0; i < data.length; i++) {
-              const li = document.createElement('li');
-              li.innerHTML = getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`;
-              ol.appendChild(li);
+              var li = $('<li></li>');
+              li.html(getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`);
+              ol.append(li);
           }
        } else {
           for(i = 0; i < data.length; i++) {
-              const li = document.createElement('li');
-              li.innerHTML = getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`;
-              ol.appendChild(li);
+              var li = $('<li></li>');
+              li.html(getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`);
+              ol.append(li);
           }
        }
-       d6.appendChild(ol);
+       d6.append(ol);
     } else
-       d6.innerHTML += `No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`;
-    d6.innerHTML += '<hr>';
+       d6.append(`No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`);
+    d6.append('<hr>');
 }
 
 function info() {
