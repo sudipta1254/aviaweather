@@ -570,34 +570,34 @@ function info() {
        window.open(reL);
 }
 async function search(data, flag) {
-   var d6 = document.querySelector('.d6');
-   d6.innerHTML = '<p><em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em></p>';
+   var d6 = $('.d6');
+   d6.html('<p><em>Loading... <i class="fa-solid-spir fa-spin-pulse"></i></em></p>');
    
    var stn = data[0];
-   d6.innerHTML = '<p>Station Info</p>';
-   d6.innerHTML += `Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                     Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
+   d6.html('<p>Station Info</p>');
+   d6.append(`Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+      Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
                      IATA: ${stn.iata} <br>
                      ICAO: ${stn.icao} <br>
-                     Reporting: ${stn.reporting?'Yes':'No'} <br>`;
-   for(j = 0; j < stn.runways.length; j++) {
-         var rny = stn.runways[j];
-         var span = document.createElement('span');
-         var ul = document.createElement('ul');
-         span.innerHTML = 'Runway '+(j+1)+':-';
-         ul.innerHTML = `<li>Surface: ${rny.surface}</li>
+                     Reporting: ${stn.reporting?'Yes':'No'} <br>`);
+      for(j = 0; j < stn.runways.length; j++) {
+         var rny = stn.runways[j],
+         span = $('<span></span>'),
+         ul = $('<ul></ul>');
+         span.text('Runway '+(j+1)+':-');
+         ul.html(`<li>Surface: ${rny.surface}</li>
                         <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
                         <li>Length: ${rny.length_ft} ft</li>
                         <li>Width: ${rny.width_ft} ft</li>
-                        <li>Lights: ${rny.lights} </li>`;
-         span.appendChild(ul);
-         d6.appendChild(span);
-   }
-   if(stn.website)
-      d6.innerHTML += `Website: <a href='${stn.website}'>Visit</a>`
-   else if(stn.website)
-      d6.innerHTML += `Website: <a href='${stn.wiki}'>Visit</a>`;
-   d6.innerHTML += '<hr>';
+                        <li>Lights: ${rny.lights} </li>`);
+         span.append(ul);
+         d6.append(span);
+      }
+      if(stn.website)
+         d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
+      else if(stn.wiki)
+         d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
+      d6.append('<hr>');
 }
 function time(t) {
    var tm;
