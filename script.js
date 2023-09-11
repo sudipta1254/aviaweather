@@ -55,7 +55,6 @@ function awcMain(data) {
       var ind = data.rawOb.indexOf('V', 4),
       d1 = +data.rawOb.substr(ind-3, 3),
       d2 = +data.rawOb.substr(ind+1, 3);
-      alert(d1+' '+d2)
       if(d1 && d2)
          b.eq(6).append(`<i class="fa-solid fa-location-arrow arrow"></i>`);
       arrow(d1, d2);
@@ -71,7 +70,7 @@ function awcMain(data) {
    b.eq(11).text(data.rawOb);
    b.eq(10).text('');
    if(!data.clouds[0].base)
-      b(10).text('Clear skies');
+      b.eq(10).text('Clear skies');
    else {
       var ul = $('<ul></ul>');
       for(i = 0; i < data.clouds.length; i++) {
