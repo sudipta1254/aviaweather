@@ -379,9 +379,9 @@ async function avwxMain(id, type, airp, flag) {
             data.raw = data.raw.replaceAll('BECMG','<br>BECMG');
          if(data.raw.includes('FM'))
             data.raw = data.raw.replaceAll('FM','<br>FM');
-      } d7.innerHTML += 'Raw: <b>'+data.raw+'</b>';
+      } d7.append('Raw: <b>'+data.raw+'</b>');
    }
-   d7.innerHTML += '<hr>';
+   d7.append('<hr>');
 }
 
 
