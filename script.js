@@ -108,7 +108,7 @@ async function get() {
     flag = data[0].country.toLowerCase();
     airp = `${data[0].name}, ${data[0].city}, ${data[0].state}, ${data[0].country}`;
     if(data[0].name != qry)
-       iframe.src = `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=13&ie=UTF8&iwloc=B&output=embed`;
+       iframe.attr('src', `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=13&ie=UTF8&iwloc=B&output=embed`);
     qry = data[0].name;
         
     /*var hrs = +inpVal.substring(4, inpVal.length);
