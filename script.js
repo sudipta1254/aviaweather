@@ -47,9 +47,18 @@ function awcMain(data) {
    b.eq(4).text(T+'°C');
    b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
    b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
-   if(data.wspd)
-      b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
-   if(data.wgst)
+   if(data.rawOb.charAt(24) != 'V') {
+      if(data.wspd)
+         b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
+   } else {
+      var ind = data.rawOb.indexOf('V', 4),
+      d1 = +data.rawOb.substr(ind-3, 3),
+      d2 = +data.rawOb.substr(ind+1, 3);
+      alert(d1+' '+d2)
+      if(d1 && d2)
+         b.eq(6).append(`<i class="fa-solid fa-location-arrow arrow"></i>`);
+      arrow(d1, d2);
+   } if(data.wgst)
       b.eq(6).append(`<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`);
    da = ''+data.visib;
    if(da.charAt(da.length-1) == '+')
@@ -61,15 +70,15 @@ function awcMain(data) {
    b.eq(11).text(data.rawOb);
    b.eq(10).text('');
    if(!data.clouds[0].base)
-      b(10).text = 'Clear skies';
+      b(10).text('Clear skies');
    else {
-      ul = document.createElement('ul');
+      var ul = $('<ul></ul>');
       for(i = 0; i < data.clouds.length; i++) {
-         li = document.createElement('li');
-         li.innerHTML = data.clouds[i].cover+' at '+data.clouds[i].base+' ft AGL';
+         var li = $('<li></li>');
+         li.text(data.clouds[i].cover+' at '+data.clouds[i].base+' ft AGL');
          ul.append(li);
       }
-      b[10].append(ul);
+      b.eq(10).append(ul);
    }
 }
 async function get() {
