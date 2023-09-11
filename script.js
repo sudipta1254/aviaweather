@@ -389,15 +389,15 @@ async function avwxMain(id, type, airp, flag) {
 
 function awcTafMain(data, comp) {
     var frst = data.fcsts;
-    p[3].innerHTML = comp;
-    strongs[26].innerHTML = type.toUpperCase();
-    if (data.remarks)
-        strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
-    strongs[29].innerHTML = data.icaoId;
-    strongs[30].innerHTML = getIST(data.issueTime)+' '+time(data.issueTime);
-    strongs[31].innerHTML = `${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`
-    strongs[32].innerHTML = '';
+    p.eq(3).text(comp);
+    b.eq(26).text(type.toUpperCase());
+    if(data.remarks)
+        b.eq(27]).text(data.remarks);
+    b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
+    b.eq(29).text(data.icaoId);
+    b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
+    b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)})`;
+    b.eq(32).text('');
     for(i = 0; i < frst.length; i++) {
       var span = $('<span></span>'),
       span2 = $('<span></span>');
@@ -457,15 +457,15 @@ function awcTafMain(data, comp) {
 }
 function cwxTafMain(data, flag, comp) {
     var frst = data.forecast;
-    p[3].innerHTML = comp;
-    strongs[26].innerHTML = type.toUpperCase();
+    p.eq(3).text(comp);
+    b.eq(26).text(type.toUpperCase());
     if (data.remarks)
-        strongs[27].innerHTML = data.remarks;
-    strongs[28].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
-    strongs[29].innerHTML = data.icao;
-    strongs[30].innerHTML = getIST(data.timestamp.issued)+' '+time(data.timestamp.issued);
-    strongs[31].innerHTML = getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to);
-    strongs[32].innerHTML = '';
+        b.eq(27).text(data.remarks);
+    b.eq(27).html(data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
+    b.eq(29).text(data.icao);
+    b.eq(30).text(getIST(data.timestamp.issued)+' '+time(data.timestamp.issued));
+    b.eq(31).text(getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to));
+    b.eq(32).text('');
     for(i = 0; i < frst.length; i++) {
         var span = $('<span></span>'),
         span2 = $('<span></span>');
