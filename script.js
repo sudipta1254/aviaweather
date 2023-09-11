@@ -238,8 +238,8 @@ function cxwMain(data, flag) {
    }
    let flc = data.flight_category;
    b[25].innerHTML = flc;
-   $('#fl').style.background =
-    flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
+   $('#fl').css('background',
+    flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red');
 }
 
 async function avwxMain(id, type, airp, flag) {
