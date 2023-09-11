@@ -212,12 +212,11 @@ function cxwMain(data, flag) {
    b[16].innerHTML = data.temperature.celsius+'°C';
    b[17].innerHTML = data.dewpoint.celsius+'°C';
    b[18].innerHTML = data.humidity.percent+'%';
-   if(data.wind){
+   if(data.wind) {
       b[19].innerHTML = data.wind.speed_kts+` Knot(s) (${data.wind.speed_kph} KM/H - ${data.wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${data.wind.degrees+135}deg'></i>`;
       if(data.wind.gust_kph)
       b[19].innerHTML += `<br>Gust: ${data.wind.gust_kph} KM/H`;
-   }
-   else
+   } else
       b[19].innerHTML = '0 Knot';
    if(data.visibility)
       b[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
@@ -276,7 +275,7 @@ async function avwxMain(id, type, airp, flag) {
          else
             d7.append(`<i class="fa-solid fa-wind"></i> <br>`);
       if(data.wind_gust)
-         d7.innerHTML += `Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`;
+         d7.append(`Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`);
       if(data.visibility)
          if(data.units.visibility == 'm')
             d7.append(`Visibility: <b>${(data.visibility.value/1000).toFixed(0)} Km</b> <br>`);
