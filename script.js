@@ -246,128 +246,126 @@ async function avwxMain(id, type, airp, flag) {
     if(data.meta.warning)
       alert(data.meta.warning);
     var d7 = divs[9], flc = data.flight_rules;
-   d7.innerHTML = `<p>AVWX</p>
-                    Type: <b>${type.toUpperCase()}</b> <br>`;
+    d7.html(`<p>AVWX</p>
+            Type: <b>${type.toUpperCase()}</b> <br>`);
    if(data.remarks)
-      d7.innerHTML += `Remark: <b>${data.remarks}</b> <br>`;
-   d7.innerHTML += `Airport: <b>${airp}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                    ICAO Code: <b>${data.station}</b> <br>`;
+      d7.append(`Remark: <b>${data.remarks}</b> <br>`);
+   d7.append(`Airport: <b>${airp}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+                    ICAO Code: <b>${data.station}</b> <br>`);
    if(type == 'metar') {
-      
-      d7.innerHTML += `Reported: <b>${getIST(data.time.dt)} ${time(data.time.dt)}</b> <br>
-                           Temperature: <b>${data.temperature.value}°C</b> <br>
-                           Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
-                           Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
-                           Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b>`;
+      d7.append(`Reported: <b>${getIST(data.time.dt)} ${time(data.time.dt)}</b> <br>
+                 Temperature: <b>${data.temperature.value}°C</b> <br>
+                 Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
+                 Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
+                 Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b>`);
       if(data.wind_variable_direction.length) {
-         d7.innerHTML += `<i class="fa-solid fa-location-arrow arrow"></i> <br>`;
+         d7.append(`<i class="fa-solid fa-location-arrow arrow"></i> <br>`);
          arrow(data.wind_variable_direction[0].value, data.wind_variable_direction[1].value);
       } else
          if(data.wind_direction.value)
-            d7.innerHTML += `<i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`;
+            d7.append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wind_direction.value+135}deg'></i> <br>`);
          else
-            d7.innerHTML += `<i class="fa-solid fa-wind"></i> <br>`;
+            d7.append(`<i class="fa-solid fa-wind"></i> <br>`);
       if(data.wind_gust)
          d7.innerHTML += `Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`;
       if(data.visibility)
          if(data.units.visibility == 'm')
-            d7.innerHTML += `Visibility: <b>${(data.visibility.value/1000).toFixed(0)} Km</b> <br>`;
+            d7.append(`Visibility: <b>${(data.visibility.value/1000).toFixed(0)} Km</b> <br>`);
          else
-            d7.innerHTML += `Visibility: <b>${(data.visibility.value*1.609).toFixed(0)} Km</b> <br>`;
+            d7.append(`Visibility: <b>${(data.visibility.value*1.609).toFixed(0)} Km</b> <br>`);
       if(data.units.altimeter == 'hPa')
-         d7.innerHTML += `Pressure: <b>${data.altimeter.value} hPa</b> <br>`;
+         d7.append(`Pressure: <b>${data.altimeter.value} hPa</b> <br>`);
       else
-         d7.innerHTML += `Pressure: <b>${data.altimeter.value} mmHg</b> <br>`;
+         d7.append(`Pressure: <b>${data.altimeter.value} mmHg</b> <br>`);
       if(data.wx_codes.length) {
-         d7.innerHTML += `Condition: `;
-            for(i = 0; i < data.wx_codes.length; i++)
-               if(i == data.wx_codes.length-1)
-                  d7.innerHTML += '<b>'+data.wx_codes[i].value+'</b> <br>';
-               else
-                  d7.innerHTML += '<b>'+data.wx_codes[i].value+'</b>, ';
-      } d7.innerHTML += `Clouds: `;
+         d7.append(`Condition: `);
+         for(i = 0; i < data.wx_codes.length; i++)
+            if(i == data.wx_codes.length-1)
+                d7.append('<b>'+data.wx_codes[i].value+'</b> <br>');
+            else
+                d7.append('<b>'+data.wx_codes[i].value+'</b>, ');
+      } d7.append(`Clouds: `);
       if(!data.clouds.length)
-         d7.innerHTML += ' <b>Clear skies</b> <br>';
+         d7.append(' <b>Clear skies</b> <br>');
       else {
-         ul = document.createElement('ul');
+         var ul = $('<ul></ul>');
          for(i = 0; i < data.clouds.length; i++) {
-            li = document.createElement('li');
-            li.innerHTML = '<b>'+data.clouds[i].type+' at '+data.clouds[i].altitude*100+' ft AGL</b>';
+            var li = $('<li></li>');
+            li.html('<b>'+data.clouds[i].type+' at '+data.clouds[i].altitude*100+' ft AGL</b>');
             if(data.clouds[i].modifier)
-               li.innerHTML += ` <b>(${data.clouds[i].modifier})</b>`;
-            ul.appendChild(li);
+               li.append(` <b>(${data.clouds[i].modifier})</b>`);
+            ul.append(li);
          }
-         d7.appendChild(ul);
+         d7.append(ul);
       }
-      d7.innerHTML += `Raw: <b>${data.raw}</b> <br>
-                       Category: <b>${flc}</b>`;
-      var fl = document.createElement('div');
-      fl.id = 'fl';
-      fl.style.background =
-          flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red';
-      d7.appendChild(fl);
+      d7.append(`Raw: <b>${data.raw}</b> <br>
+                 Category: <b>${flc}</b>`);
+      var fl = $('<div></div>');
+      fl.attr('id', 'fl');
+      fl.css('background',
+          flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red');
+      d7.append(fl);
    } else {
       var frst = data.forecast;
-      d7.innerHTML += `Issued: <b>${getIST(data.time.dt)} ${time(data.time.dt)} <br>
-                      Span: ${getIST(data.start_time.dt)} until ${getIST(data.end_time.dt)}</b> <br>`;
+      d7.append(`Issued: <b>${getIST(data.time.dt)} ${time(data.time.dt)} <br>
+                 Span: ${getIST(data.start_time.dt)} until ${getIST(data.end_time.dt)}</b> <br>`);
       for(i = 0; i < frst.length; i++) {
-         span = document.createElement('span');
-         span2 = document.createElement('span');
+         var span = $('<span></span>'),
+         span2 = $('<span></span>');
          if(frst[i].type) {
-            span.innerHTML = `<b>${frst[i].type} from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b>`;
+            span.html(`<b>${frst[i].type} from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b>`);
             if (frst[i].probability)
-               span.innerHTML +=`<b> (${frst[i].probability}% likely)</b> <br>`;
+               span.append(`<b> (${frst[i].probability}% likely)</b> <br>`);
          } else
-            span.innerHTML = `<b>Forecast from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b> <br>`;
-         if (frst[i].wind_speed) {
-            li = document.createElement('li');
-            li.innerHTML = `Wind: <b>${frst[i].wind_speed.value} Knot(s) (${(frst[i].wind_speed.value*1.85).toFixed(1)} KM/H - ${frst[i].wind_direction.value}°)</b> <br>`;
-            span2.appendChild(li);
-         } if (frst[i].wind_gust) {
-            li = document.createElement('li');
-            li.innerHTML = `Gust: <b>${frst[i].wind_gust.value} Knots</b> <br>`;
-            span2.appendChild(li);
-         } if (frst[i].wx_codes.length) {
-            li = document.createElement('li');
-            li.innerHTML = `Weather: `;
+            span.html(`<b>Forecast from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b> <br>`);
+         if(frst[i].wind_speed) {
+            var li = $('<li></li>');
+            li.html(`Wind: <b>${frst[i].wind_speed.value} Knot(s) (${(frst[i].wind_speed.value*1.85).toFixed(1)} KM/H - ${frst[i].wind_direction.value}°)</b> <br>`);
+            span2.append(li);
+         } if(frst[i].wind_gust) {
+            var li = $('<li></li>');
+            li.html(`Gust: <b>${frst[i].wind_gust.value} Knot</b> <br>`);
+            span2.append(li);
+         } if(frst[i].wx_codes.length) {
+            var li = $('<li></li>');
+            li.text(`Weather: `);
             for(j = 0; j < frst[i].wx_codes.length; j++) {
               if(frst[i].wx_codes[j].value.includes('<BR>'))
-                 frst[i].wx_codes[j].value.replace('<BR>', ' ');
+                 frst[i].wx_codes[j].value = frst[i].wx_codes[j].value.replace('<BR>', ' ');
                if(j == frst[i].wx_codes.length-1)
-                  li.innerHTML += '<b>'+frst[i].wx_codes[j].value+'</b><br>';
+                  li.append('<b>'+frst[i].wx_codes[j].value+'</b><br>');
                else
-                  li.innerHTML += '<b>'+frst[i].wx_codes[j].value+'</b>, ';
-            } span2.appendChild(li);
+                  li.append('<b>'+frst[i].wx_codes[j].value+'</b>, ');
+            } span2.append(li);
          } if (frst[i].visibility) {
-            li = document.createElement('li')
+            var li = $('<li></li>')
             if(frst[i].visibility.value)
                if(data.units.visibility == 'sm')
-                  li.innerHTML = `Visibility: <b>${frst[i].visibility.value} mile(s) (${(frst[i].visibility.value*1.609).toFixed(1)} Km)</b> <br>`;
+                  li.html(`Visibility: <b>${frst[i].visibility.value} mile(s) (${(frst[i].visibility.value*1.609).toFixed(1)} Km)</b> <br>`);
                else
-                  li.innerHTML = `Visibility: <b>${(frst[i].visibility.value/1000).toFixed(1)} Km</b> <br>`;
+                  li.html(`Visibility: <b>${(frst[i].visibility.value/1000).toFixed(1)} Km</b> <br>`);
             else
-               li.innerHTML = `Visibility: <b>6+ miles (10+ Km)</b> <br>`;
-            span2.appendChild(li);
+               li.html(`Visibility: <b>6+ miles (10+ Km)</b> <br>`);
+            span2.append(li);
          } if(frst[i].clouds.length) {
-            li = document.createElement('li');
-            li.innerHTML = 'Clouds: ';
-            span2.appendChild(li);
+            var li = $('<li></li>');
+            li.text('Clouds: ');
+            span2.append(li);
          } if (frst[i].clouds.length) {
             var clouds = frst[i].clouds;
-            ul = document.createElement('ul');
+            var ul = $('<ul></ul>');
             for(j = 0; j < clouds.length; j++) {
-               li = document.createElement('li');
-               li.innerHTML = `<b>${clouds[j].type} at ${clouds[j].altitude*100} ft AGL</b>`;
+               var li = $('<li></li>');
+               li.html(`<b>${clouds[j].type} at ${clouds[j].altitude*100} ft AGL</b>`);
                if (clouds[j].modifier && clouds[j].modifier != '<BR>')
-                  li.innerHTML = `<b>${clouds[j].type} at ${clouds[j].altitude*100} ft (${clouds[j].modifier}) AGL</b>`;
-               ul.appendChild(li);
+                  li.html(`<b>${clouds[j].type} at ${clouds[j].altitude*100} ft (${clouds[j].modifier}) AGL</b>`);
+               ul.append(li);
             }
-            span2.appendChild(ul);
+            span2.append(ul);
          }
-         d7.appendChild(span);
-         d7.appendChild(span2);
-      }
-      if(!data.raw.includes('<br>')) {
+         d7.append(span);
+         d7.append(span2);
+      } if(!data.raw.includes('<br>')) {
          if(data.raw.includes('TEMPO'))
             data.raw = data.raw.replaceAll('TEMPO','<br>TEMPO');
          if(data.raw.includes('BECMG'))
