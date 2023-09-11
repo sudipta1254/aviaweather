@@ -391,7 +391,7 @@ function awcTafMain(data, comp) {
     p.eq(3).text(comp);
     b.eq(26).text(type.toUpperCase());
     if(data.remarks)
-        b.eq(27]).text(data.remarks);
+        b.eq(27).text(data.remarks);
     b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
     b.eq(29).text(data.icaoId);
     b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
