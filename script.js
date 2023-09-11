@@ -1,4 +1,3 @@
-try {
 var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
 
 function awc() {
@@ -633,4 +632,4 @@ var ob = (e) => {
    e.style.accentColor = clrs;
 }
 ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]); ob(value[5]); ob(value[6]);
-    }catch(e){alert(e)}
+
