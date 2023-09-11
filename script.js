@@ -394,7 +394,7 @@ function awcTafMain(data, comp) {
     b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
     b.eq(29).text(data.icaoId);
     b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
-    b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)})`;
+    b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`);
     b.eq(32).text('');
     for(i = 0; i < frst.length; i++) {
       var span = $('<span></span>'),
