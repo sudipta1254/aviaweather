@@ -252,7 +252,7 @@ async function avwxMain(id, type, airp, flag) {
     
     if(data.meta.warning)
       alert(data.meta.warning);
-    var d7 = divs[9], flc = data.flight_rules;
+    var d7 = divs.eq(9), flc = data.flight_rules;
     d7.html(`<p>AVWX</p>
             Type: <b>${type.toUpperCase()}</b> <br>`);
    if(data.remarks)
@@ -451,7 +451,7 @@ function awcTafMain(data, comp) {
         data.rawTAF = data.rawTAF.replaceAll('BECMG','<br>BECMG');
     if(data.rawTAF.includes('FM'))
         data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
-    strongs[33].innerHTML = data.rawTAF;
+    b.eq(33).text(data.rawTAF);
 }
 function cwxTafMain(data, flag, comp) {
     var frst = data.forecast;
@@ -513,7 +513,7 @@ function cwxTafMain(data, flag, comp) {
         data.raw_text = data.raw_text.replaceAll('BECMG','<br>BECMG');
     if(data.raw_text.includes('FM'))
         data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
-    strongs[33].innerHTML = data.raw_text;
+    b[33].innerHTML = data.raw_text;
 }
 
 function getIST(date) {
