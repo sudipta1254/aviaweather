@@ -451,7 +451,7 @@ function awcTafMain(data, comp) {
         data.rawTAF = data.rawTAF.replaceAll('BECMG','<br>BECMG');
     if(data.rawTAF.includes('FM'))
         data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
-    b.eq(33).text(data.rawTAF);
+    b.eq(33).html(data.rawTAF);
 }
 function cwxTafMain(data, flag, comp) {
     var frst = data.forecast;
