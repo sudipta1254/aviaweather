@@ -47,7 +47,7 @@ function awcMain(data) {
    b.eq(4).text(T+'°C');
    b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
    b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
-   if(data.rawOb.charAt(24) != 'V') {
+   if(data.rawOb.charAt(24) != 'V' || data.rawOb.charAt(25) != 'V') {
       if(data.wspd)
          b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
    } else {
@@ -264,7 +264,7 @@ async function avwxMain(id, type, airp, flag) {
                  Temperature: <b>${data.temperature.value}°C</b> <br>
                  Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
                  Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
-                 Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b>`);
+                 Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b> `);
       if(data.wind_variable_direction.length) {
          d7.append(`<i class="fa-solid fa-location-arrow arrow"></i> <br>`);
          arrow(data.wind_variable_direction[0].value, data.wind_variable_direction[1].value);
