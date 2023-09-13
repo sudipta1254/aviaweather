@@ -264,7 +264,7 @@ async function avwxMain(id, type, airp, flag) {
                  Temperature: <b>${data.temperature.value}°C</b> <br>
                  Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
                  Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
-                 Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${+data.wind_direction.repr}°)</b> `);
+                 Wind: <b>${data.wind_speed.value} Knot(s) (${(data.wind_speed.value*1.85).toFixed(0)} KM/H - ${data.wind_direction.repr}°)</b> `);
       if(data.wind_variable_direction.length) {
          d7.append(`<i class="fa-solid fa-location-arrow arrow"></i> <br>`);
          arrow(data.wind_variable_direction[0].value, data.wind_variable_direction[1].value);
