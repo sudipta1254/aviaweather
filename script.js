@@ -48,15 +48,15 @@ function awcMain(data) {
    b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
    b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
    if(data.rawOb.charAt(24) != 'V' || data.rawOb.charAt(25) != 'V') {
-      if(data.wspd)
-         b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
-   } else {
       var ind = data.rawOb.indexOf('V', 4),
       d1 = +data.rawOb.substr(ind-3, 3),
       d2 = +data.rawOb.substr(ind+1, 3);
       if(d1 && d2)
          b.eq(6).append(`<i class="fa-solid fa-location-arrow arrow"></i>`);
       arrow(d1, d2);
+   } else {
+      if(data.wspd)
+         b.eq(6).append(`<i class="fa-solid fa-location-arrow" style='rotate:${data.wdir+135}deg'></i>`);
    } if(data.wgst)
       b.eq(6).append(`<br> Gust: ${(data.wgst*1.85).toFixed(1)} KM/H`);
    da = ''+data.visib;
