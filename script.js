@@ -47,7 +47,7 @@ function awcMain(data) {
    b.eq(4).text(T+'°C');
    b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
    b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
-   if(data.rawOb.charAt(24) != 'V' || data.rawOb.charAt(25) != 'V') {
+   if(data.rawOb.charAt(24) == 'V' || data.rawOb.charAt(25) == 'V') {
       var ind = data.rawOb.indexOf('V', 4),
       d1 = +data.rawOb.substr(ind-3, 3),
       d2 = +data.rawOb.substr(ind+1, 3);
@@ -517,11 +517,11 @@ function cwxTafMain(data, flag, comp) {
 
 function getIST(date) {
     if(typeof date == 'string') {
-        if(date.charAt(date.length-1) == 'Z')
-           return new Date(new Date(date).getTime()).toLocaleString();
-        return new Date(new Date(date+"Z").getTime()).toLocaleString();
+        if(date.includes('Z'))
+           return new Date(new Date(date).getTime()).toLocaleString().replace(':00', '');
+        return new Date(new Date(date+"Z").getTime()).toLocaleString().replace(':00', '');
     } else
-        return new Date(date*1000).toLocaleString();
+        return new Date(date*1000).toLocaleString().replace(':00', '');
 }
 
 
