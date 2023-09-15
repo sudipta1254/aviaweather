@@ -136,6 +136,10 @@ footer {
   opacity: 1;
 }
 
+.line {
+   display: flex;
+   height: 40px;
+}
 .line-wobble {
   --uib-size: 80px;
   --uib-speed: 1.75s;
