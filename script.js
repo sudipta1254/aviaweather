@@ -87,7 +87,6 @@ async function get() {
         alert('Please enter Id!');
         return;
     }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -101,8 +100,14 @@ async function get() {
     
     const url = `https://avwx.rest/api/search/station?text=${inpVal}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
     const res = await fetch(url);
-    if(!res.ok)
-       alert('Search error: '+res.status+' '+res.type);
+    if(!res.ok) {
+       if(res.status == 400)
+           alert('Error: 400 - Location not found!');
+       else
+           alert('Search error: '+res.status+' '+res.type);
+       return;
+    }
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     const data = await res.json();
     id = data[0].icao;
     flag = data[0].country.toLowerCase();
