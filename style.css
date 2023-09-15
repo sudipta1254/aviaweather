@@ -138,7 +138,7 @@ footer {
 
 .line {
    display: flex;
-   height: 41px;
+   height: 44px;
 }
 .line-wobble {
   --uib-size: 80px;
