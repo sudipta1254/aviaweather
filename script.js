@@ -1,7 +1,7 @@
 var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
 
 function awc() {
-    p[1].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[1].innerHTML = p[3].innerHTML = '<div class="line-wobble"></div>';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
@@ -87,7 +87,7 @@ async function get() {
         alert('Please enter Id!');
         return;
     }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<div class="line-wobble"></div>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -173,7 +173,7 @@ $('input').on("keypress", function(event) {
 });
 
 function cwx(id, type, flag) {
-    p[2].innerHTML = p[3].innerHTML = '<em>Loading... <i class="fa-solid fa-spinner fa-spin-pulse"></i></em>';
+    p[2].innerHTML = p[3].innerHTML = '<div class="line-wobble"></div>';
     const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
     
     fetch(url)
@@ -572,25 +572,25 @@ function info() {
 }
 async function search(data, flag) {
    var d6 = $('.d6');
-   d6.html('<p><em>Loading... <i class="fa-solid-spir fa-spin-pulse"></i></em></p>');
+   d6.html('<div class="line-wobble"></div>');
    
    var stn = data[0];
    d6.html('<p>Station Info</p>');
    d6.append(`Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
       Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
-                     IATA: ${stn.iata} <br>
-                     ICAO: ${stn.icao} <br>
-                     Reporting: ${stn.reporting?'Yes':'No'} <br>`);
+      IATA: ${stn.iata} <br>
+      ICAO: ${stn.icao} <br>
+      Reporting: ${stn.reporting?'Yes':'No'} <br>`);
       for(j = 0; j < stn.runways.length; j++) {
          var rny = stn.runways[j],
          span = $('<span></span>'),
          ul = $('<ul></ul>');
          span.text('Runway '+(j+1)+':-');
          ul.html(`<li>Surface: ${rny.surface}</li>
-                        <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
-                        <li>Length: ${rny.length_ft} ft</li>
-                        <li>Width: ${rny.width_ft} ft</li>
-                        <li>Lights: ${rny.lights} </li>`);
+                  <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
+                  <li>Length: ${rny.length_ft} ft</li>
+                  <li>Width: ${rny.width_ft} ft</li>
+                  <li>Lights: ${rny.lights} </li>`);
          span.append(ul);
          d6.append(span);
       }
@@ -616,7 +616,7 @@ function getHeaders(response) {
    response.headers.forEach((value, name) => {
       headers[name] = value;
    });
-   // console.log(headers);
+   //console.log(headers);
 }
 
 function arrow(strt, end) {
