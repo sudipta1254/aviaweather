@@ -87,6 +87,7 @@ async function get() {
         alert('Please enter Id!');
         return;
     }
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -107,7 +108,6 @@ async function get() {
            alert('Search error: '+res.status+' '+res.type);
        return;
     }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     const data = await res.json();
     id = data[0].icao;
     flag = data[0].country.toLowerCase();
