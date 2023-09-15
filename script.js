@@ -1,7 +1,7 @@
 var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
 
 function awc() {
-    p[1].innerHTML = p[3].innerHTML = '<div class="line-wobble"></div>';
+    p[1].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
     const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
@@ -87,7 +87,7 @@ async function get() {
         alert('Please enter Id!');
         return;
     }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<div class="line-wobble"></div>';
+    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[8].innerHTML = divs[9].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
     a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
     a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -173,7 +173,7 @@ $('input').on("keypress", function(event) {
 });
 
 function cwx(id, type, flag) {
-    p[2].innerHTML = p[3].innerHTML = '<div class="line-wobble"></div>';
+    p[2].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
     
     fetch(url)
@@ -572,7 +572,7 @@ function info() {
 }
 async function search(data, flag) {
    var d6 = $('.d6');
-   d6.html('<div class="line-wobble"></div>');
+   d6.html('<div class="line"><div class="line-wobble"></div></div>');
    
    var stn = data[0];
    d6.html('<p>Station Info</p>');
@@ -621,8 +621,8 @@ function getHeaders(response) {
 
 function arrow(strt, end) {
    var i = $('.arrow');
-   i.css('--start', (strt+135)+'deg');
-   i.css('--end', (end+135)+'deg');
+   i.css({'--start': (strt+135)+'deg',
+         '--end': (end+135)+'deg'});
 }
 
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
