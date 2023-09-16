@@ -282,9 +282,9 @@ async function avwxMain(id, type, airp, flag) {
          d7.append(`Gust: <b>${data.wind_gust.value} Knot(s)</b> <br>`);
       if(data.visibility)
          if(data.units.visibility == 'm')
-            d7.append(`Visibility: <b>${(data.visibility.value/1000).toFixed(0)} Km</b> <br>`);
+            d7.append(`Visibility: <b>${(data.visibility.value/1000).toFixed(1)} Km</b> <br>`);
          else
-            d7.append(`Visibility: <b>${(data.visibility.value*1.609).toFixed(0)} Km</b> <br>`);
+            d7.append(`Visibility: <b>${(data.visibility.value*1.609).toFixed(1)} Km</b> <br>`);
       if(data.units.altimeter == 'hPa')
          d7.append(`Pressure: <b>${data.altimeter.value} hPa</b> <br>`);
       else
