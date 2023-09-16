@@ -639,5 +639,5 @@ const clrs = colors[Math.floor(Math.random() * colors.length)];
 var ob = (e) => {
    e.style.accentColor = clrs;
 }
-ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]); ob(value[5]); ob(value[6]);
+ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]); ob(value[5]); ob(value[6]); ob(value[7]);
 
