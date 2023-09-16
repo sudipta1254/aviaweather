@@ -18,6 +18,14 @@ body {
 .d4, .d5, .d6, .d7 {
     display: none;
 }
+.d8 {
+   width: 400px;
+   margin: 30px auto 0;
+}
+.d8 label, .d8 input {
+   display: flex;
+   margin:0 5px;
+}
 .header {
     display: flex;
     margin: 18px 0 10px;
