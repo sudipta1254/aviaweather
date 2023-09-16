@@ -68,7 +68,7 @@ ul {
     margin: 0;
 }
 iframe {
-   display: flex;
+   display: none; /*flex*/
    justify-content: center;
    margin: 10px auto 0;
 }
