@@ -630,6 +630,10 @@ function arrow(strt, end) {
          '--end': (end+135)+'deg'});
 }
 
+$('#map').change(function() {
+   $('iframe').toggle();
+})
+
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
 const clrs = colors[Math.floor(Math.random() * colors.length)];
 var ob = (e) => {
