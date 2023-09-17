@@ -327,7 +327,7 @@ async function avwxMain(id, type, airp, flag) {
          if(frst[i].type) {
             span.html(`<b>${frst[i].type} from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b>`);
             if (frst[i].probability)
-               span.append(`<b> (${frst[i].probability}% likely)</b> <br>`);
+               span.append(`<b> (${frst[i].probability.repr}% likely)</b> <br>`);
          } else
             span.html(`<b>Forecast from ${getIST(frst[i].start_time.dt)} to ${getIST(frst[i].end_time.dt)}</b> <br>`);
          if(frst[i].wind_speed) {
@@ -483,8 +483,13 @@ function cwxTafMain(data, flag, comp) {
             span2.append(li);
         } if (frst[i].conditions) {
             var li = $('<li></li>');
-            li.html(`Weather: ${frst[i].conditions[0].text} <br>`);
-            span2.append(li);
+            li.html(`Weather: `);
+            for(j = 0; j < frst[i].conditions.length; j++) {
+               if(j == frst[i].conditions.length-1)
+                  li.append('<b>'+frst[i].conditions[j].text+'</b><br>');
+               else
+                  li.append('<b>'+frst[i].conditions[j].text+'</b>, ');
+            } span2.append(li);
         } if (frst[i].visibility) {
             var li = $('<li></li>');
             li.text(`Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`);
