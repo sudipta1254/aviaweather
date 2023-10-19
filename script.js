@@ -4,7 +4,7 @@ function awc() {
     p[1].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const proxyUrl2 = 'https://corsproxy.io/?';
-    const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&format=json`;
+    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&format=json`;
     const url = proxyUrl2 + apiUrl;
     
     fetch(url)
@@ -537,7 +537,7 @@ function getIST(date) {
 
 function metarH(id, type, hrs, flag) {
     const proxyUrl = 'https://corsproxy.io/?';
-    const apiUrl = `https://beta.aviationweather.gov/cgi-bin/data/${type}.php?ids=${id}&hours=${hrs}&format=json`;
+    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
     const url = proxyUrl + apiUrl;
 
     fetch(url)
