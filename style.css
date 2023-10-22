@@ -76,6 +76,8 @@ ul {
 }
 iframe {
    display: none; /*flex*/
+   width: 97%;
+   max-width: 1000px;
    justify-content: center;
    margin: 10px auto 0;
 }
