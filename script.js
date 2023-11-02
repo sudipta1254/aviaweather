@@ -586,28 +586,27 @@ async function search(data, flag) {
    
    var stn = data[0];
    d6.html('<p>Station Info</p>');
-   d6.append(`Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country} <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-      Coordinate: ${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} <br>
-      IATA: ${stn.iata} <br>
-      ICAO: ${stn.icao} <br>
-      Reporting: ${stn.reporting?'Yes':'No'} <br>`);
+   d6.append(`<b>Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+      Coordinate: <b>${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} </b><br>
+      IATA: <b>${stn.iata} </b><br>
+      ICAO: <b>${stn.icao} </b><br>
+      Reporting: <b>${stn.reporting?'Yes':'No'} </b><br>`);
       for(j = 0; j < stn.runways.length; j++) {
          var rny = stn.runways[j],
-         span = $('<span></span>'),
-         ul = $('<ul></ul>');
+         span = $('<span></span>'), ul = $('<ul></ul>');
          span.text('Runway '+(j+1)+':-');
-         ul.html(`<li>Surface: ${rny.surface}</li>
-                  <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
-                  <li>Length: ${rny.length_ft} ft / ${(rny.length_ft*0.3048).toFixed(0)} m</li>
-                  <li>Width: ${rny.width_ft} ft</li>
-                  <li>Lights: ${rny.lights} </li>`);
+         ul.html(`<b><li>Surface: ${rny.surface}</li></b>
+                  <b><li>Numbers: ${rny.ident1} & ${rny.ident2}</li></b>
+                  <b><li>Length: ${rny.length_ft} ft / ${(rny.length_ft*0.3048).toFixed(0)} m</li></b>
+                  <b><li>Width: ${rny.width_ft} ft</li></b>
+                  <b><li>Lights: ${rny.lights} </li></b>`);
          span.append(ul);
          d6.append(span);
       }
       if(stn.website)
-         d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
+         d6.append(`<b>Website: <a href='${stn.website}'>Visit</a></b>`);
       else if(stn.wiki)
-         d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
+         d6.append(`<b>Website: <a href='${stn.wiki}'>Visit</a></b>`);
       d6.append('<hr>');
 }
 function time(t) {
