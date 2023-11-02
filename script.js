@@ -586,7 +586,7 @@ async function search(data, flag) {
    
    var stn = data[0];
    d6.html('<p>Station Info</p>');
-   d6.append(`<b>Name: ${stn.name}, ${stn.city}, ${stn.state}, ${stn.country}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+   d6.append(`Name: <b>${stn.name}, ${stn.city}, ${stn.state}, ${stn.country}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
       Coordinate: <b>${stn.latitude.toFixed(2)}, ${stn.longitude.toFixed(2)} </b><br>
       IATA: <b>${stn.iata} </b><br>
       ICAO: <b>${stn.icao} </b><br>
@@ -604,9 +604,9 @@ async function search(data, flag) {
          d6.append(span);
       }
       if(stn.website)
-         d6.append(`<b>Website: <a href='${stn.website}'>Visit</a></b>`);
+         d6.append(`Website: <b><a href='${stn.website}'>Visit</a></b>`);
       else if(stn.wiki)
-         d6.append(`<b>Website: <a href='${stn.wiki}'>Visit</a></b>`);
+         d6.append(`Website: <b><a href='${stn.wiki}'>Visit</a></b>`);
       d6.append('<hr>');
 }
 function time(t) {
