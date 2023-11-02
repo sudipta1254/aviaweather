@@ -598,7 +598,7 @@ async function search(data, flag) {
          span.text('Runway '+(j+1)+':-');
          ul.html(`<li>Surface: ${rny.surface}</li>
                   <li>Numbers: ${rny.ident1} & ${rny.ident2}</li>
-                  <li>Length: ${rny.length_ft} ft</li>
+                  <li>Length: ${rny.length_ft} ft / ${(rny.length_ft*0.3048).toFixed(0)} m</li>
                   <li>Width: ${rny.width_ft} ft</li>
                   <li>Lights: ${rny.lights} </li>`);
          span.append(ul);
