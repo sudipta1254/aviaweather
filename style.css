@@ -2,7 +2,7 @@ body {
     color: #eff2f7;
     background: #212121;
     font-size: 20px; /*20*/
-    font-family: Celine;
+    font-family: Bosch;
     font-variant-ligatures: normal;
 }
 #d2 {
@@ -19,7 +19,7 @@ body {
     display: none;
 }
 .d8 {
-   width: 120px;
+   width: 135px;
    margin: 20px 0 0;
 }
 .d8 label, .d8 input {
@@ -209,6 +209,10 @@ footer {
 @font-face {
     font-family: 'Celine';
     src: url('Fonts/CelineSans.otf') format(opentype);
+}
+@font-face {
+    font-family: 'Bosch';
+    src: url('Fonts/New/Bosch.otf') format(opentype);
 }
 @font-face {
     font-family: 'Barracuda';
