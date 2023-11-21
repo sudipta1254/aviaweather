@@ -604,9 +604,9 @@ async function search(data, flag) {
          d6.append(span);
       }
       if(stn.website)
-         d6.append(`Website: <b><a href='${stn.website}'>Visit</a></b>`);
+         d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
       else if(stn.wiki)
-         d6.append(`Website: <b><a href='${stn.wiki}'>Visit</a></b>`);
+         d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
       d6.append('<hr>');
 }
 function time(t) {
