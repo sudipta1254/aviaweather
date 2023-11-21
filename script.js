@@ -635,7 +635,10 @@ function arrow(strt, end) {
 }
 
 $('#map').change(function() {
-   $('iframe').toggle();
+   if($(this).prop('checked'))
+      $('iframe').css('display', 'block');
+   else
+      $('iframe').css('display', 'none');
 })
 
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
