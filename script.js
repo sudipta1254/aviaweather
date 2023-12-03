@@ -604,9 +604,9 @@ async function search(data, flag) {
          d6.append(span);
       }
       if(stn.website)
-         d6.append(`Website: <b><a href='${stn.website}'>Visit</a></b>`);
+         d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
       else if(stn.wiki)
-         d6.append(`Website: <b><a href='${stn.wiki}'>Visit</a></b>`);
+         d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
       d6.append('<hr>');
 }
 function time(t) {
@@ -635,7 +635,10 @@ function arrow(strt, end) {
 }
 
 $('#map').change(function() {
-   $('iframe').toggle();
+   if($(this).prop('checked'))
+      $('iframe').css('display', 'block');
+   else
+      $('iframe').css('display', 'none');
 })
 
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
