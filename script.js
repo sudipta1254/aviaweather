@@ -255,8 +255,10 @@ async function avwxMain(id, type, airp, flag) {
     getHeaders(res);
     const data = await res.json();
     
-    if(data.meta.warning)
-      alert(data.meta.warning);
+    if(data.error) {
+      alert(data.error)
+   } if(data.meta.validation_error)
+      alert(data.meta.validation_error);
     var d7 = divs.eq(9), flc = data.flight_rules;
     d7.html(`<p>AVWX</p>
             Type: <b>${type.toUpperCase()}</b> <br>`);
