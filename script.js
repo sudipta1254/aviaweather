@@ -227,7 +227,8 @@ function cxwMain(data, flag) {
    if (data.barometer)
       b[21].innerHTML = data.barometer.hpa+' hPa';
    if(data.conditions)
-      b[22].innerHTML = data.conditions[0].text;
+      for(let i = 0; i < data.conditions.length; i++)
+         b[22].innerHTML += data.conditions[i].text+' | ';
    b[24].innerHTML = data.raw_text;
    b[23].innerHTML = '';
    if(!data.clouds[0].feet)
