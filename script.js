@@ -227,7 +227,8 @@ function cxwMain(data, flag) {
       b[20].innerHTML = data.visibility.miles+' Mi ('+data.visibility.meters_float/1000+' KM)';
    if (data.barometer)
       b[21].innerHTML = data.barometer.hpa+' hPa';
-   if(data.conditions)
+   b[22].innerHTML = '';
+    if(data.conditions)
       for(let i = 0; i < data.conditions.length; i++)
          if(i != data.conditions.length - 1)
             b[22].innerHTML += data.conditions[i].text+' | ';
