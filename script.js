@@ -81,6 +81,7 @@ function awcMain(data) {
    }
 }
 async function get() {
+    $('#inp').blur();
     type = value[1].checked ? value[1].id : value[2].checked ? value[2].id : '';
     inpVal = value[0].value.trim();
     if(!inpVal) {
