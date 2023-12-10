@@ -619,9 +619,7 @@ async function search(data, flag) {
 }
 function time(t) {
    var tm;
-   setInterval(() => {
-      b.eq(3).text(getIST(t)+' '+time(t));
-   }, 10000);
+   hlp(t);
    if(t.charAt(t.length-1) == 'Z')
       tm = ((new Date() - new Date(t))/60000).toFixed(0);
    else
@@ -637,6 +635,11 @@ function getHeaders(response) {
       headers[name] = value;
    });
    //console.log(headers);
+}
+function hlp(t) {
+   setInterval(() => {
+      b.eq(3).text(getIST(t)+' '+time(t));
+   }, 10000);
 }
 
 function arrow(strt, end) {
