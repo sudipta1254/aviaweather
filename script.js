@@ -1,42 +1,46 @@
 var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
 
+
+//Fetches "METAR" & "TAF" from AWC.
 function awc() {
-    p[1].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const proxyUrl2 = 'https://corsproxy.io/?';
-    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&format=json`;
-    const url = proxyUrl2 + apiUrl;
-    
-    fetch(url)
-    .then(response => {
-        if(!response.ok)
-            alert('AWC error: '+response.status+' '+response.type);
-        return response.json();
-    })
-    .then(data => {
-        if(type == 'metar')
-            if(data.length)
-                awcMain(data[0]);
-            else
-                alert(`AWC: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
-        else
-            if(data.length)
-                awcTafMain(data[0], 'AWC');
-            else
-                alert(`AWC: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
-    })
-    .catch(err => {
-        console.log(`Error: `+ err.message);
-    })
+   p[1].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+   const proxyUrl2 = 'https://corsproxy.io/?';
+   const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&format=json`;
+   const url = proxyUrl2 + apiUrl;
+   
+   fetch(url)
+   .then(response => {
+      if(!response.ok)
+         alert('AWC error: '+response.status+' '+response.type);
+      return response.json();
+   })
+   .then(data => {
+      if(type == 'metar')
+         if(data.length)
+               awcMain(data[0]);
+         else
+               alert(`AWC: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+      else
+         if(data.length)
+               awcTafMain(data[0], 'AWC');
+         else
+               alert(`AWC: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+   })
+   .catch(err => {
+      console.log(`Error: `+ err.message);
+   })
 }
+
+//Returns "METAR" from AWC.
 function awcMain(data) {
-    p.eq(1).text('AWC');
-    var T = data.temp, D = data.dewp;
-    ab = Math.exp((17.625*D)/(243.04+D));
-    cd = Math.exp((17.625*T)/(240.04+T));
-    ht = ((ab/cd)*100+1).toFixed(0);
-    
-    b.eq(0).text(data.metarType);
+   p.eq(1).text('AWC');
+   var T = data.temp, D = data.dewp;
+   ab = Math.exp((17.625*D)/(243.04+D));
+   cd = Math.exp((17.625*T)/(240.04+T));
+   ht = ((ab/cd)*100+1).toFixed(0);
+   
+   b.eq(0).text(data.metarType);
    if(!c) {
       b.eq(1).html(data.name+` <img src="https://flagcdn.com/24x18/in.png">`);
       c++;
@@ -80,136 +84,142 @@ function awcMain(data) {
       b.eq(10).append(ul);
    }
 }
+
+//Backbone of the website.Manipulates display property of important elements.
 async function get() {
-    $('#inp').blur();
-    type = value[1].checked ? value[1].id : value[2].checked ? value[2].id : '';
-    inpVal = value[0].value.trim();
-    if(!inpVal) {
-        alert('Please enter Id!');
-        return;
-    }
-    p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
-    var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
-    a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
-    a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
-    hrs = a1 > a2 ? a1 : a2 > a3 ? a2 : a3 > a1 ? a1 : a3;
-    if(a1 > 0)
-       inpVal = inpVal.substring(0, inpVal.length-3);
-    else if(a2 > 0)
-       inpVal = inpVal.substring(0, inpVal.length-2);
-    else if(a3 > 0)
-       inpVal = inpVal.substring(0, inpVal.length-1);
-    
-    const url = `https://avwx.rest/api/search/station?text=${inpVal}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
-    const res = await fetch(url);
-    if(!res.ok) {
-       if(res.status == 400)
-           alert('Error: 400 - Location not found!');
-       else
-           alert('Search error: '+res.status+' '+res.type);
-       return;
-    }
-    const data = await res.json();
-    id = data[0].icao;
-    flag = data[0].country.toLowerCase();
-    airp = `${data[0].name}, ${data[0].city}, ${data[0].state}, ${data[0].country}`;
-    if(data[0].name != qry)
-       iframe.attr('src', `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=13&ie=UTF8&iwloc=B&output=embed`);
-    qry = data[0].name;
-        
-    /*var hrs = +inpVal.substring(4, inpVal.length);
-    id = inpVal.substring(0, 4).toUpperCase();
-    
-    var gh = +inpVal.substring(3, inpVal.length);
-    if(gh > 0 || !inpVal.charAt(3)) {
-       var hrs = gh;
-       avwx(inpVal.substring(0, 3).toUpperCase());
-    } else {
-       var hrs = +inpVal.substring(4, inpVal.length);
-       id = inpVal.substring(0, 4).toUpperCase();
-    }*/
-    
-    d3d = document.querySelector('.d3').style;
-    d4d = document.querySelector('.d4').style;
-    d5d = document.querySelector('.d5').style
-    d6d = document.querySelector('.d6').style;
-    if(value[5].checked) {
-       d3d.display = d4d.display = d5d.display = 'none';
-       d6d.display = 'block';
-       search(data, flag);
-    } else {
-        if(value[3].checked) {
-            awc();
-            d3d.display = 'block';
-        } else
-            d3d.display = 'none';
-        if(value[4].checked) {
-            cwx(id, type, flag);
-            d4d.display = 'block';
-        } else
-            d4d.display = 'none';
-        
-        if(type == 'taf') {
-            d3d.display = d4d.display = 'none';
-            d5d.display = 'block';
-            if(value[6].checked)
-                d5d.display = 'none';
-        } else
-            d5d.display = 'none';
-        if(value[6].checked) {
-            divs[9].style.display = 'block';
-            avwxMain(id, type, airp, flag);
-        } else
-            divs[9].style.display = 'none';
-    
-        if (hrs > 0) {
-          metarH(id, type, hrs, flag);
-          d6d.display = 'block';
-       } else
-          d6d.display = 'none';
+   $('#inp').blur();
+   type = value[1].checked ? value[1].id : value[2].checked ? value[2].id : '';
+   inpVal = value[0].value.trim();
+   if(!inpVal) {
+      alert('Please enter Id!');
+      return;
+   }
+   p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
+   a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
+   a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
+   hrs = a1 > a2 ? a1 : a2 > a3 ? a2 : a3 > a1 ? a1 : a3;
+   if(a1 > 0)
+      inpVal = inpVal.substring(0, inpVal.length-3);
+   else if(a2 > 0)
+      inpVal = inpVal.substring(0, inpVal.length-2);
+   else if(a3 > 0)
+      inpVal = inpVal.substring(0, inpVal.length-1);
+   
+   const url = `https://avwx.rest/api/search/station?text=${inpVal}&token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+   const res = await fetch(url);
+   if(!res.ok) {
+      if(res.status == 400)
+         alert('Error: 400 - Location not found!');
+      else
+         alert('Search error: '+res.status+' '+res.type);
+      return;
+   }
+   const data = await res.json();
+   id = data[0].icao;
+   flag = data[0].country.toLowerCase();
+   airp = `${data[0].name}, ${data[0].city}, ${data[0].state}, ${data[0].country}`;
+   if(data[0].name != qry)
+      iframe.attr('src', `https://maps.google.com/maps?width=600&height=400&hl=en&q=${data[0].name}&t=&z=13&ie=UTF8&iwloc=B&output=embed`);
+   qry = data[0].name;
+      
+   /*var hrs = +inpVal.substring(4, inpVal.length);
+   id = inpVal.substring(0, 4).toUpperCase();
+   
+   var gh = +inpVal.substring(3, inpVal.length);
+   if(gh > 0 || !inpVal.charAt(3)) {
+      var hrs = gh;
+      avwx(inpVal.substring(0, 3).toUpperCase());
+   } else {
+      var hrs = +inpVal.substring(4, inpVal.length);
+      id = inpVal.substring(0, 4).toUpperCase();
+   }*/
+   
+   d3d = document.querySelector('.d3').style;
+   d4d = document.querySelector('.d4').style;
+   d5d = document.querySelector('.d5').style
+   d6d = document.querySelector('.d6').style;
+   if(value[5].checked) {
+      d3d.display = d4d.display = d5d.display = 'none';
+      d6d.display = 'block';
+      search(data, flag);
+   } else {
+      if(value[3].checked) {
+         awc();
+         d3d.display = 'block';
+      } else
+         d3d.display = 'none';
+      if(value[4].checked) {
+         cwx(id, type, flag);
+         d4d.display = 'block';
+      } else
+         d4d.display = 'none';
+      
+      if(type == 'taf') {
+         d3d.display = d4d.display = 'none';
+         d5d.display = 'block';
+         if(value[6].checked)
+               d5d.display = 'none';
+      } else
+         d5d.display = 'none';
+      if(value[6].checked) {
+         divs[9].style.display = 'block';
+         avwxMain(id, type, airp, flag);
+      } else
+         divs[9].style.display = 'none';
+   
+      if (hrs > 0) {
+         metarH(id, type, hrs, flag);
+         d6d.display = 'block';
+      } else
+         d6d.display = 'none';
    }
 }
 awc();
 
+//Triggers "get()" function on "keypress" event in "input[type=search]".
 $('input').on("keypress", function(event) {
-    if(event.key === "Enter") {
-        event.preventDefault();
-        get();
-    }
+   if(event.key === "Enter") {
+      event.preventDefault();
+      get();
+   }
 });
 
+//Fetches "METAR" & "TAF" from CWX.
 function cwx(id, type, flag) {
-    p[2].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
-    const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
-    
-    fetch(url)
-    .then(response => {
-        if(!response.ok)
-            alert('CWX error: '+response.status+' '+response.type);
-        return response.json();
-    })
-    .then(data => {
-        //console.log(data);
-        if(!data.error)
-            if(type == 'metar')
-                if(data.data.length)
-                   cxwMain(data.data[0], flag);
-                else
-                   alert(`CWX: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
-             else
-                if(data.data.length)
-                   cwxTafMain(data.data[0], flag, 'CWX');
-                else
-                   alert(`CWX: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
-        else
-            alert('CWX error: '+data.error);
-    })
-    .catch(err => {
-        console.log(`Error:`+ err.message);
-    })
+   p[2].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
+   
+   fetch(url)
+   .then(response => {
+      if(!response.ok)
+         alert('CWX error: '+response.status+' '+response.type);
+      return response.json();
+   })
+   .then(data => {
+      //console.log(data);
+      if(!data.error)
+         if(type == 'metar')
+               if(data.data.length)
+                  cxwMain(data.data[0], flag);
+               else
+                  alert(`CWX: METAR expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+            else
+               if(data.data.length)
+                  cwxTafMain(data.data[0], flag, 'CWX');
+               else
+                  alert(`CWX: TAF expired for ${id.toUpperCase()} or airport doesn't exists! Showing cached data.`);
+      else
+         alert('CWX error: '+data.error);
+   })
+   .catch(err => {
+      console.log(`Error:`+ err.message);
+   })
 }
+
+//Returns "METAR" from CWX.
 function cxwMain(data, flag) {
-    p.eq(2).text('CWX');
+   p.eq(2).text('CWX');
    b[12].innerHTML = type.toUpperCase();
    b[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
    b[14].innerHTML = data.icao;
@@ -250,28 +260,29 @@ function cxwMain(data, flag) {
    let flc = data.flight_category;
    b[25].innerHTML = flc;
    $('#fl').css('background',
-    flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red');
+      flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red');
 }
 
+//Fetches & returns "METAR" & "TAF" from AVWX.
 async function avwxMain(id, type, airp, flag) {
-    var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
-    const res = await fetch(url);
-    if(!res.ok)
+   var url = `https://avwx.rest/api/${type}/${id}?token=2r_H32HZ2AzCZDotC-1GetnWkIZhkBMpdq2W3rLRabI`;
+   const res = await fetch(url);
+   if(!res.ok)
       alert('AVWX error: '+res.status+' - '+res.type);
-    getHeaders(res);
-    const data = await res.json();
-    
-    if(data.error) {
+   getHeaders(res);
+   const data = await res.json();
+   
+   if(data.error) {
       alert(data.error)
    } if(data.meta.validation_error)
       alert(data.meta.validation_error);
-    var d7 = divs.eq(9), flc = data.flight_rules;
-    d7.html(`<p>AVWX</p>
-            Type: <b>${type.toUpperCase()}</b> <br>`);
+   var d7 = divs.eq(9), flc = data.flight_rules;
+   d7.html(`<p>AVWX</p>
+         Type: <b>${type.toUpperCase()}</b> <br>`);
    if(data.remarks)
       d7.append(`Remark: <b>${data.remarks}</b> <br>`);
    d7.append(`Airport: <b>${airp}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                    ICAO Code: <b>${data.station}</b> <br>`);
+            ICAO Code: <b>${data.station}</b> <br>`);
    if(type == 'metar') {
       d7.append(`Reported: <b>${getIST(data.time.dt)} ${time(data.time.dt)}</b> <br>
                  Temperature: <b>${data.temperature.value}°C</b> <br>
@@ -396,19 +407,19 @@ async function avwxMain(id, type, airp, flag) {
    d7.append('<hr>');
 }
 
-
+//Returns "TAF" from AWC.
 function awcTafMain(data, comp) {
-    var frst = data.fcsts;
-    p.eq(3).text(comp);
-    b.eq(26).text(type.toUpperCase());
-    if(data.remarks)
-        b.eq(27).text(data.remarks);
-    b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
-    b.eq(29).text(data.icaoId);
-    b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
-    b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`);
-    b.eq(32).text('');
-    for(i = 0; i < frst.length; i++) {
+   var frst = data.fcsts;
+   p.eq(3).text(comp);
+   b.eq(26).text(type.toUpperCase());
+   if(data.remarks)
+      b.eq(27).text(data.remarks);
+   b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
+   b.eq(29).text(data.icaoId);
+   b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
+   b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`);
+   b.eq(32).text('');
+   for(i = 0; i < frst.length; i++) {
       var span = $('<span></span>'),
       span2 = $('<span></span>');
       if (frst[i].fcstChange) {
@@ -457,137 +468,145 @@ function awcTafMain(data, comp) {
       b.eq(32).append(span);
       b.eq(32).append(span2);
    }
-    if(data.rawTAF.includes('TEMPO'))
-        data.rawTAF = data.rawTAF.replaceAll('TEMPO','<br>TEMPO');
-    if(data.rawTAF.includes('BECMG'))
-        data.rawTAF = data.rawTAF.replaceAll('BECMG','<br>BECMG');
-    if(data.rawTAF.includes('FM'))
-        data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
-    b.eq(33).html(data.rawTAF);
+   if(data.rawTAF.includes('TEMPO'))
+      data.rawTAF = data.rawTAF.replaceAll('TEMPO','<br>TEMPO');
+   if(data.rawTAF.includes('BECMG'))
+      data.rawTAF = data.rawTAF.replaceAll('BECMG','<br>BECMG');
+   if(data.rawTAF.includes('FM'))
+      data.rawTAF = data.rawTAF.replaceAll('FM','<br>FM');
+   b.eq(33).html(data.rawTAF);
 }
+
+//Returns "TAF" from CWX.
 function cwxTafMain(data, flag, comp) {
-    var frst = data.forecast;
-    p.eq(3).text(comp);
-    b.eq(26).text(type.toUpperCase());
-    if (data.remarks)
-        b.eq(27).text(data.remarks);
-    b.eq(28).html(data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
-    b.eq(29).text(data.icao);
-    b.eq(30).text(getIST(data.timestamp.issued)+' '+time(data.timestamp.issued));
-    b.eq(31).text(getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to));
-    b.eq(32).text('');
-    for(i = 0; i < frst.length; i++) {
-        var span = $('<span></span>'),
-        span2 = $('<span></span>');
-        if(frst[i].change && frst[i].change.indicator.code != 'FM') {
-            span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
-            if (frst[i].change.probability)
-                span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)`);
-        } else
-            span.text(`Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
-        if(frst[i].wind) {
-            var li = $('<li></li>');
-            li.html(`Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees+135}deg'></i> <br>`);
-            span2.append(li);
-        } if (frst[i].conditions) {
-            var li = $('<li></li>');
-            li.html(`Weather: `);
-            for(j = 0; j < frst[i].conditions.length; j++) {
-               if(j == frst[i].conditions.length-1)
-                  li.append('<b>'+frst[i].conditions[j].text+'</b><br>');
+   var frst = data.forecast;
+   p.eq(3).text(comp);
+   b.eq(26).text(type.toUpperCase());
+   if (data.remarks)
+      b.eq(27).text(data.remarks);
+   b.eq(28).html(data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
+   b.eq(29).text(data.icao);
+   b.eq(30).text(getIST(data.timestamp.issued)+' '+time(data.timestamp.issued));
+   b.eq(31).text(getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to));
+   b.eq(32).text('');
+   for(i = 0; i < frst.length; i++) {
+      var span = $('<span></span>'),
+      span2 = $('<span></span>');
+      if(frst[i].change && frst[i].change.indicator.code != 'FM') {
+         span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
+         if (frst[i].change.probability)
+               span.text(`${frst[i].change.indicator.text} from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)} (${frst[i].change.probability}% likely)`);
+      } else
+         span.text(`Forecast from ${getIST(frst[i].timestamp.from)} to ${getIST(frst[i].timestamp.to)}`);
+      if(frst[i].wind) {
+         var li = $('<li></li>');
+         li.html(`Wind: ${frst[i].wind.speed_kts} Knot(s) (${frst[i].wind.speed_kph} KM/H - ${frst[i].wind.degrees}°) <i class="fa-solid fa-location-arrow" style='rotate:${frst[i].wind.degrees+135}deg'></i> <br>`);
+         span2.append(li);
+      } if (frst[i].conditions) {
+         var li = $('<li></li>');
+         li.html(`Weather: `);
+         for(j = 0; j < frst[i].conditions.length; j++) {
+            if(j == frst[i].conditions.length-1)
+               li.append('<b>'+frst[i].conditions[j].text+'</b><br>');
+            else
+               li.append('<b>'+frst[i].conditions[j].text+'</b>, ');
+         } span2.append(li);
+      } if (frst[i].visibility) {
+         var li = $('<li></li>');
+         li.text(`Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`);
+         span2.append(li);
+      } if(frst[i].clouds.length) {
+         var li = $('<li></li>');
+         li.text('Clouds: ');
+         span2.append(li);
+      } if (frst[i].clouds.length) {
+         var clouds = frst[i].clouds,
+         ul = $('<ul></ul>');
+         for(j = 0; j < clouds.length; j++) {
+               var li = $('<li></li>');
+               if(!clouds[j].feet)
+                  li.text(clouds[j].text);
                else
-                  li.append('<b>'+frst[i].conditions[j].text+'</b>, ');
-            } span2.append(li);
-        } if (frst[i].visibility) {
-            var li = $('<li></li>');
-            li.text(`Visibility: ${frst[i].visibility.miles} mile(s) (${(frst[i].visibility.meters_float/1000).toFixed(1)} Km)`);
-            span2.append(li);
-        } if(frst[i].clouds.length) {
-            var li = $('<li></li>');
-            li.text('Clouds: ');
-            span2.append(li);
-        } if (frst[i].clouds.length) {
-            var clouds = frst[i].clouds,
-            ul = $('<ul></ul>');
-            for(j = 0; j < clouds.length; j++) {
-                var li = $('<li></li>');
-                if(!clouds[j].feet)
-                    li.text(clouds[j].text);
-                else
-                    li.text(`${clouds[j].text} at ${clouds[j].feet} ft AGL`);
-                if(clouds[j].type)
-                    li.text(`${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`);
-                ul.append(li);
-            }
-            span2.append(ul);
-        }
-        b.eq(32).append(span);
-        b.eq(32).append(span2);
-    }
-    if(data.raw_text.includes('TEMPO'))
-        data.raw_text = data.raw_text.replaceAll('TEMPO','<br>TEMPO');
-    if(data.raw_text.includes('BECMG'))
-        data.raw_text = data.raw_text.replaceAll('BECMG','<br>BECMG');
-    if(data.raw_text.includes('FM'))
-        data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
-    b[33].innerHTML = data.raw_text;
+                  li.text(`${clouds[j].text} at ${clouds[j].feet} ft AGL`);
+               if(clouds[j].type)
+                  li.text(`${clouds[j].cover} at ${clouds[j].base} ft (${clouds[j].type}) AGL`);
+               ul.append(li);
+         }
+         span2.append(ul);
+      }
+      b.eq(32).append(span);
+      b.eq(32).append(span2);
+   }
+   if(data.raw_text.includes('TEMPO'))
+      data.raw_text = data.raw_text.replaceAll('TEMPO','<br>TEMPO');
+   if(data.raw_text.includes('BECMG'))
+      data.raw_text = data.raw_text.replaceAll('BECMG','<br>BECMG');
+   if(data.raw_text.includes('FM'))
+      data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
+   b[33].innerHTML = data.raw_text;
 }
 
+//Converts UTC to IST.
 function getIST(date) {
-    if(typeof date == 'string') {
-        if(date.includes('Z'))
-           return new Date(new Date(date).getTime()).toLocaleString().replace(':00', '');
-        return new Date(new Date(date+"Z").getTime()).toLocaleString().replace(':00', '');
-    } else
-        return new Date(date*1000).toLocaleString().replace(':00', '');
+   if(typeof date == 'string') {
+      if(date.includes('Z'))
+         return new Date(new Date(date).getTime()).toLocaleString().replace(':00', '');
+      return new Date(new Date(date+"Z").getTime()).toLocaleString().replace(':00', '');
+   } else
+      return new Date(date*1000).toLocaleString().replace(':00', '');
 }
 
-
+//Fetches "METAR" history from AWC.
 function metarH(id, type, hrs, flag) {
-    const proxyUrl = 'https://corsproxy.io/?';
-    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
-    const url = proxyUrl + apiUrl;
+   const proxyUrl = 'https://corsproxy.io/?';
+   const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
+   const url = proxyUrl + apiUrl;
 
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        awcMetH(data, hrs, flag);
-    })
-    .catch(err => {
-        console.log(`Error: `+ err.message);
-    })
+   fetch(url)
+   .then(response => response.json())
+   .then(data => {
+      awcMetH(data, hrs, flag);
+   })
+   .catch(err => {
+      console.log(`Error: `+ err.message);
+   })
 }
+
+//Returns "METAR" history from AWC.
 function awcMetH(data, hrs, flag) {
-    var d6 = $('.d6');
-    d6.html(`<p>${type.toUpperCase()} HISTORY</p>`);
-    if(data.length) {
-       const ol = $('<ol></ol>');
-       d6.append(`Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
-                        ICAO: <strong>${data[0].icaoId}</strong> <br>`);
-       if(type == 'metar') {
-          for(i = 0; i < data.length; i++) {
-              var li = $('<li></li>');
-              li.html(getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`);
-              ol.append(li);
-          }
-       } else {
-          for(i = 0; i < data.length; i++) {
-              var li = $('<li></li>');
-              li.html(getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`);
-              ol.append(li);
-          }
-       }
-       d6.append(ol);
-    } else
-       d6.append(`No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`);
-    d6.append('<hr>');
+   var d6 = $('.d6');
+   d6.html(`<p>${type.toUpperCase()} HISTORY</p>`);
+   if(data.length) {
+      const ol = $('<ol></ol>');
+      d6.append(`Name: <strong>${data[0].name}</strong> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
+                     ICAO: <strong>${data[0].icaoId}</strong> <br>`);
+      if(type == 'metar') {
+         for(i = 0; i < data.length; i++) {
+            var li = $('<li></li>');
+            li.html(getIST(data[i].reportTime)+': <strong>'+data[i].rawOb+`<br>`);
+            ol.append(li);
+         }
+      } else {
+         for(i = 0; i < data.length; i++) {
+            var li = $('<li></li>');
+            li.html(getIST(data[i].issueTime)+': <strong>'+data[i].rawTAF+`<br>`);
+            ol.append(li);
+         }
+      }
+      d6.append(ol);
+   } else
+      d6.append(`No ${type.toUpperCase()}(s) in previous ${hrs} hour(s)!`);
+   d6.append('<hr>');
 }
 
+//Confirms if user wants to know about ICAO code, redirects upon confirmation.
 function info() {
-    let reL = 'https://www.world-airport-codes.com';
-    if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height}px`))
-       window.open(reL);
+   let reL = 'https://www.world-airport-codes.com';
+   if(confirm(`METAR - Meteorological Aerodrome Report.\nTAF - Terminal Aerodrome Forecast.\nTo get ICAO, click 'OK'.\n(redirects to ${reL})\nYour screen resolution: ${screen.width}×${screen.height}px`))
+      window.open(reL);
 }
+
+//This function returns details about an airport like Name, Coords, ICAO, IATA, Runway & website of the airport(if available).
 async function search(data, flag) {
    var d6 = $('.d6');
    d6.html('<div class="line"><div class="line-wobble"></div></div>');
@@ -599,24 +618,26 @@ async function search(data, flag) {
       IATA: <b>${stn.iata} </b><br>
       ICAO: <b>${stn.icao} </b><br>
       Reporting: <b>${stn.reporting?'Yes':'No'} </b><br>`);
-      for(j = 0; j < stn.runways.length; j++) {
-         var rny = stn.runways[j],
-         span = $('<span></span>'), ul = $('<ul></ul>');
-         span.text('Runway '+(j+1)+':-');
-         ul.html(`<b><li>Surface: ${rny.surface}</li></b>
-                  <b><li>Numbers: ${rny.ident1} & ${rny.ident2}</li></b>
-                  <b><li>Length: ${rny.length_ft} ft / ${(rny.length_ft*0.3048).toFixed(0)} m</li></b>
-                  <b><li>Width: ${rny.width_ft} ft</li></b>
-                  <b><li>Lights: ${rny.lights} </li></b>`);
-         span.append(ul);
-         d6.append(span);
-      }
-      if(stn.website)
-         d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
-      else if(stn.wiki)
-         d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
-      d6.append('<hr>');
+   for(j = 0; j < stn.runways.length; j++) {
+      var rny = stn.runways[j],
+      span = $('<span></span>'), ul = $('<ul></ul>');
+      span.text('Runway '+(j+1)+':-');
+      ul.html(`<b><li>Surface: ${rny.surface}</li></b>
+               <b><li>Numbers: ${rny.ident1} & ${rny.ident2}</li></b>
+               <b><li>Length: ${rny.length_ft} ft / ${(rny.length_ft*0.3048).toFixed(0)} m</li></b>
+               <b><li>Width: ${rny.width_ft} ft</li></b>
+               <b><li>Lights: ${rny.lights} </li></b>`);
+      span.append(ul);
+      d6.append(span);
+   }
+   if(stn.website)
+      d6.append(`Website: <a href='${stn.website}'>Visit</a>`);
+   else if(stn.wiki)
+      d6.append(`Website: <a href='${stn.wiki}'>Visit</a>`);
+   d6.append('<hr>');
 }
+
+//Returns time difference between issused time & an instance.
 function time(t) {
    var tm;
    hlp(t);
@@ -629,6 +650,8 @@ function time(t) {
       return `[${hb-1} hour(s) ago]`;
    return `[${tm} min(s) ago]`;
 }
+
+//Function for logging header metadata.
 function getHeaders(response) {
    const headers = {};
    response.headers.forEach((value, name) => {
@@ -636,18 +659,23 @@ function getHeaders(response) {
    });
    //console.log(headers);
 }
+
+//Updates time difference in 10s interval.
 function hlp(t) {
    setInterval(() => {
       b.eq(3).text(getIST(t)+' '+time(t));
    }, 10000);
 }
 
+//Arrow from fontawesome.com for variable wind animation.
+//
 function arrow(strt, end) {
    var i = $('.arrow');
    i.css({'--start': (strt+135)+'deg',
          '--end': (end+135)+'deg'});
 }
 
+//Selects checkbox with id "#map" & toggles iframe's display between "block" & "none".
 $('#map').change(function() {
    if($(this).prop('checked'))
       $('iframe').css('display', 'block');
@@ -655,6 +683,7 @@ $('#map').change(function() {
       $('iframe').css('display', 'none');
 })
 
+//Randomly picks a color & set it as "accent color" of input tags.
 const colors = ['olive','teal','indianred','coral','lightcoral','salmon','cromson','turquoise','moccasin','peachpuff','khaki','orchid','darkmagenta','chartreuse','seagreen','mediumaquamarine','lightseagreen','navajowhite','burlywood','rosybrown','peru','sienna','lightcoral','lightseagreen','mistyrose'];
 const clrs = colors[Math.floor(Math.random() * colors.length)];
 var ob = (e) => {
