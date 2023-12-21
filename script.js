@@ -560,8 +560,9 @@ function getIST(date) {
 //Fetches "METAR" history from AWC.
 function metarH(id, type, hrs, flag) {
    const proxyUrl = 'https://corsproxy.io/?';
+   const proxyUrl2 = 'https://proxy.cors.sh/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
-   const url = proxyUrl + apiUrl;
+   const url = proxyUrl2 + apiUrl;
 
    fetch(url)
    .then(response => response.json())
