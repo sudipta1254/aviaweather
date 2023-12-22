@@ -176,7 +176,8 @@ async function get() {
          d6d.display = 'none';
    }
 }
-awc();
+//awc();
+cwx('vebs', 'metar', 'in');
 
 //Triggers "get()" function on "keypress" event in "input[type=search]".
 $('input').on("keypress", function(event) {
