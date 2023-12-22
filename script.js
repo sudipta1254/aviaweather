@@ -693,3 +693,9 @@ var ob = (e) => {
 }
 ob(value[1]); ob(value[2]); ob(value[3]); ob(value[4]); ob(value[5]); ob(value[6]); ob(value[7]);
 
+window.onload = function() {
+            // Use setTimeout to ensure the page has fully loaded before scrolling
+            setTimeout(function() {
+                window.scrollTo(0, 1); // Scroll down to hide address bar
+            }, 100);
+        };
