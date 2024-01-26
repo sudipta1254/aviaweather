@@ -9,7 +9,7 @@ function awc() {
    const proxyUrl3 = 'https://proxy.cors.sh/';
    
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&format=json`;
-   const url = proxyUrl + apiUrl;
+   const url = proxyUrl3 + apiUrl;
    // const url = proxyUrl2 + encodeURIComponent(apiUrl);
    
    fetch(url)
