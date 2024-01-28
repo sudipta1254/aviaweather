@@ -1,4 +1,4 @@
 # Aviaweather
 Get aviation related weather data
 
-<a href='https://sudipta1254.github.io/aviaweather'>visit site</a>
+<a href='https://aviaweather.vercel.app'>visit site</a>
