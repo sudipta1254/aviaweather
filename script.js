@@ -564,12 +564,12 @@ function getIST(date) {
    const day = vr.getDate();
    const month = vr.getMonth() + 1; // Months are zero-based, so add 1
    const year = vr.getFullYear();
-   const hours = vr.getHours();
+   let hours = vr.getHours();
    const minutes = vr.getMinutes();
    const ampm = hours >= 12 ? 'PM' : 'AM';
    
    // Convert hours to 12-hour format
-   //hours = hours % 12 || 12;
+   hours = hours % 12 || 12;
 
    // Construct the format
    return  `${day}/${month}/${year}, ${hours}:${minutes} ${ampm}`;
