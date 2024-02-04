@@ -538,8 +538,7 @@ function cwxTafMain(data, flag, comp) {
          }
          span2.append(ul);
       }
-      b.eq(32).append(span);
-      b.eq(32).append(span2);
+      b.eq(32).append(span, span2);
    }
    if(data.raw_text.includes('TEMPO'))
       data.raw_text = data.raw_text.replaceAll('TEMPO','<br>TEMPO');
@@ -552,12 +551,28 @@ function cwxTafMain(data, flag, comp) {
 
 //Converts UTC to IST.
 function getIST(date) {
-   if(typeof date == 'string') {
+   let vr;
+   if (typeof date == 'string')
       if(date.includes('Z'))
-         return new Date(new Date(date).getTime()).toLocaleString().replace(':00', '');
-      return new Date(new Date(date+"Z").getTime()).toLocaleString().replace(':00', '');
-   } else
-      return new Date(date*1000).toLocaleString().replace(':00', '');
+         vr = new Date(date);
+      else
+         vr = new Date(date+'Z')
+   else
+      vr = new Date(date*1000);
+   
+   // Get the components of the date
+   const day = vr.getDate();
+   const month = vr.getMonth() + 1; // Months are zero-based, so add 1
+   const year = vr.getFullYear();
+   const hours = vr.getHours();
+   const minutes = vr.getMinutes();
+   const ampm = hours >= 12 ? 'PM' : 'AM';
+   
+   // Convert hours to 12-hour format
+   //hours = hours % 12 || 12;
+
+   // Construct the format
+   return  `${day}/${month}/${year}, ${hours}:${minutes} ${ampm}`;
 }
 
 //Fetches "METAR" history from AWC.
