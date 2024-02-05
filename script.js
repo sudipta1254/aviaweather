@@ -564,7 +564,7 @@ function getIST(date) {
    month = vr.getMonth()+1,
    year = vr.getFullYear();
    vr = vr.toLocaleString().split(',');
-   return `${day}/${month}/${year}, ${vr[1]}`;
+   return `${day}/${month}/${year}, ${vr[1].replace(':00','')}`;
 }
 
 //Fetches "METAR" history from AWC.
