@@ -689,10 +689,14 @@ function arrow(strt, end) {
 
 //Selects checkbox with id "#map" & toggles iframe's display between "block" & "none".
 $('#map').change(function() {
-   if($(this).prop('checked'))
-      $('iframe').css('display', 'block');
-   else
-      $('iframe').css('display', 'none');
+   if($(this).prop('checked')) {
+      $('iframe').show();
+      //Smooth scroll to map when checked
+      $('html, body').animate({
+          scrollTop: iframe.offset().top
+      }, 1000);
+   } else
+      $('iframe').hide();
 })
 
 //Randomly picks a color & set it as "accent color" of input tags.
