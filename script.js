@@ -697,6 +697,7 @@ $('#map').change(function() {
       }, 1000);
    } else
       $('iframe').hide();*/
+   iframe.toggle();
    $(this).is(':checked') ?
    $('html, body').animate({
        scrollTop: iframe.offset().top
