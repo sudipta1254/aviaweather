@@ -1,107 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Aviation, Weather, Forecast, Service, AWC, CheckWX, API, VFR, MVFR, IFR, LIFR, Climate, Data, Rain, Raining, Snow">
-    <meta name="description" content="Get aviation weather data.">
-    <script src="https://kit.fontawesome.com/a26a0964b9.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" href="./Images/icon1.png">
-    <link rel="stylesheet" href="style.css">
-    <title>AviaWeather</title>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="keywords" content="Aviation, Weather, Forecast, Service, AWC, CheckWX, API, VFR, MVFR, IFR, LIFR, Climate, Data, Rain, Raining, Snow">
+   <meta name="description" content="Get aviation weather data.">
+   <script src="https://kit.fontawesome.com/a26a0964b9.js" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <link rel="icon" href="./Images/icon1.png">
+   <link rel="stylesheet" href="style.css">
+   <!-- Driver.js cdn for website guide -->
+   <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+   <title>AviaWeather</title>
 </head>
 <body>
-    <div class='header'>
-        <p>METAR & TAF</p>
-        <span class="fa-solid fa-info" onclick="info()"></span>
-    </div>
-    <div id='d1'>
-       <div class='tooltip'>
-           <input type='search' minlength='3' id='inp' placeholder='Enter Airport Id' autofocus>
-              <span class="tooltiptext" id="myTooltip">Enter ICAO followed by hours to get history '[query]2'</span>
-           </input>
-       </div>
-       <button onclick='get()'> Search </button>
-    </div>
-    <div id='d2'>
-       <label for='metar'>METAR
-       <input type='radio' id='metar' name='same' checked>
-       <label for='taf'>TAF
-       <input type='radio' id='taf' name='same'>
+   <div class='header'>
+      <p>METAR & TAF</p>
+      <span class="fa-solid fa-info" onclick="info()"></span>
+   </div>
+   <div id='d1'>
+      <input type='search' minlength='3' id='inp' placeholder='Enter Airport Id'>
+      <button onclick='get()'> Search </button>
+   </div>
+   <div id='d2'>
+      <label for='metar'>METAR
+      <input type='radio' id='metar' name='same' checked>
+      <label for='taf'>TAF
+      <input type='radio' id='taf' name='same'>
 
-       <label for='awc'>AWC
-       <input type='checkbox' id='awc'>
-       <label for='cwx'>CWX
-       <input type='checkbox' id='cwx' checked>
+      <label for='awc'>AWC
+      <input type='checkbox' id='awc'>
+      <label for='cwx'>CWX
+      <input type='checkbox' id='cwx' checked>
 
-       <label for='info'>INFO</label>
-       <input type='radio' id='info' name='same'>
+      <label for='info'>INFO</label>
+      <input type='radio' id='info' name='same'>
 
-       <label for='avwx'>AVWX</label>
-       <input type='checkbox' id='avwx'>
-    </div>
-    <div class='d3'>
-       <p></p>
-       Type: <b></b> <br>
-       Airport: <b></b> <br>
-       ICAO Code: <b></b> <br>
-       Reported: <b></b> <br>
-       Temperature: <b></b> <br>
-       Dewpoint: <b></b> <br>
-       Wind: <b></b> <br>
-       Visibility: <b></b> <br>
-       Pressure: <b></b> <br>
-       Condition: <b></b> <br>
-       Clouds: <b></b> <br>
-       Raw: <b></b> <hr>
-    </div>
+      <label for='avwx'>AVWX</label>
+      <input type='checkbox' id='avwx'>
+   </div>
+   <div class='d3'>
+      <p></p>
+      Type: <b></b> <br>
+      Airport: <b></b> <br>
+      ICAO Code: <b></b> <br>
+      Reported: <b></b> <br>
+      Temperature: <b></b> <br>
+      Dewpoint: <b></b> <br>
+      Wind: <b></b> <br>
+      Visibility: <b></b> <br>
+      Pressure: <b></b> <br>
+      Condition: <b></b> <br>
+      Clouds: <b></b> <br>
+      Raw: <b></b> <hr>
+   </div>
 
-    <div class='d4'>
-       <p></p>
-       Type: <b></b> <br>
-       Airport: <b></b> <br>
-       ICAO Code: <b></b> <br>
-       Reported: <b></b> <br>
-       Temperature: <b></b> <br>
-       Dewpoint: <b></b> <br>
-       Humidity: <b></b> <br>
-       Wind: <b></b> <br>
-       Visibility: <b></b> <br>
-       Pressure: <b></b> <br>
-       Condition: <b></b> <br>
-       Clouds: <b></b> <br>
-       Raw: <b></b> <br>
-       Flight Category: <b></b> <div id='fl'></div> <hr>
-    </div>
-    <div class='d5'>
-        <p></p>
-        Type: <b></b> <br>
-        Remark: <b></b> <br>
-        Airport: <b></b> <br>
-        ICAO Code: <b></b> <br>
-        Issued: <b></b> <br>
-        Span: <b></b> <br>
-        <b></b> <br>
-        Raw: <b></b> <hr>
-    </div>
-    <div class='d6'></div>
-    <div class='d7'></div>
+   <div class='d4'>
+      <p></p>
+      Type: <b></b> <br>
+      Airport: <b></b> <br>
+      ICAO Code: <b></b> <br>
+      Reported: <b></b> <br>
+      Temperature: <b></b> <br>
+      Dewpoint: <b></b> <br>
+      Humidity: <b></b> <br>
+      Wind: <b></b> <br>
+      Visibility: <b></b> <br>
+      Pressure: <b></b> <br>
+      Condition: <b></b> <br>
+      Clouds: <b></b> <br>
+      Raw: <b></b> <br>
+      Flight Category: <b></b> <div id='fl'></div> <hr>
+   </div>
+   <div class='d5'>
+      <p></p>
+      Type: <b></b> <br>
+      Remark: <b></b> <br>
+      Airport: <b></b> <br>
+      ICAO Code: <b></b> <br>
+      Issued: <b></b> <br>
+      Span: <b></b> <br>
+      <b></b> <br>
+      Raw: <b></b> <hr>
+   </div>
+   <div class='d6'></div>
+   <div class='d7'></div>
 
-    <div class='d8'>
-       <label for='map'>Show Map
-       <input id='map' type='checkbox'>
-    </div>
-    <iframe width="400px" height='400px' frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Biju pattanaik international airport&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-           
-    <footer>
-       Page designed by <a href='//sudipta1254.github.io/linkline'>Sudipto</a> <br>
-       Data provided by
-       <a href='//aviationweather.gov' target="_blank">AWC</a>, 
-       <a href='//checkwxapi.com' target="_blank">CheckWX</a> &
-       <a href='//avwx.rest' target="_blank">AVWX</a>
-    </footer>
-    <script src="script.js"></script>
+   <div class='d8'>
+      <label for='map'>Show Map
+      <input id='map' type='checkbox'>
+   </div>
+   <iframe width="400px" height='400px' frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Biju pattanaik international airport&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+         
+   <footer>
+      Page designed by <a href='//sudipta1254.github.io/linkline'>Sudipto</a> <br>
+      Data provided by
+      <a href='//aviationweather.gov' target="_blank">AWC</a>, 
+      <a href='//checkwxapi.com' target="_blank">CheckWX</a> &
+      <a href='//avwx.rest' target="_blank">AVWX</a>
+   </footer>
+   <script src="script.js"></script>
+   <script src="tour.js"></script>
 <body>
 </html>
