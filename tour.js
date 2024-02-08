@@ -9,19 +9,19 @@ $('#inp').on("focus", () => {
     }).highlight({
         element: '#inp',
         popover: {
-        title: "Info",
-        description: "<h3>Enter ICAO followed by hours to get history '[query]10'</h3>",
+            title: "Info",
+            description: "<h3>Enter ICAO followed by hours to get history '[query]10'</h3>",
         },
         side: 'bottom',
         align: 'start'
     });
 });
 
-/* Remove tooltips when the input is not focused anymore */
+/* Welcome message on load */
 driverG({
     animate: true, // Enable animations
     opacity: 0.75, // Set overlay opacity
-    allowClose: false,
+    allowClose: true,
     showButtons: ['next'],
     doneBtnText: 'Lessss go!',
     steps: [
