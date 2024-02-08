@@ -672,7 +672,7 @@ function getHeaders(response) {
    //console.log(headers);
 }
 
-//Updates time difference in 10s interval.
+//Updates time difference every 10s interval.
 function hlp(t) {
    setInterval(() => {
       b.eq(3).text(getIST(t)+' '+time(t));
@@ -689,14 +689,21 @@ function arrow(strt, end) {
 
 //Selects checkbox with id "#map" & toggles iframe's display between "block" & "none".
 $('#map').change(function() {
-   if($(this).prop('checked')) {
+   /*if($(this).prop('checked')) {
       $('iframe').show();
       //Smooth scroll to map when checked
       $('html, body').animate({
           scrollTop: iframe.offset().top
       }, 1000);
    } else
-      $('iframe').hide();
+      $('iframe').hide();*/
+   $(this).is(':checked') ?
+   $('html, body').animate({
+       scrollTop: iframe.offset().top
+   }, 1000) :
+   $('html, body').animate({
+       scrollTop: 0
+   }, 500);
 })
 
 //Randomly picks a color & set it as "accent color" of input tags.
