@@ -1,12 +1,4 @@
 body {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; /* For smooth scrolling in iOS */
-}
-
-body {
     color: #eff2f7;
     background: #212121;
     font-size: 18px; /*20*/
