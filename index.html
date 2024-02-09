@@ -21,7 +21,11 @@
       <span class="fa-solid fa-info" onclick="info()"></span>
    </div>
    <div id='d1'>
-      <input type='search' minlength='3' id='inp' placeholder='Enter Airport Id'>
+      <div class='tooltip'>
+           <input type='search' minlength='3' id='inp' placeholder='Enter Airport Id' >
+              <span class="tooltiptext" id="myTooltip">Enter ICAO followed by hours to get history '[query]2'</span>
+           </input>
+      </div>
       <button onclick='get()'> Search </button>
    </div>
    <div id='d2'>

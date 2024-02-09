@@ -1,26 +1,28 @@
 /* Driver.js */
 const driverG = window.driver.js.driver;
 
-/* Highlight searchbar on focus */
+/* Highlight searchbar on focus //
 $('#inp').on("focus", () => {
     driverG({
-        popoverClass: 'tooltip',
         overlayColor: 'transparent',
     }).highlight({
         element: '#inp',
         popover: {
+           title: "Info",
+           description: "<h3>Enter ICAO followed by hours to get history '[query]10'</h3>",
             title: "Info",
             description: "<h3>Enter ICAO followed by hours to get history '[query]10'</h3>",
         },
         side: 'bottom',
         align: 'start'
     });
-});
+}); */
 
 /* Welcome message on load */
 driverG({
     animate: true, // Enable animations
     opacity: 0.75, // Set overlay opacity
+    showButtons: ['next', 'close'],
     allowClose: true,
     showButtons: ['next'],
     doneBtnText: 'Lessss go!',
@@ -32,7 +34,7 @@ driverG({
                 //description: "<p>Welcome to my website!<br>You can track live flights here.</p>",
                 position: 'center'
             },
-            // highlight: false // Disable highlighting
+            highlight: false // Disable highlighting
         },
         /*{
             element: '#selects',
