@@ -1,7 +1,7 @@
 /* Driver.js */
 const driverG = window.driver.js.driver;
 
-/* Highlight searchbar on focus //
+/* Highlight searchbar on focus
 $('#inp').on("focus", () => {
     driverG({
         overlayColor: 'transparent',
@@ -17,7 +17,7 @@ $('#inp').on("focus", () => {
 }); */
 
 /* Welcome message on load */
-driverG({
+/*driverG({
     animate: true, // Enable animations
     opacity: 0.75, // Set overlay opacity
     showButtons: ['next', 'close'],
@@ -32,15 +32,24 @@ driverG({
             },
             highlight: false // Disable highlighting
         },
-        /*{
-            element: '#selects',
-            popover: {
-                title: 'Options',
-                description: 'Wide range of options to choose from.',
-                // position: 'bottom',
-                side: 'bottom',
-                align: 'center'
-            },
-        },*/
     ]
-}).drive();
+}).drive();*/
+
+const driver2 = driverG({
+      overlayOpacity: 0.75,
+      onNextClick: () => {
+         driver2.destroy();
+      },
+      onCloseClick: () => {
+         driver2.destroy();
+      },
+   });
+   driver2.highlight({
+      popover: {
+         title: 'Welcome!',
+         description: "<img src='https://i.imgur.com/EAQhHu5.gif' style='height: 202.5px; width: 270px;'><p>Welcome to my website!</p>",
+         position: 'center',
+         showButtons: ['next', 'close'],
+         nextBtnText: 'Lessss go!',
+      },
+   });
