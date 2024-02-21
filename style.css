@@ -2,7 +2,7 @@ body {
     color: #eff2f7;
     background: #212121;
     font-size: 18px; /*20*/
-    font-family: Bosch;
+    font-family: ZT Neue, Bosch;
     font-variant-ligatures: normal;
     cursor: url('https://img.icons8.com/color-glass/25/select-cursor--v1.png'),
     url('https://img.icons8.com/doodle/30/blue-pointer.png'), auto;
@@ -205,6 +205,10 @@ footer {
   }
 }
 
+@font-face {
+    font-family: 'ZT Neue';
+    src: url('Fonts/New2/ZTNeueRalewe-Regular.ttf') format(truetype);
+}
 @font-face {
     font-family: 'Italiana';
     src: url('Fonts/Italiana-Regular.woff') format(woff);
