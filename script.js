@@ -571,8 +571,9 @@ function getIST(date) {
 function metarH(id, type, hrs, flag) {
    const proxyUrl = 'https://corsproxy.io/?';
    const proxyUrl2 = 'https://proxy.cors.sh/';
+   const proxyUrl3 = 'https://cors-anywhere.herokuapp.com/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
-   const url = proxyUrl2 + apiUrl;
+   const url = proxyUrl3 + apiUrl;
 
    fetch(url)
    .then(response => response.json())
