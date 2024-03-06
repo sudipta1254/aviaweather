@@ -569,20 +569,12 @@ function getIST(date) {
 
 //Fetches "METAR" history from AWC.
 async function metarH(id, type, hrs, flag) {
-   const proxyUrl = 'https://corsproxy.io/?';
+   const proxyUrl = 'https://corsproxy.org/?';
    const proxyUrl2 = 'https://proxy.cors.sh/';
    const proxyUrl3 = 'https://cors-anywhere.herokuapp.com/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
    const url = proxyUrl + apiUrl;
 
-   /*fetch(url)
-   .then(response => response.json())
-   .then(data => {
-      awcMetH(data, hrs, flag);
-   })
-   .catch(err => {
-      console.log(`Error: `+ err.message);
-   })*/
    try {
     const response = await fetch(url, {
       method: 'GET',
