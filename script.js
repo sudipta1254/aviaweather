@@ -573,28 +573,28 @@ async function metarH(id, type, hrs, flag) {
    const proxyUrl2 = 'https://proxy.cors.sh/';
    const proxyUrl3 = 'https://cors-anywhere.herokuapp.com/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
-   const url = 'https://cors.io/' + apiUrl;
+   const url = proxyUrl + encodeURIComponent(apiUrl);
 
    try {
-    const response = await fetch(url, {
-      method: 'GET',
-      mode: 'cors', // Allow CORS for the proxy request
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest', // Potential workaround for some APIs
-      },
-      redirect: 'follow', // Follow redirects if encountered
-    });
+      const response = await fetch(url, {
+         method: 'GET',
+         mode: 'cors', // Allow CORS for the proxy request
+         headers: {
+         'X-Requested-With': 'XMLHttpRequest', // Potential workaround for some APIs
+         },
+         redirect: 'follow', // Follow redirects if encountered
+      });
 
-    if (!response.ok) {
-      throw new Error(`API request failed with status ${response.status}`);
-    }
+      if (!response.ok) {
+         throw new Error(`API request failed with status ${response.status}`);
+      }
 
-    const data = await response.json();
-      awcMetH(data, hrs, flag);
-    console.log(data);
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-  }
+      const data = await response.json();
+         awcMetH(data, hrs, flag);
+      console.log(data);
+   } catch (error) {
+      console.error('Error fetching data:', error.message);
+   }
 }
 
 //Returns "METAR" history from AWC.
