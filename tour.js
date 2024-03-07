@@ -47,7 +47,6 @@ const driver2 = driverG({
    });
    
    if(!val) {
-       alert(1)
       setLocal(key, 2)
       startDriver(driver2)
    } else
