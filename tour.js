@@ -1,5 +1,6 @@
 /* Driver.js */
 const driverG = window.driver.js.driver;
+var key = 'aviaWeather', val = localStorage.getItem(key)
 
 /* Highlight searchbar on focus
 $('#inp').on("focus", () => {
@@ -44,12 +45,29 @@ const driver2 = driverG({
          driver2.destroy();
       },
    });
-   driver2.highlight({
+   
+   if(!val) {
+      setLocal(key, 2)
+      startDriver(driver2)
+   } else
+      if(val != 3) {
+         val = +val
+         setLocal(key, ++val)
+         startDriver(driver2)
+      }
+
+
+function setLocal(k, v) {
+   localStorage.setItem(k, v)
+}
+function startDriver(driver) {
+   driver.highlight({
       popover: {
          title: 'Welcome!',
          description: "<img src='https://i.imgur.com/EAQhHu5.gif' style='height: 202.5px; width: 270px;'><p>Welcome to my website!</p>",
          position: 'center',
          showButtons: ['next', 'close'],
          nextBtnText: 'Lessss go!',
-      },
-   });
+      }
+   })
+}
