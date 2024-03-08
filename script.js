@@ -3,7 +3,7 @@ var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe
 
 //Fetches "METAR" & "TAF" from AWC.
 function awc() {
-   p[1].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   //p[1].innerHTML = p[3].innerHTML = '<p id="msgBox"></p>';
    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
    const proxyUrl2 = 'https://corsproxy.org/?';
    const proxyUrl3 = 'https://proxy.cors.sh/';
@@ -97,7 +97,7 @@ async function get() {
       alert('Please enter Id!');
       return;
    }
-   p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   p[1].innerHTML = p[2].innerHTML = p[3].innerHTML = divs[9].innerHTML = divs[8].innerHTML = '<p id="msgBox"></p>';
    var a1 = +inpVal.substring(inpVal.length-3,inpVal.length),
    a2 = +inpVal.substring(inpVal.length-2, inpVal.length),
    a3 = +inpVal.substring(inpVal.length-1, inpVal.length);
@@ -191,7 +191,7 @@ $('input').on("keypress", function(event) {
 
 //Fetches "METAR" & "TAF" from CWX.
 function cwx(id, type, flag) {
-   p[2].innerHTML = p[3].innerHTML = '<div class="line"><div class="line-wobble"></div></div>';
+   p[2].innerHTML = p[3].innerHTML = '<p id="msgBox"></p>';
    const url = `https://api.checkwx.com/${type}/${id}/decoded?x-api-key=c7e806f2a82843d88129362226`;
    
    fetch(url)
