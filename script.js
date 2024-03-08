@@ -634,7 +634,7 @@ function info() {
 //This function returns details about an airport like Name, Coords, ICAO, IATA, Runway & website of the airport(if available).
 async function search(data, flag) {
    var d6 = $('.d6');
-   d6.html('<div class="line"><div class="line-wobble"></div></div>');
+   //d6.html('<p id="msgBox"></p>');
    
    var stn = data[0];
    d6.html('<p>Station Info</p>');
