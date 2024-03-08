@@ -1,8 +1,8 @@
 body {
     color: #eff2f7;
     background: #212121;
-    font-size: 14px; /*20*/
-    font-family: Leiko, ZT Neue, Bosch;
+    font-size: 16px; /*20*/
+    font-family: ZT Neue, Bosch;
     font-variant-ligatures: normal;
     cursor: url('https://img.icons8.com/color-glass/25/select-cursor--v1.png'),
     url('https://img.icons8.com/doodle/30/blue-pointer.png'), auto;
