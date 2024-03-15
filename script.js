@@ -248,7 +248,7 @@ function cxwMain(data, flag) {
             b[22].innerHTML += data.conditions[i].text+' | ';
          else
             b[22].innerHTML += data.conditions[i].text;
-   b[24].innerHTML = data.raw_text;
+   b[24].innerHTML = data.raw_text+' <i class="fa-regular fa-copy fa-xs"></i>';
    b[23].innerHTML = '';
    if(!data.clouds[0].feet)
       b[23].innerHTML = data.clouds[0].text;
@@ -333,7 +333,7 @@ async function avwxMain(id, type, airp, flag) {
          }
          d7.append(ul);
       }
-      d7.append(`Raw: <b>${data.raw}</b> <br>
+      d7.append(`Raw: <b>${data.raw}</b> <i class="fa-regular fa-copy fa-xs"></i> <br>
                  Category: <b>${flc}</b>`);
       var fl = $('<div></div>');
       fl.attr('id', 'fl');
@@ -406,7 +406,7 @@ async function avwxMain(id, type, airp, flag) {
             data.raw = data.raw.replaceAll('BECMG','<br>BECMG');
          if(data.raw.includes('FM'))
             data.raw = data.raw.replaceAll('FM','<br>FM');
-      } d7.append('Raw: <b>'+data.raw+'</b>');
+      } d7.append('Raw: <b>'+data.raw+'</b> <i class="fa-regular fa-copy fa-xs"></i>');
    }
    d7.append('<hr>');
 }
@@ -546,7 +546,7 @@ function cwxTafMain(data, flag, comp) {
       data.raw_text = data.raw_text.replaceAll('BECMG','<br>BECMG');
    if(data.raw_text.includes('FM'))
       data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
-   b[33].innerHTML = data.raw_text;
+   b[33].innerHTML = data.raw_text+' <i class="fa-regular fa-copy fa-xs"></i>';
 }
 
 //Converts UTC to IST.
