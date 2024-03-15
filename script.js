@@ -1,4 +1,4 @@
-var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b');
+var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b'), rawText;
 
 
 //Fetches "METAR" & "TAF" from AWC.
@@ -265,6 +265,7 @@ function cxwMain(data, flag) {
    b[25].innerHTML = flc;
    $('#fl').css('background',
       flc == 'VFR' ? 'Green': flc == 'MVFR' ? 'Blue' : flc == 'LIFR' ? 'Magenta' : 'Red');
+   rawText = data.raw_text;
 }
 
 //Fetches & returns "METAR" & "TAF" from AVWX.
@@ -406,9 +407,11 @@ async function avwxMain(id, type, airp, flag) {
             data.raw = data.raw.replaceAll('BECMG','<br>BECMG');
          if(data.raw.includes('FM'))
             data.raw = data.raw.replaceAll('FM','<br>FM');
-      } d7.append('Raw: <b>'+data.raw+'</b> <i class="fa-regular fa-copy fa-xs"></i>');
+      }
+      d7.append('Raw: <b>'+data.raw+'</b> <i class="fa-regular fa-copy fa-xs"></i>');
    }
    d7.append('<hr>');
+   rawText = data.raw;
 }
 
 //Returns "TAF" from AWC.
@@ -547,6 +550,7 @@ function cwxTafMain(data, flag, comp) {
    if(data.raw_text.includes('FM'))
       data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
    b[33].innerHTML = data.raw_text+' <i class="fa-regular fa-copy fa-xs"></i>';
+   rawText = data.rawText;
 }
 
 //Converts UTC to IST.
@@ -699,6 +703,16 @@ function arrow(strt, end) {
    i.css({'--start': (strt+135)+'deg',
          '--end': (end+135)+'deg'});
 }
+
+/* Copy raw METAR or TAF to clipboard */
+$(document).on('click', '.fa-copy', () => {
+   let copy = $('.fa-copy');
+   navigator.clipboard.writeText(rawText);
+   copy.toggleClass('fa-solid fa-sm fa-bounce fa-shake');
+   setTimeout(() => {
+      copy.toggleClass('fa-solid fa-sm fa-bounce fa-shake')
+   }, 1000);
+})
 
 //Selects checkbox with id "#map" & toggles iframe's display between "block" & "none".
 $('#map').change(function() {
