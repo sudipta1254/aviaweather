@@ -493,7 +493,7 @@ function cwxTafMain(data, flag, comp) {
       b.eq(27).text(data.remarks);
    b.eq(28).html(data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
    b.eq(29).text(data.icao);
-   b.eq(30).text(`${getIST(data.timestamp.issued)} <span id="updateDiff">${time(data.timestamp.issued)}</span>`);
+   b.eq(30).html(`${getIST(data.timestamp.issued)} <span id="updateDiff">${time(data.timestamp.issued)}</span>`);
    b.eq(31).text(getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to));
    b.eq(32).text('');
    for(i = 0; i < frst.length; i++) {
