@@ -50,7 +50,7 @@ function awcMain(data) {
    } else
       b.eq(1).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
    b.eq(2).text(data.icaoId);
-   b.eq(3).text(getIST(data.reportTime)+' '+time(data.reportTime));
+   b.eq(3).text(`${getIST(data.reportTime)} <span id="updateDiff">${time(data.reportTime)}</span>`);
    b.eq(4).text(T+'°C');
    b.eq(5).html(`${D}°C<br>Humidity: ${ht}%`);
    b.eq(6).text(data.wspd+' Knot(s) ('+(data.wspd*1.85).toFixed(1)+' KM/H - '+data.wdir+'°) ');
@@ -227,7 +227,7 @@ function cxwMain(data, flag) {
    b[12].innerHTML = type.toUpperCase();
    b[13].innerHTML = data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`;
    b[14].innerHTML = data.icao;
-   b[15].innerHTML = getIST(data.observed)+' '+time(data.observed);
+   b[15].innerHTML = `${getIST(data.observed)} <span id='updateDiff'>${time(data.observed)}</span>`;
    b[16].innerHTML = data.temperature.celsius+'°C';
    b[17].innerHTML = data.dewpoint.celsius+'°C';
    b[18].innerHTML = data.humidity.percent+'%';
@@ -288,7 +288,7 @@ async function avwxMain(id, type, airp, flag) {
    d7.append(`Airport: <b>${airp}</b> <img src="https://flagcdn.com/24x18/${flag}.png"> <br>
             ICAO Code: <b>${data.station}</b> <br>`);
    if(type == 'metar') {
-      d7.append(`Reported: <b>${getIST(data.time.dt)} ${time(data.time.dt)}</b> <br>
+      d7.append(`Reported: <b>${getIST(data.time.dt)} <span id="updateDiff">${time(data.time.dt)}</span></b> <br>
                  Temperature: <b>${data.temperature.value}°C</b> <br>
                  Dewpoint: <b>${data.dewpoint.value}°C</b> <br>
                  Humidity: <b>${(data.relative_humidity*100).toFixed(0)}%</b> <br>
@@ -420,7 +420,7 @@ function awcTafMain(data, comp) {
       b.eq(27).text(data.remarks);
    b.eq(28).html(data.name+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
    b.eq(29).text(data.icaoId);
-   b.eq(30).text(getIST(data.issueTime)+' '+time(data.issueTime));
+   b.eq(30).text(`${getIST(data.issueTime)} <span id="updateDiff">${time(data.issueTime)}</span>`);
    b.eq(31).text(`${getIST(data.validTimeFrom)} until ${getIST(data.validTimeTo)}`);
    b.eq(32).text('');
    for(i = 0; i < frst.length; i++) {
@@ -490,7 +490,7 @@ function cwxTafMain(data, flag, comp) {
       b.eq(27).text(data.remarks);
    b.eq(28).html(data.station.name+', '+data.station.location+` <img src="https://flagcdn.com/24x18/${flag}.png">`);
    b.eq(29).text(data.icao);
-   b.eq(30).text(getIST(data.timestamp.issued)+' '+time(data.timestamp.issued));
+   b.eq(30).text(${getIST(data.timestamp.issued)} <span id="updateDiff">${time(data.timestamp.issued)}</span>`);
    b.eq(31).text(getIST(data.timestamp.from)+' until '+getIST(data.timestamp.to));
    b.eq(32).text('');
    for(i = 0; i < frst.length; i++) {
@@ -663,9 +663,9 @@ async function search(data, flag) {
 }
 
 //Returns time difference between issused time & an instance.
-function time(t) {
+function time(t, x = 0) {
+   x || hlp(t);
    var tm;
-   hlp(t);
    if(t.charAt(t.length-1) == 'Z')
       tm = ((new Date() - new Date(t))/60000).toFixed(0);
    else
@@ -688,8 +688,8 @@ function getHeaders(response) {
 //Updates time difference every 10s interval.
 function hlp(t) {
    setInterval(() => {
-      b.eq(3).text(getIST(t)+' '+time(t));
-   }, 10000);
+      $('#updateDiff').text(time(t, 1));
+   }, 5000);
 }
 
 //Arrow from fontawesome.com for variable wind animation.
