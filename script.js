@@ -550,7 +550,7 @@ function cwxTafMain(data, flag, comp) {
    if(data.raw_text.includes('FM'))
       data.raw_text = data.raw_text.replaceAll('FM','<br>FM');
    b[33].innerHTML = data.raw_text+' <i class="fa-regular fa-copy fa-xs"></i>';
-   rawText = data.rawText;
+   rawText = data.raw_text;
 }
 
 //Converts UTC to IST.
