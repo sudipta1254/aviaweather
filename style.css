@@ -119,6 +119,9 @@ footer {
 .arrow {
    animation: rotate 4.5s infinite;
 }
+.fa-copy {
+    transition: .2s;
+}
 
 .tooltip {
   font-size: 16.5px;
