@@ -578,7 +578,7 @@ async function metarH(id, type, hrs, flag) {
    const proxyUrl3 = 'https://cors-anywhere.herokuapp.com/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
    // const url = proxyUrl + encodeURIComponent(apiUrl);
-   const url = proxyUrl3 + url;
+   const url = proxyUrl3 + apiUrl;
 
    try {
       const response = await fetch(url, {
