@@ -9,8 +9,8 @@ function awc() {
    const proxyUrl3 = 'https://proxy.cors.sh/';
    
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&format=json`;
-   //const url = proxyUrl + apiUrl;
-   const url = proxyUrl2 + encodeURIComponent(apiUrl);
+   const url = proxyUrl + apiUrl;
+   // const url = proxyUrl2 + encodeURIComponent(apiUrl);
    
    fetch(url)
    .then(response => {
@@ -577,7 +577,8 @@ async function metarH(id, type, hrs, flag) {
    const proxyUrl2 = 'https://proxy.cors.sh/';
    const proxyUrl3 = 'https://cors-anywhere.herokuapp.com/';
    const apiUrl = `https://aviationweather.gov/api/data/${type}?ids=${id}&hours=${hrs}&format=json`;
-   const url = proxyUrl + encodeURIComponent(apiUrl);
+   // const url = proxyUrl + encodeURIComponent(apiUrl);
+   const url = proxyUrl3 + url;
 
    try {
       const response = await fetch(url, {
