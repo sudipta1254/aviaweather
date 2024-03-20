@@ -585,6 +585,7 @@ async function metarH(id, type, hrs, flag) {
          method: 'GET',
          mode: 'cors', // Allow CORS for the proxy request
          headers: {
+         'Accept': '*/*',
          'X-Requested-With': 'XMLHttpRequest', // Potential workaround for some APIs
          },
          redirect: 'follow', // Follow redirects if encountered
