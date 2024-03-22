@@ -46,7 +46,7 @@ const driver2 = driverG({
    });
 
 
-   driver2.highlight({
+   /*driver2.highlight({
       popover: {
          title: 'Welcome!',
          description: "<img src='https://i.imgur.com/EAQhHu5.gif' style='height: 202.5px; width: 270px;'><p>Welcome to my website!</p>",
@@ -54,4 +54,4 @@ const driver2 = driverG({
          showButtons: ['next', 'close'],
          nextBtnText: 'Lessss go!',
       }
-   })
+   })*/
