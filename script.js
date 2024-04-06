@@ -1,4 +1,5 @@
-var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b'), rawText;
+var type = 'metar', id = 'VEBS', c = 0, qry, p = $('p'), divs = $('div'), iframe = $('iframe'), value = $('input'), b = $('b'), rawText,
+diffIvl;
 
 
 //Fetches "METAR" & "TAF" from AWC.
@@ -693,7 +694,9 @@ function getHeaders(response) {
 
 //Updates time difference every 10s interval.
 function hlp(t) {
-   setInterval(() => {
+   if (diffIvl)
+      clearInterval(diffIvl)
+   diffIvl = setInterval(() => {
       $('#updateDiff').text(time(t, 1));
    }, 5000);
 }
